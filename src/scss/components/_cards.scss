@@ -1,0 +1,658 @@
+// File: src/scss/components/_cards.scss
+// Smart Workz Premium Admin Template - Card Components
+// Flexible content containers with multiple variants
+
+// ============================================================================
+// CARD BASE
+// ============================================================================
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: var(--color-bg-surface);
+  background-clip: border-box;
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+
+  // Link card (entire card is clickable)
+  &.card-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ============================================================================
+// CARD SECTIONS
+// ============================================================================
+
+// Card Header
+.card-header {
+  padding: var(--spacing-4) var(--spacing-6);
+  margin-bottom: 0;
+  background-color: var(--color-bg-subtle);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+
+  &:first-child {
+    border-radius: calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px) 0 0;
+  }
+
+  // Header with actions
+  &.card-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .card-subtitle {
+    margin-top: var(--spacing-1);
+    margin-bottom: 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-muted);
+  }
+}
+
+// Card Body
+.card-body {
+  flex: 1 1 auto;
+  padding: var(--spacing-6);
+  color: var(--color-text-primary);
+
+  .card-title {
+    margin-top: 0;
+    margin-bottom: var(--spacing-3);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+  }
+
+  .card-subtitle {
+    margin-top: calc(var(--spacing-3) * -1);
+    margin-bottom: var(--spacing-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .card-text {
+    margin-bottom: var(--spacing-4);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Card Footer
+.card-footer {
+  padding: var(--spacing-4) var(--spacing-6);
+  background-color: var(--color-bg-subtle);
+  border-top: var(--border-width-1) solid var(--color-border);
+
+  &:last-child {
+    border-radius: 0 0 calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px);
+  }
+}
+
+// ============================================================================
+// CARD IMAGE
+// ============================================================================
+
+.card-img,
+.card-img-top,
+.card-img-bottom {
+  width: 100%;
+  height: auto;
+}
+
+.card-img,
+.card-img-top {
+  border-top-left-radius: calc(var(--radius-card) - 1px);
+  border-top-right-radius: calc(var(--radius-card) - 1px);
+}
+
+.card-img,
+.card-img-bottom {
+  border-bottom-right-radius: calc(var(--radius-card) - 1px);
+  border-bottom-left-radius: calc(var(--radius-card) - 1px);
+}
+
+// Card image overlay
+.card-img-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: var(--spacing-6);
+  border-radius: calc(var(--radius-card) - 1px);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  color: var(--color-white);
+}
+
+// ============================================================================
+// CARD VARIANTS
+// ============================================================================
+
+// Bordered card
+.card-bordered {
+  border-width: var(--border-width-2);
+  box-shadow: none;
+}
+
+// Borderless card
+.card-borderless {
+  border: none;
+  box-shadow: none;
+}
+
+// Hover card
+.card-hover {
+  cursor: pointer;
+  transition: box-shadow var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+  }
+}
+
+// Colored cards (semantic colors)
+.card-primary {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-50);
+
+  .card-header {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-bottom-color: var(--color-primary-dark);
+  }
+}
+
+.card-secondary {
+  border-color: var(--color-secondary);
+  background-color: var(--color-secondary-50);
+
+  .card-header {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border-bottom-color: var(--color-secondary-dark);
+  }
+}
+
+.card-success {
+  border-color: var(--color-success);
+  background-color: var(--color-success-50);
+
+  .card-header {
+    background-color: var(--color-success);
+    color: var(--color-white);
+    border-bottom-color: var(--color-success-dark);
+  }
+}
+
+.card-warning {
+  border-color: var(--color-warning);
+  background-color: var(--color-warning-50);
+
+  .card-header {
+    background-color: var(--color-warning);
+    color: var(--color-white);
+    border-bottom-color: var(--color-warning-dark);
+  }
+}
+
+.card-danger {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-50);
+
+  .card-header {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    border-bottom-color: var(--color-danger-dark);
+  }
+}
+
+.card-info {
+  border-color: var(--color-info);
+  background-color: var(--color-info-50);
+
+  .card-header {
+    background-color: var(--color-info);
+    color: var(--color-white);
+    border-bottom-color: var(--color-info-dark);
+  }
+}
+
+// ============================================================================
+// HORIZONTAL CARD
+// ============================================================================
+
+.card-horizontal {
+  flex-direction: row;
+
+  .card-img-left {
+    width: 200px;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: calc(var(--radius-card) - 1px);
+    border-bottom-left-radius: calc(var(--radius-card) - 1px);
+    border-top-right-radius: 0;
+  }
+
+  .card-body {
+    flex: 1;
+  }
+
+  // Responsive: Stack on mobile
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    .card-img-left {
+      width: 100%;
+      height: 200px;
+      border-top-right-radius: calc(var(--radius-card) - 1px);
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+// ============================================================================
+// CARD ACTIONS
+// ============================================================================
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-top: var(--border-width-1) solid var(--color-border);
+
+  &.card-actions-center {
+    justify-content: center;
+  }
+
+  &.card-actions-end {
+    justify-content: flex-end;
+  }
+
+  .btn + .btn {
+    margin-left: var(--spacing-2);
+  }
+}
+
+// ============================================================================
+// CARD LIST
+// ============================================================================
+
+.card-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  .card-list-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-6);
+    border-bottom: var(--border-width-1) solid var(--color-border);
+    transition: background-color var(--duration-fast) var(--ease-out);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: var(--color-bg-subtle);
+    }
+
+    &.active {
+      background-color: var(--color-primary-50);
+      border-left: 3px solid var(--color-primary);
+    }
+  }
+}
+
+// ============================================================================
+// STAT CARD / METRIC CARD
+// ============================================================================
+
+.card-stat {
+  .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-stat-content {
+    flex: 1;
+  }
+
+  .card-stat-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .card-stat-value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .card-stat-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+
+    &.trend-up {
+      color: var(--color-success);
+    }
+
+    &.trend-down {
+      color: var(--color-danger);
+    }
+
+    i, svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  .card-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-subtle);
+    color: var(--color-primary);
+    font-size: 1.75rem;
+  }
+}
+
+// ============================================================================
+// PRICING CARD
+// ============================================================================
+
+.card-pricing {
+  text-align: center;
+
+  .card-header {
+    background-color: transparent;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .pricing-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .pricing-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: var(--spacing-1);
+    margin: var(--spacing-6) 0;
+
+    .price-currency {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-secondary);
+    }
+
+    .price-amount {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      line-height: 1;
+    }
+
+    .price-period {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-muted);
+    }
+  }
+
+  .pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-6) 0;
+    text-align: left;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      padding: var(--spacing-2) 0;
+      color: var(--color-text-secondary);
+
+      i, svg {
+        color: var(--color-success);
+        flex-shrink: 0;
+      }
+
+      &.feature-disabled {
+        color: var(--color-text-muted);
+        text-decoration: line-through;
+
+        i, svg {
+          color: var(--color-text-muted);
+        }
+      }
+    }
+  }
+
+  .card-actions {
+    border-top: none;
+  }
+
+  // Popular/featured plan
+  &.card-pricing-popular {
+    border-color: var(--color-primary);
+    border-width: var(--border-width-2);
+    box-shadow: var(--shadow-lg);
+    transform: scale(1.05);
+
+    .card-header {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      border-radius: calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) 0 0;
+      padding: var(--spacing-4) var(--spacing-6);
+    }
+
+    .pricing-badge {
+      display: inline-block;
+      padding: var(--spacing-1) var(--spacing-3);
+      background-color: var(--color-warning);
+      color: var(--color-white);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--spacing-2);
+    }
+  }
+}
+
+// ============================================================================
+// CARD GROUP (Cards in a row)
+// ============================================================================
+
+.card-group {
+  display: flex;
+  flex-flow: row wrap;
+
+  > .card {
+    flex: 1 0 0%;
+    margin-bottom: 0;
+
+    + .card {
+      margin-left: 0;
+      border-left: 0;
+    }
+
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  // Responsive: Stack on mobile
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    > .card {
+      + .card {
+        margin-top: -1px;
+        margin-left: 0;
+        border-left: var(--border-width-1) solid var(--color-border);
+        border-top: 0;
+      }
+
+      &:not(:last-child) {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: var(--radius-card);
+      }
+
+      &:not(:first-child) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: var(--radius-card);
+      }
+    }
+  }
+}
+
+// ============================================================================
+// CARD DECK (Cards with equal heights)
+// ============================================================================
+
+.card-deck {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--spacing-4);
+
+  .card {
+    flex: 1 0 0%;
+    margin-bottom: 0;
+  }
+
+  // Responsive: Stack on mobile
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    .card {
+      margin-bottom: var(--spacing-4);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// CARD COLUMNS (Masonry-style layout)
+// ============================================================================
+
+.card-columns {
+  column-count: 3;
+  column-gap: var(--spacing-4);
+
+  .card {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: var(--spacing-4);
+    break-inside: avoid;
+  }
+
+  // Responsive
+  @media (max-width: 1199px) {
+    column-count: 2;
+  }
+
+  @media (max-width: 767px) {
+    column-count: 1;
+  }
+}
+
+// ============================================================================
+// COMPACT CARD
+// ============================================================================
+
+.card-compact {
+  .card-header {
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: var(--font-size-base);
+  }
+
+  .card-body {
+    padding: var(--spacing-4);
+  }
+
+  .card-footer {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+}
+
+// ============================================================================
+// DARK MODE ADJUSTMENTS
+// ============================================================================
+
+[data-theme="dark"] {
+  .card-img-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  }
+}

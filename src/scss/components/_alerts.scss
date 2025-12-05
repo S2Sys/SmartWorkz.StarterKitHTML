@@ -1,0 +1,153 @@
+// File: src/scss/components/_alerts.scss
+// Smart Workz Premium Admin Template - Alert Components
+
+// ============================================================================
+// ALERT BASE
+// ============================================================================
+
+.alert {
+  position: relative;
+  padding: var(--spacing-4) var(--spacing-6);
+  margin-bottom: var(--spacing-4);
+  border: var(--border-width-1) solid transparent;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+
+  // Alert with icon
+  &.alert-with-icon {
+    display: flex;
+    gap: var(--spacing-3);
+
+    .alert-icon {
+      flex-shrink: 0;
+      font-size: 1.25em;
+    }
+
+    .alert-content {
+      flex: 1;
+    }
+  }
+}
+
+// Alert title
+.alert-title {
+  margin-top: 0;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+// ============================================================================
+// ALERT VARIANTS
+// ============================================================================
+
+.alert-primary {
+  color: var(--color-primary-800);
+  background-color: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+}
+
+.alert-secondary {
+  color: var(--color-secondary-800);
+  background-color: var(--color-secondary-50);
+  border-color: var(--color-secondary-200);
+}
+
+.alert-success {
+  color: var(--color-success-800);
+  background-color: var(--color-success-50);
+  border-color: var(--color-success-200);
+}
+
+.alert-warning {
+  color: var(--color-warning-800);
+  background-color: var(--color-warning-50);
+  border-color: var(--color-warning-200);
+}
+
+.alert-danger {
+  color: var(--color-danger-800);
+  background-color: var(--color-danger-50);
+  border-color: var(--color-danger-200);
+}
+
+.alert-info {
+  color: var(--color-info-800);
+  background-color: var(--color-info-50);
+  border-color: var(--color-info-200);
+}
+
+// ============================================================================
+// DISMISSIBLE ALERT
+// ============================================================================
+
+.alert-dismissible {
+  padding-right: 3rem;
+
+  .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--spacing-4) var(--spacing-6);
+  }
+}
+
+// ============================================================================
+// TOAST NOTIFICATIONS
+// ============================================================================
+
+.toast {
+  max-width: 350px;
+  font-size: var(--font-size-sm);
+  background-color: var(--color-bg-surface);
+  border: var(--border-width-1) solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  overflow: hidden;
+
+  &.showing {
+    opacity: 1;
+  }
+
+  &.show {
+    display: block;
+    opacity: 1;
+  }
+
+  &.hide {
+    display: none;
+  }
+}
+
+.toast-header {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-bg-subtle);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  border-top-left-radius: calc(var(--radius-lg) - 1px);
+  border-top-right-radius: calc(var(--radius-lg) - 1px);
+
+  .toast-title {
+    margin-right: auto;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .toast-time {
+    margin-left: var(--spacing-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  .btn-close {
+    margin-right: calc(var(--spacing-2) * -1);
+    margin-left: var(--spacing-2);
+  }
+}
+
+.toast-body {
+  padding: var(--spacing-4);
+  word-wrap: break-word;
+}

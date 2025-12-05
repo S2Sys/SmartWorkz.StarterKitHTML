@@ -1,0 +1,698 @@
+// File: src/scss/components/_buttons.scss
+// Smart Workz Premium Admin Template - Button Components
+// Complete button system with all variants, sizes, and states
+
+// ============================================================================
+// BUTTON BASE STYLES
+// ============================================================================
+
+.btn {
+  @include button-base;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  border: $border-width-1 solid transparent;
+  border-radius: $radius-button;
+  font-family: $font-family-body;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  transition: $transition-button;
+  overflow: hidden;
+
+  // Focus state (accessibility)
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  // Disabled state
+  &:disabled,
+  &.disabled {
+    opacity: $disabled-opacity;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // Icons in buttons
+  i,
+  svg {
+    width: 1.25em;
+    height: 1.25em;
+    flex-shrink: 0;
+  }
+
+  // Loading state
+  &.btn-loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1rem;
+      height: 1rem;
+      margin: -0.5rem 0 0 -0.5rem;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+  }
+}
+
+// Spin animation for loading state
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ============================================================================
+// BUTTON VARIANTS
+// ============================================================================
+
+// Primary Button
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    color: var(--color-white);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-primary-800);
+    border-color: var(--color-primary-800);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+  }
+}
+
+// Secondary Button
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border-color: var(--color-secondary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-secondary-dark);
+    border-color: var(--color-secondary-dark);
+    color: var(--color-white);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-secondary-700);
+    border-color: var(--color-secondary-700);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.3);
+  }
+}
+
+// Success Button
+.btn-success {
+  background-color: var(--color-success);
+  color: var(--color-white);
+  border-color: var(--color-success);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-success-dark);
+    border-color: var(--color-success-dark);
+    color: var(--color-white);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-success-700);
+    border-color: var(--color-success-700);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--shadow-focus-success);
+  }
+}
+
+// Warning Button
+.btn-warning {
+  background-color: var(--color-warning);
+  color: var(--color-white);
+  border-color: var(--color-warning);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-warning-dark);
+    border-color: var(--color-warning-dark);
+    color: var(--color-white);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-warning-700);
+    border-color: var(--color-warning-700);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+  }
+}
+
+// Danger/Error Button
+.btn-danger {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+  border-color: var(--color-danger);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-danger-dark);
+    border-color: var(--color-danger-dark);
+    color: var(--color-white);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-danger-700);
+    border-color: var(--color-danger-700);
+  }
+
+  &:focus-visible {
+    box-shadow: var(--shadow-focus-error);
+  }
+}
+
+// Info Button
+.btn-info {
+  background-color: var(--color-info);
+  color: var(--color-white);
+  border-color: var(--color-info);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-info-dark);
+    border-color: var(--color-info-dark);
+    color: var(--color-white);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-info-700);
+    border-color: var(--color-info-700);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+}
+
+// Light Button
+.btn-light {
+  background-color: var(--color-gray-100);
+  color: var(--color-text-primary);
+  border-color: var(--color-gray-300);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-gray-200);
+    border-color: var(--color-gray-400);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-gray-300);
+    border-color: var(--color-gray-500);
+  }
+}
+
+// Dark Button
+.btn-dark {
+  background-color: var(--color-gray-900);
+  color: var(--color-white);
+  border-color: var(--color-gray-900);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-800);
+    color: var(--color-white);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-700);
+  }
+}
+
+// ============================================================================
+// OUTLINE VARIANTS
+// ============================================================================
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+  }
+}
+
+.btn-outline-success {
+  background-color: transparent;
+  color: var(--color-success);
+  border-color: var(--color-success);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-success);
+    color: var(--color-white);
+  }
+}
+
+.btn-outline-warning {
+  background-color: transparent;
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-warning);
+    color: var(--color-white);
+  }
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+  }
+}
+
+.btn-outline-info {
+  background-color: transparent;
+  color: var(--color-info);
+  border-color: var(--color-info);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-info);
+    color: var(--color-white);
+  }
+}
+
+.btn-outline-dark {
+  background-color: transparent;
+  color: var(--color-gray-900);
+  border-color: var(--color-gray-900);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-gray-900);
+    color: var(--color-white);
+  }
+}
+
+// ============================================================================
+// GHOST/TEXT VARIANTS (No border, transparent background)
+// ============================================================================
+
+.btn-ghost,
+.btn-text {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text-primary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-bg-subtle);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-bg-muted);
+  }
+}
+
+.btn-ghost-primary,
+.btn-text-primary {
+  color: var(--color-primary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-50);
+  }
+}
+
+.btn-ghost-secondary,
+.btn-text-secondary {
+  color: var(--color-secondary);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-secondary-50);
+  }
+}
+
+.btn-ghost-success,
+.btn-text-success {
+  color: var(--color-success);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-success-50);
+  }
+}
+
+.btn-ghost-danger,
+.btn-text-danger {
+  color: var(--color-danger);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-danger-50);
+  }
+}
+
+// ============================================================================
+// BUTTON SIZES
+// ============================================================================
+
+// Extra Small
+.btn-xs {
+  height: $button-height-xs;
+  padding: 0 $button-padding-x-xs;
+  font-size: $font-size-xs;
+  border-radius: $radius-sm;
+
+  i, svg {
+    width: 0.875em;
+    height: 0.875em;
+  }
+}
+
+// Small
+.btn-sm {
+  height: $button-height-sm;
+  padding: 0 $button-padding-x-sm;
+  font-size: $font-size-sm;
+  border-radius: $radius-sm;
+
+  i, svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+// Medium (default) - already defined in base
+
+// Large
+.btn-lg {
+  height: $button-height-lg;
+  padding: 0 $button-padding-x-lg;
+  font-size: $font-size-lg;
+  border-radius: $radius-lg;
+
+  i, svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
+
+// Extra Large
+.btn-xl {
+  height: $button-height-xl;
+  padding: 0 $button-padding-x-xl;
+  font-size: $font-size-xl;
+  border-radius: $radius-lg;
+
+  i, svg {
+    width: 1.75em;
+    height: 1.75em;
+  }
+}
+
+// ============================================================================
+// ICON BUTTONS (Square buttons with just icons)
+// ============================================================================
+
+.btn-icon {
+  padding: 0;
+  aspect-ratio: 1;
+  width: $button-height-md;
+  height: $button-height-md;
+  justify-content: center;
+
+  &.btn-xs {
+    width: $button-height-xs;
+    height: $button-height-xs;
+  }
+
+  &.btn-sm {
+    width: $button-height-sm;
+    height: $button-height-sm;
+  }
+
+  &.btn-lg {
+    width: $button-height-lg;
+    height: $button-height-lg;
+  }
+
+  &.btn-xl {
+    width: $button-height-xl;
+    height: $button-height-xl;
+  }
+
+  // Icon only - no gap needed
+  gap: 0;
+}
+
+// Circular icon button
+.btn-icon-circle {
+  @extend .btn-icon;
+  border-radius: $radius-full;
+}
+
+// ============================================================================
+// BLOCK BUTTON (Full width)
+// ============================================================================
+
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
+// ============================================================================
+// BUTTON GROUP
+// ============================================================================
+
+.btn-group {
+  display: inline-flex;
+  vertical-align: middle;
+
+  .btn {
+    position: relative;
+    flex: 0 1 auto;
+
+    &:hover,
+    &:focus,
+    &:active {
+      z-index: 1;
+    }
+
+    &:not(:first-child) {
+      margin-left: -1px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  // Vertical button group
+  &.btn-group-vertical {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .btn {
+      width: 100%;
+
+      &:not(:first-child) {
+        margin-left: 0;
+        margin-top: -1px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: $radius-button;
+      }
+
+      &:not(:last-child) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: $radius-button;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// BUTTON TOOLBAR (Group of button groups)
+// ============================================================================
+
+.btn-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+
+  .btn-group {
+    flex-shrink: 0;
+  }
+}
+
+// ============================================================================
+// SPECIAL BUTTON STATES
+// ============================================================================
+
+// Active state
+.btn.active,
+.btn:active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Pill button (fully rounded)
+.btn-pill {
+  border-radius: $radius-full;
+}
+
+// Rounded button (more rounded than default)
+.btn-rounded {
+  border-radius: $radius-xl;
+}
+
+// Square button (no border radius)
+.btn-square {
+  border-radius: 0;
+}
+
+// ============================================================================
+// SOCIAL MEDIA BUTTONS
+// ============================================================================
+
+.btn-google {
+  background-color: #DB4437;
+  color: white;
+  border-color: #DB4437;
+
+  &:hover:not(:disabled) {
+    background-color: darken(#DB4437, 8%);
+    border-color: darken(#DB4437, 8%);
+  }
+}
+
+.btn-facebook {
+  background-color: #1877F2;
+  color: white;
+  border-color: #1877F2;
+
+  &:hover:not(:disabled) {
+    background-color: darken(#1877F2, 8%);
+    border-color: darken(#1877F2, 8%);
+  }
+}
+
+.btn-twitter {
+  background-color: #1DA1F2;
+  color: white;
+  border-color: #1DA1F2;
+
+  &:hover:not(:disabled) {
+    background-color: darken(#1DA1F2, 8%);
+    border-color: darken(#1DA1F2, 8%);
+  }
+}
+
+.btn-github {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+
+  &:hover:not(:disabled) {
+    background-color: #24292e;
+    border-color: #24292e;
+  }
+}
+
+.btn-linkedin {
+  background-color: #0A66C2;
+  color: white;
+  border-color: #0A66C2;
+
+  &:hover:not(:disabled) {
+    background-color: darken(#0A66C2, 8%);
+    border-color: darken(#0A66C2, 8%);
+  }
+}
+
+// ============================================================================
+// RESPONSIVE UTILITIES
+// ============================================================================
+
+// Mobile: Stack buttons vertically
+@include breakpoint-max(sm) {
+  .btn-responsive {
+    width: 100%;
+    display: flex;
+  }
+
+  .btn-group-responsive {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// ============================================================================
+// DARK MODE ADJUSTMENTS
+// ============================================================================
+
+[data-theme="dark"] {
+  .btn-light {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-100);
+    border-color: var(--color-gray-700);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-gray-700);
+      border-color: var(--color-gray-600);
+    }
+  }
+
+  .btn-outline-dark {
+    color: var(--color-gray-100);
+    border-color: var(--color-gray-100);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-gray-100);
+      color: var(--color-gray-900);
+    }
+  }
+}

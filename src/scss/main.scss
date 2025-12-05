@@ -20,18 +20,19 @@
 // BASE
 // Reset, typography, base element styles
 // ============================================================================
+@import 'base/root';
 @import 'base/reset';
 @import 'base/typography';
 @import 'base/utilities';
 
 // ============================================================================
 // LAYOUT
-// Major layout components
+// Major layout components (to be created)
 // ============================================================================
-@import 'layout/grid';
-@import 'layout/header';
-@import 'layout/sidebar';
-@import 'layout/footer';
+// @import 'layout/grid';
+// @import 'layout/header';
+// @import 'layout/sidebar';
+// @import 'layout/footer';
 
 // ============================================================================
 // COMPONENTS
@@ -43,29 +44,29 @@
 @import 'components/tables';
 @import 'components/modals';
 @import 'components/alerts';
-@import 'components/toasts';
-@import 'components/navbar';
-@import 'components/tabs';
-@import 'components/accordions';
-@import 'components/breadcrumbs';
-@import 'components/pagination';
 @import 'components/badges';
 @import 'components/avatars';
-@import 'components/progress';
-@import 'components/spinners';
-@import 'components/skeleton-loaders';
-@import 'components/search';
-@import 'components/dropdowns';
+// @import 'components/toasts';
+// @import 'components/navbar';
+// @import 'components/tabs';
+// @import 'components/accordions';
+// @import 'components/breadcrumbs';
+// @import 'components/pagination';
+// @import 'components/progress';
+// @import 'components/spinners';
+// @import 'components/skeleton-loaders';
+// @import 'components/search';
+// @import 'components/dropdowns';
 
 // ============================================================================
 // PAGES
-// Page-specific styles
+// Page-specific styles (to be created)
 // ============================================================================
-@import 'pages/auth';
-@import 'pages/dashboard';
-@import 'pages/errors';
-@import 'pages/landing';
-@import 'pages/profile';
+// @import 'pages/auth';
+// @import 'pages/dashboard';
+// @import 'pages/errors';
+// @import 'pages/landing';
+// @import 'pages/profile';
 
 // ============================================================================
 // THEMES

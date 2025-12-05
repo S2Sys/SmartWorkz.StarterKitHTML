@@ -1,0 +1,199 @@
+// File: src/scss/components/_avatars.scss
+// Smart Workz Premium Admin Template - Avatar Components
+
+// ============================================================================
+// AVATAR BASE
+// ============================================================================
+
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $avatar-size-md;
+  height: $avatar-size-md;
+  font-size: calc($avatar-size-md / 2.5);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  color: var(--color-white);
+  text-align: center;
+  text-transform: uppercase;
+  background-color: var(--color-gray-500);
+  border-radius: var(--radius-avatar);
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // Avatar with initials
+  &.avatar-initials {
+    user-select: none;
+  }
+}
+
+// ============================================================================
+// AVATAR SIZES
+// ============================================================================
+
+.avatar-xs {
+  width: $avatar-size-xs;
+  height: $avatar-size-xs;
+  font-size: calc($avatar-size-xs / 2.5);
+}
+
+.avatar-sm {
+  width: $avatar-size-sm;
+  height: $avatar-size-sm;
+  font-size: calc($avatar-size-sm / 2.5);
+}
+
+.avatar-md {
+  width: $avatar-size-md;
+  height: $avatar-size-md;
+  font-size: calc($avatar-size-md / 2.5);
+}
+
+.avatar-lg {
+  width: $avatar-size-lg;
+  height: $avatar-size-lg;
+  font-size: calc($avatar-size-lg / 2.5);
+}
+
+.avatar-xl {
+  width: $avatar-size-xl;
+  height: $avatar-size-xl;
+  font-size: calc($avatar-size-xl / 2.5);
+}
+
+.avatar-2xl {
+  width: $avatar-size-2xl;
+  height: $avatar-size-2xl;
+  font-size: calc($avatar-size-2xl / 2.5);
+}
+
+// ============================================================================
+// AVATAR SHAPES
+// ============================================================================
+
+.avatar-square {
+  border-radius: var(--radius-lg);
+}
+
+.avatar-rounded {
+  border-radius: var(--radius-xl);
+}
+
+// ============================================================================
+// AVATAR COLORS (for initials)
+// ============================================================================
+
+.avatar-primary {
+  background-color: var(--color-primary);
+}
+
+.avatar-secondary {
+  background-color: var(--color-secondary);
+}
+
+.avatar-success {
+  background-color: var(--color-success);
+}
+
+.avatar-warning {
+  background-color: var(--color-warning);
+}
+
+.avatar-danger {
+  background-color: var(--color-danger);
+}
+
+.avatar-info {
+  background-color: var(--color-info);
+}
+
+// ============================================================================
+// AVATAR WITH STATUS INDICATOR
+// ============================================================================
+
+.avatar-status {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25%;
+    height: 25%;
+    border: 2px solid var(--color-bg-surface);
+    border-radius: 50%;
+    background-color: var(--color-gray-400);
+  }
+
+  &.avatar-status-online::after {
+    background-color: var(--color-success);
+  }
+
+  &.avatar-status-offline::after {
+    background-color: var(--color-gray-400);
+  }
+
+  &.avatar-status-away::after {
+    background-color: var(--color-warning);
+  }
+
+  &.avatar-status-busy::after {
+    background-color: var(--color-danger);
+  }
+}
+
+// ============================================================================
+// AVATAR GROUP
+// ============================================================================
+
+.avatar-group {
+  display: inline-flex;
+  align-items: center;
+
+  .avatar {
+    margin-left: -0.75rem;
+    border: 2px solid var(--color-bg-surface);
+    transition: transform var(--duration-fast) var(--ease-out),
+                z-index 0s var(--duration-fast);
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      z-index: 1;
+      transition: transform var(--duration-fast) var(--ease-out),
+                  z-index 0s 0s;
+    }
+  }
+}
+
+// ============================================================================
+// AVATAR WITH BADGE
+// ============================================================================
+
+.avatar-badge {
+  position: relative;
+
+  .badge {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0.15rem 0.3rem;
+    font-size: 0.65rem;
+    line-height: 1;
+    border: 2px solid var(--color-bg-surface);
+  }
+}

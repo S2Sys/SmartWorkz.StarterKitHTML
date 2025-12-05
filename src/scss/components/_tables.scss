@@ -1,0 +1,575 @@
+// File: src/scss/components/_tables.scss
+// Smart Workz Premium Admin Template - Table Components
+// Complete table system with sorting, selection, and responsive design
+
+// ============================================================================
+// TABLE BASE
+// ============================================================================
+
+.table {
+  width: 100%;
+  margin-bottom: var(--spacing-4);
+  color: var(--color-text-primary);
+  vertical-align: top;
+  border-color: var(--color-border);
+  caption-side: bottom;
+  border-collapse: collapse;
+
+  // Table cells
+  > :not(caption) > * > * {
+    padding: var(--spacing-3) var(--spacing-4);
+    background-color: var(--color-bg-surface);
+    border-bottom-width: var(--border-width-1);
+    box-shadow: inset 0 0 0 9999px transparent;
+  }
+
+  // Table header
+  > thead {
+    vertical-align: bottom;
+    background-color: var(--color-bg-subtle);
+
+    > tr > th {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      border-bottom: var(--border-width-2) solid var(--color-border);
+      white-space: nowrap;
+    }
+  }
+
+  // Table body
+  > tbody {
+    vertical-align: inherit;
+
+    > tr {
+      transition: background-color var(--duration-fast) var(--ease-out);
+    }
+  }
+
+  // Table footer
+  > tfoot {
+    > tr > td {
+      font-weight: var(--font-weight-medium);
+      border-top: var(--border-width-2) solid var(--color-border);
+      background-color: var(--color-bg-subtle);
+    }
+  }
+
+  // Caption
+  caption {
+    padding-top: var(--spacing-3);
+    padding-bottom: var(--spacing-3);
+    color: var(--color-text-muted);
+    text-align: left;
+    font-size: var(--font-size-sm);
+  }
+}
+
+// ============================================================================
+// TABLE VARIANTS
+// ============================================================================
+
+// Striped rows
+.table-striped {
+  > tbody > tr:nth-of-type(odd) > * {
+    background-color: var(--color-bg-subtle);
+  }
+}
+
+// Hoverable rows
+.table-hover {
+  > tbody > tr:hover > * {
+    background-color: var(--color-bg-overlay);
+    cursor: pointer;
+  }
+}
+
+// Bordered table
+.table-bordered {
+  border: var(--border-width-1) solid var(--color-border);
+
+  > :not(caption) > * {
+    border-width: var(--border-width-1) 0;
+
+    > * {
+      border-width: 0 var(--border-width-1);
+    }
+  }
+}
+
+// Borderless table
+.table-borderless {
+  > :not(caption) > * > * {
+    border-bottom-width: 0;
+  }
+
+  > :not(:first-child) {
+    border-top-width: 0;
+  }
+}
+
+// ============================================================================
+// TABLE SIZES
+// ============================================================================
+
+// Small table
+.table-sm {
+  > :not(caption) > * > * {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-sm);
+  }
+}
+
+// Large table
+.table-lg {
+  > :not(caption) > * > * {
+    padding: var(--spacing-4) var(--spacing-6);
+    font-size: var(--font-size-base);
+  }
+}
+
+// ============================================================================
+// TABLE COLORS (Contextual classes)
+// ============================================================================
+
+@mixin table-variant($state, $background) {
+  .table-#{$state} {
+    > td,
+    > th {
+      background-color: $background;
+    }
+  }
+}
+
+@include table-variant('primary', var(--color-primary-50));
+@include table-variant('secondary', var(--color-secondary-50));
+@include table-variant('success', var(--color-success-50));
+@include table-variant('warning', var(--color-warning-50));
+@include table-variant('danger', var(--color-danger-50));
+@include table-variant('info', var(--color-info-50));
+@include table-variant('light', var(--color-gray-100));
+@include table-variant('dark', var(--color-gray-800));
+
+// Active row
+.table-active {
+  background-color: var(--color-primary-50);
+  border-left: 3px solid var(--color-primary);
+}
+
+// ============================================================================
+// SORTABLE TABLE
+// ============================================================================
+
+.table-sortable {
+  > thead > tr > th {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: calc(var(--spacing-4) + 1.25rem);
+
+    &::after {
+      content: '⇅';
+      position: absolute;
+      right: var(--spacing-4);
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.3;
+      font-size: var(--font-size-sm);
+      transition: opacity var(--duration-fast) var(--ease-out);
+    }
+
+    &:hover::after {
+      opacity: 0.7;
+    }
+
+    &.sort-asc::after {
+      content: '↑';
+      opacity: 1;
+      color: var(--color-primary);
+    }
+
+    &.sort-desc::after {
+      content: '↓';
+      opacity: 1;
+      color: var(--color-primary);
+    }
+  }
+}
+
+// ============================================================================
+// SELECTABLE TABLE (with checkboxes)
+// ============================================================================
+
+.table-selectable {
+  > thead > tr > th:first-child,
+  > tbody > tr > td:first-child {
+    width: 3rem;
+    text-align: center;
+    padding-left: var(--spacing-3);
+    padding-right: var(--spacing-3);
+  }
+
+  > tbody > tr.selected > * {
+    background-color: var(--color-primary-50);
+  }
+
+  .form-check-input {
+    cursor: pointer;
+  }
+}
+
+// ============================================================================
+// TABLE WITH ACTIONS
+// ============================================================================
+
+.table-actions {
+  > thead > tr > th:last-child,
+  > tbody > tr > td:last-child {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .btn-group {
+    gap: var(--spacing-1);
+  }
+
+  .btn-icon {
+    padding: var(--spacing-1);
+  }
+}
+
+// ============================================================================
+// RESPONSIVE TABLE
+// ============================================================================
+
+// Responsive wrapper
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  > .table {
+    margin-bottom: 0;
+  }
+}
+
+// Responsive at breakpoints
+.table-responsive-sm {
+  @media (max-width: 575px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.table-responsive-md {
+  @media (max-width: 767px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.table-responsive-lg {
+  @media (max-width: 991px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.table-responsive-xl {
+  @media (max-width: 1199px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// ============================================================================
+// MOBILE CARD TABLE (Stacks as cards on mobile)
+// ============================================================================
+
+.table-mobile-card {
+  @media (max-width: 767px) {
+    > thead {
+      display: none;
+    }
+
+    > tbody > tr {
+      display: block;
+      margin-bottom: var(--spacing-4);
+      border: var(--border-width-1) solid var(--color-border);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-sm);
+
+      > td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-3) var(--spacing-4);
+        border-bottom: var(--border-width-1) solid var(--color-border);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &::before {
+          content: attr(data-label);
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-text-secondary);
+          margin-right: var(--spacing-4);
+        }
+      }
+    }
+  }
+}
+
+// ============================================================================
+// TABLE WITH FIXED HEADER
+// ============================================================================
+
+.table-fixed-header {
+  display: block;
+  max-height: 400px;
+  overflow-y: auto;
+
+  > thead,
+  > tbody,
+  > tfoot {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  > thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-bg-subtle);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+}
+
+// ============================================================================
+// TABLE WITH EXPANDABLE ROWS
+// ============================================================================
+
+.table-expandable {
+  > tbody > tr {
+    &.expandable-row {
+      cursor: pointer;
+
+      > td:first-child {
+        position: relative;
+        padding-left: calc(var(--spacing-4) + 1.5rem);
+
+        &::before {
+          content: '▶';
+          position: absolute;
+          left: var(--spacing-4);
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: var(--font-size-xs);
+          color: var(--color-text-muted);
+          transition: transform var(--duration-fast) var(--ease-out);
+        }
+      }
+
+      &.expanded > td:first-child::before {
+        transform: translateY(-50%) rotate(90deg);
+      }
+    }
+
+    &.expanded-content {
+      display: none;
+
+      &.show {
+        display: table-row;
+      }
+
+      > td {
+        padding: var(--spacing-6);
+        background-color: var(--color-bg-subtle);
+        border-top: none;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// TABLE LOADING STATE
+// ============================================================================
+
+.table-loading {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2rem;
+    height: 2rem;
+    margin: -1rem 0 0 -1rem;
+    border: 3px solid var(--color-primary);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    z-index: 101;
+  }
+}
+
+// ============================================================================
+// TABLE EMPTY STATE
+// ============================================================================
+
+.table-empty {
+  > tbody > tr > td {
+    padding: var(--spacing-12) var(--spacing-6);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+
+    i, svg {
+      display: block;
+      margin: 0 auto var(--spacing-4);
+      font-size: var(--font-size-5xl);
+      color: var(--color-text-disabled);
+    }
+  }
+}
+
+// ============================================================================
+// TABLE TOOLBAR (Filters, search, actions above table)
+// ============================================================================
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-4);
+  background-color: var(--color-bg-subtle);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  .table-toolbar-left,
+  .table-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .table-search {
+    min-width: 300px;
+  }
+
+  .table-filter {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  // Responsive: Stack on mobile
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    .table-toolbar-left,
+    .table-toolbar-right {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .table-search {
+      min-width: 100%;
+    }
+  }
+}
+
+// ============================================================================
+// TABLE FOOTER (Pagination, per-page selector)
+// ============================================================================
+
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+  padding: var(--spacing-4);
+
+  .table-info {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  .table-per-page {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: var(--font-size-sm);
+
+    select {
+      padding: var(--spacing-1) var(--spacing-3);
+      border: var(--border-width-1) solid var(--color-border);
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  // Responsive: Stack on mobile
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}
+
+// ============================================================================
+// DARK MODE ADJUSTMENTS
+// ============================================================================
+
+[data-theme="dark"] {
+  .table {
+    --table-bg: var(--color-bg-surface);
+    --table-striped-bg: var(--color-bg-subtle);
+    --table-active-bg: var(--color-primary-900);
+    --table-hover-bg: var(--color-bg-overlay);
+  }
+
+  .table-loading::after {
+    background-color: rgba(15, 23, 42, 0.8);
+  }
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+
+@media print {
+  .table {
+    border-collapse: collapse;
+
+    > thead > tr > th,
+    > tbody > tr > td {
+      border: 1px solid #000;
+    }
+  }
+
+  .table-toolbar,
+  .table-footer,
+  .btn,
+  .form-check {
+    display: none;
+  }
+}
