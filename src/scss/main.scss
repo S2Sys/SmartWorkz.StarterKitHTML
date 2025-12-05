@@ -1,0 +1,74 @@
+// File: src/scss/main.scss
+// Smart Workz Premium Admin Template - Main SCSS Entry Point
+// This file imports all SCSS partials following the 7-1 architecture pattern
+
+// ============================================================================
+// ABSTRACTS
+// Variables, mixins, functions - no CSS output
+// ============================================================================
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'abstracts/functions';
+
+// ============================================================================
+// VENDORS
+// Third-party library overrides
+// ============================================================================
+@import 'vendors/bootstrap-overrides';
+
+// ============================================================================
+// BASE
+// Reset, typography, base element styles
+// ============================================================================
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/utilities';
+
+// ============================================================================
+// LAYOUT
+// Major layout components
+// ============================================================================
+@import 'layout/grid';
+@import 'layout/header';
+@import 'layout/sidebar';
+@import 'layout/footer';
+
+// ============================================================================
+// COMPONENTS
+// Reusable UI components
+// ============================================================================
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/cards';
+@import 'components/tables';
+@import 'components/modals';
+@import 'components/alerts';
+@import 'components/toasts';
+@import 'components/navbar';
+@import 'components/tabs';
+@import 'components/accordions';
+@import 'components/breadcrumbs';
+@import 'components/pagination';
+@import 'components/badges';
+@import 'components/avatars';
+@import 'components/progress';
+@import 'components/spinners';
+@import 'components/skeleton-loaders';
+@import 'components/search';
+@import 'components/dropdowns';
+
+// ============================================================================
+// PAGES
+// Page-specific styles
+// ============================================================================
+@import 'pages/auth';
+@import 'pages/dashboard';
+@import 'pages/errors';
+@import 'pages/landing';
+@import 'pages/profile';
+
+// ============================================================================
+// THEMES
+// Color theme configurations (imported separately in theme files)
+// ============================================================================
+// Theme files are compiled separately (theme-blue.scss, theme-purple.scss, etc.)

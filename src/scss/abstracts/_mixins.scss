@@ -1,0 +1,670 @@
+// File: src/scss/abstracts/_mixins.scss
+// Smart Workz Premium Admin Template - SCSS Mixins
+// Reusable mixins for common patterns and responsive design
+
+// ============================================================================
+// RESPONSIVE BREAKPOINTS
+// ============================================================================
+
+// Media query mixin for breakpoints
+@mixin breakpoint($size) {
+  @if $size == xs {
+    @media (min-width: #{$breakpoint-xs}) { @content; }
+  } @else if $size == sm {
+    @media (min-width: #{$breakpoint-sm}) { @content; }
+  } @else if $size == md {
+    @media (min-width: #{$breakpoint-md}) { @content; }
+  } @else if $size == lg {
+    @media (min-width: #{$breakpoint-lg}) { @content; }
+  } @else if $size == xl {
+    @media (min-width: #{$breakpoint-xl}) { @content; }
+  } @else if $size == xxl {
+    @media (min-width: #{$breakpoint-xxl}) { @content; }
+  }
+}
+
+// Media query for max-width (mobile-first)
+@mixin breakpoint-max($size) {
+  @if $size == sm {
+    @media (max-width: #{$breakpoint-sm - 1}) { @content; }
+  } @else if $size == md {
+    @media (max-width: #{$breakpoint-md - 1}) { @content; }
+  } @else if $size == lg {
+    @media (max-width: #{$breakpoint-lg - 1}) { @content; }
+  } @else if $size == xl {
+    @media (max-width: #{$breakpoint-xl - 1}) { @content; }
+  } @else if $size == xxl {
+    @media (max-width: #{$breakpoint-xxl - 1}) { @content; }
+  }
+}
+
+// Between two breakpoints
+@mixin breakpoint-between($min, $max) {
+  @media (min-width: $min) and (max-width: $max - 1) {
+    @content;
+  }
+}
+
+// ============================================================================
+// FLEXBOX UTILITIES
+// ============================================================================
+
+// Flex container with common properties
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// Flex center (horizontal and vertical)
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Flex column
+@mixin flex-column($justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// ============================================================================
+// GRID UTILITIES
+// ============================================================================
+
+// CSS Grid
+@mixin grid($columns: 1, $gap: $spacing-4) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+// Auto-fit grid (responsive)
+@mixin grid-auto-fit($min-width: 250px, $gap: $spacing-4) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $gap;
+}
+
+// Auto-fill grid
+@mixin grid-auto-fill($min-width: 250px, $gap: $spacing-4) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+  gap: $gap;
+}
+
+// ============================================================================
+// TYPOGRAPHY
+// ============================================================================
+
+// Responsive font size using clamp
+@mixin responsive-font($min, $preferred, $max) {
+  font-size: clamp($min, $preferred, $max);
+}
+
+// Truncate text with ellipsis
+@mixin truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Limit text to specific number of lines
+@mixin line-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Text selection color
+@mixin selection($bg: $color-primary, $color: $color-white) {
+  ::selection {
+    background-color: $bg;
+    color: $color;
+  }
+
+  ::-moz-selection {
+    background-color: $bg;
+    color: $color;
+  }
+}
+
+// ============================================================================
+// POSITIONING
+// ============================================================================
+
+// Absolute positioning helper
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+  @if $top != null { top: $top; }
+  @if $right != null { right: $right; }
+  @if $bottom != null { bottom: $bottom; }
+  @if $left != null { left: $left; }
+}
+
+// Fixed positioning helper
+@mixin fixed($top: null, $right: null, $bottom: null, $left: null) {
+  position: fixed;
+  @if $top != null { top: $top; }
+  @if $right != null { right: $right; }
+  @if $bottom != null { bottom: $bottom; }
+  @if $left != null { left: $left; }
+}
+
+// Center element with absolute positioning
+@mixin center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// ============================================================================
+// SIZE UTILITIES
+// ============================================================================
+
+// Size (width and height)
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// Min and max dimensions
+@mixin min-size($width, $height: $width) {
+  min-width: $width;
+  min-height: $height;
+}
+
+@mixin max-size($width, $height: $width) {
+  max-width: $width;
+  max-height: $height;
+}
+
+// Full cover
+@mixin cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// ============================================================================
+// VISUAL EFFECTS
+// ============================================================================
+
+// Box shadow helper
+@mixin shadow($shadow: $shadow-md) {
+  box-shadow: $shadow;
+}
+
+// Multiple box shadows
+@mixin shadows($shadows...) {
+  box-shadow: $shadows;
+}
+
+// Focus ring for accessibility
+@mixin focus-ring($color: $color-primary, $width: $focus-ring-width, $offset: $focus-ring-offset) {
+  outline: $width solid rgba($color, $focus-ring-opacity);
+  outline-offset: $offset;
+}
+
+// Focus visible (keyboard navigation only)
+@mixin focus-visible($color: $color-primary) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: 2px;
+  }
+}
+
+// Smooth focus transition
+@mixin focus-transition {
+  transition: outline $duration-fast $ease-out,
+              outline-offset $duration-fast $ease-out,
+              box-shadow $duration-fast $ease-out;
+}
+
+// ============================================================================
+// BACKGROUND & OVERLAYS
+// ============================================================================
+
+// Background cover image
+@mixin bg-cover($url: null) {
+  @if $url != null {
+    background-image: url($url);
+  }
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// Gradient overlay
+@mixin gradient-overlay($direction: to bottom, $color-start: rgba(0, 0, 0, 0.5), $color-end: transparent) {
+  background: linear-gradient($direction, $color-start, $color-end);
+}
+
+// Overlay (pseudo-element)
+@mixin overlay($bg: rgba(0, 0, 0, 0.5), $z-index: 1) {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $bg;
+    z-index: $z-index;
+  }
+}
+
+// ============================================================================
+// BUTTONS & INTERACTIVE ELEMENTS
+// ============================================================================
+
+// Button reset
+@mixin button-reset {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  &:focus {
+    outline: revert;
+  }
+}
+
+// Button base styles
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  border: $border-width-1 solid transparent;
+  border-radius: $radius-button;
+  font-weight: $font-weight-medium;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: $transition-button;
+  user-select: none;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: $disabled-opacity;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// Button variant generator
+@mixin button-variant($bg, $color: $color-white, $hover-bg: darken($bg, 8%), $border: $bg) {
+  background-color: $bg;
+  color: $color;
+  border-color: $border;
+
+  &:hover:not(:disabled) {
+    background-color: $hover-bg;
+    border-color: darken($border, 8%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($bg, 12%);
+    border-color: darken($border, 12%);
+  }
+}
+
+// Button outline variant
+@mixin button-outline($color, $hover-bg: $color, $hover-color: $color-white) {
+  background-color: transparent;
+  color: $color;
+  border-color: $color;
+
+  &:hover:not(:disabled) {
+    background-color: $hover-bg;
+    color: $hover-color;
+    border-color: $hover-bg;
+  }
+}
+
+// Button sizes
+@mixin button-size($height, $padding-x, $font-size: $font-size-base) {
+  height: $height;
+  padding-left: $padding-x;
+  padding-right: $padding-x;
+  font-size: $font-size;
+}
+
+// ============================================================================
+// FORMS
+// ============================================================================
+
+// Input base styles
+@mixin input-base {
+  display: block;
+  width: 100%;
+  padding: $spacing-2 $spacing-4;
+  font-family: $font-family-body;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-surface;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-input;
+  transition: border-color $duration-fast $ease-out,
+              box-shadow $duration-fast $ease-out;
+
+  &:focus {
+    outline: none;
+    border-color: $color-border-focus;
+    box-shadow: $shadow-focus;
+  }
+
+  &:disabled,
+  &[readonly] {
+    opacity: $disabled-opacity;
+    cursor: not-allowed;
+    background-color: $color-bg-muted;
+  }
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
+
+// Input validation states
+@mixin input-validation($border-color, $focus-shadow) {
+  border-color: $border-color;
+
+  &:focus {
+    border-color: $border-color;
+    box-shadow: $focus-shadow;
+  }
+}
+
+// ============================================================================
+// CARDS & CONTAINERS
+// ============================================================================
+
+// Card base
+@mixin card {
+  background-color: $color-bg-surface;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-card;
+  box-shadow: $shadow-sm;
+}
+
+// Card with hover effect
+@mixin card-hover {
+  @include card;
+  transition: box-shadow $duration-base $ease-out,
+              transform $duration-base $ease-out;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+// ============================================================================
+// SCROLLBARS
+// ============================================================================
+
+// Custom scrollbar
+@mixin scrollbar($width: 8px, $track-bg: $color-gray-100, $thumb-bg: $color-gray-400, $thumb-hover-bg: $color-gray-500) {
+  // For Webkit browsers (Chrome, Safari, Edge)
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-bg;
+    border-radius: $radius-full;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-bg;
+    border-radius: $radius-full;
+
+    &:hover {
+      background: $thumb-hover-bg;
+    }
+  }
+
+  // For Firefox
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-bg $track-bg;
+}
+
+// Hide scrollbar
+@mixin hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+// ============================================================================
+// ANIMATIONS & TRANSITIONS
+// ============================================================================
+
+// Fade in animation
+@mixin fade-in($duration: $duration-base) {
+  animation: fadeIn $duration $ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Slide in from top
+@mixin slide-in-top($duration: $duration-base) {
+  animation: slideInTop $duration $ease-out;
+}
+
+@keyframes slideInTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Pulse animation
+@mixin pulse($duration: 2s) {
+  animation: pulse $duration infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+// Spin animation (for loading spinners)
+@mixin spin($duration: 1s) {
+  animation: spin $duration linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+// Visually hidden (screen reader only)
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// Focus visible for keyboard navigation
+@mixin keyboard-focus($color: $color-primary) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: 2px;
+  }
+}
+
+// Skip to content link
+@mixin skip-link {
+  @include visually-hidden;
+
+  &:focus {
+    position: fixed;
+    top: $spacing-4;
+    left: $spacing-4;
+    z-index: $z-index-tooltip;
+    padding: $spacing-3 $spacing-6;
+    background-color: $color-primary;
+    color: $color-white;
+    text-decoration: none;
+    border-radius: $radius-md;
+    width: auto;
+    height: auto;
+    clip: auto;
+    overflow: visible;
+    white-space: normal;
+  }
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+
+// Hide on print
+@mixin hide-on-print {
+  @media print {
+    display: none !important;
+  }
+}
+
+// Show only on print
+@mixin show-on-print {
+  display: none !important;
+
+  @media print {
+    display: block !important;
+  }
+}
+
+// ============================================================================
+// RTL (RIGHT-TO-LEFT) SUPPORT
+// ============================================================================
+
+// RTL-aware margin
+@mixin margin-start($value) {
+  [dir="ltr"] & {
+    margin-left: $value;
+  }
+
+  [dir="rtl"] & {
+    margin-right: $value;
+  }
+}
+
+@mixin margin-end($value) {
+  [dir="ltr"] & {
+    margin-right: $value;
+  }
+
+  [dir="rtl"] & {
+    margin-left: $value;
+  }
+}
+
+// RTL-aware padding
+@mixin padding-start($value) {
+  [dir="ltr"] & {
+    padding-left: $value;
+  }
+
+  [dir="rtl"] & {
+    padding-right: $value;
+  }
+}
+
+@mixin padding-end($value) {
+  [dir="ltr"] & {
+    padding-right: $value;
+  }
+
+  [dir="rtl"] & {
+    padding-left: $value;
+  }
+}
+
+// ============================================================================
+// UTILITY MIXINS
+// ============================================================================
+
+// Clear fix for floats
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// Aspect ratio box
+@mixin aspect-ratio($width: 16, $height: 9) {
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: percentage($height / $width);
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Hardware acceleration for smoother animations
+@mixin hardware-accelerate {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+// No select (prevent text selection)
+@mixin no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

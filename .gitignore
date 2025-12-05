@@ -1,0 +1,183 @@
+# Smart Workz Premium Admin Template - Git Ignore File
+
+# ============================================================================
+# Dependencies
+# ============================================================================
+node_modules/
+bower_components/
+jspm_packages/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ============================================================================
+# Build Output
+# ============================================================================
+dist/
+build/
+*.min.css
+*.min.js
+*.map
+
+# Keep dist folder structure but ignore contents (uncomment if needed)
+# dist/**/*
+# !dist/.gitkeep
+
+# ============================================================================
+# Logs
+# ============================================================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# ============================================================================
+# OS Generated Files
+# ============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ============================================================================
+# IDE & Editor Files
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains IDEs (WebStorm, PhpStorm, IntelliJ, etc.)
+.idea/
+.idea/*
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Atom
+.atom/
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================================================
+# Temporary Files
+# ============================================================================
+*.tmp
+*.temp
+*.cache
+.sass-cache/
+.npm/
+.eslintcache
+.stylelintcache
+
+# ============================================================================
+# Environment & Configuration
+# ============================================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Local configuration overrides
+config.local.js
+config.local.json
+
+# ============================================================================
+# Testing
+# ============================================================================
+coverage/
+.nyc_output/
+*.lcov
+test-results/
+junit.xml
+
+# ============================================================================
+# Documentation Build
+# ============================================================================
+docs/.vuepress/dist/
+docs/.vuepress/.cache/
+docs/.vuepress/.temp/
+
+# ============================================================================
+# Gulp & Build Tools
+# ============================================================================
+.gulp-cache/
+.publish/
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+*.bak
+*.backup
+*.orig
+*.rej
+*.diff
+*.patch
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ============================================================================
+# Project Specific
+# ============================================================================
+
+# Exclude purchase/license validation files (if any)
+license-key.txt
+purchase-code.txt
+
+# Exclude customer-specific customizations folder (if you create one)
+customizations/
+client-overrides/
+
+# Exclude generated documentation (if rebuilding)
+# docs/build/
+
+# ============================================================================
+# Security
+# ============================================================================
+*.pem
+*.key
+*.cert
+*.crt
+secrets/
+credentials/
+
+# ============================================================================
+# Keep These Files
+# ============================================================================
+# If you want to keep certain files in otherwise ignored directories,
+# use the ! prefix:
+
+# !important-file.js
+# !docs/some-important-doc.md

@@ -1,0 +1,472 @@
+// File: src/scss/abstracts/_functions.scss
+// Smart Workz Premium Admin Template - SCSS Functions
+// Utility functions for calculations and color manipulation
+
+// ============================================================================
+// UNIT CONVERSION
+// ============================================================================
+
+// Remove unit from a value
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Convert pixels to rem
+@function rem($pixels, $base: 16) {
+  @return (strip-unit($pixels) / $base) * 1rem;
+}
+
+// Convert pixels to em
+@function em($pixels, $base: 16) {
+  @return (strip-unit($pixels) / $base) * 1em;
+}
+
+// Convert rem to pixels
+@function px($rem-value, $base: 16) {
+  @return strip-unit($rem-value) * $base * 1px;
+}
+
+// ============================================================================
+// COLOR FUNCTIONS
+// ============================================================================
+
+// Tint - Mix color with white
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+// Shade - Mix color with black
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+// Adjust color brightness
+@function adjust-brightness($color, $amount) {
+  @if $amount > 0 {
+    @return tint($color, $amount);
+  } @else {
+    @return shade($color, abs($amount));
+  }
+}
+
+// Get contrast color (black or white)
+@function contrast-color($color, $dark: $color-text-primary, $light: $color-white) {
+  $luminance: luminance($color);
+
+  @if $luminance > 0.5 {
+    @return $dark;
+  } @else {
+    @return $light;
+  }
+}
+
+// Calculate luminance
+@function luminance($color) {
+  $red: red($color) / 255;
+  $green: green($color) / 255;
+  $blue: blue($color) / 255;
+
+  $red: if($red <= 0.03928, $red / 12.92, pow(($red + 0.055) / 1.055, 2.4));
+  $green: if($green <= 0.03928, $green / 12.92, pow(($green + 0.055) / 1.055, 2.4));
+  $blue: if($blue <= 0.03928, $blue / 12.92, pow(($blue + 0.055) / 1.055, 2.4));
+
+  @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+}
+
+// Color contrast ratio (WCAG)
+@function contrast-ratio($color1, $color2) {
+  $luminance1: luminance($color1);
+  $luminance2: luminance($color2);
+
+  @if $luminance1 > $luminance2 {
+    @return ($luminance1 + 0.05) / ($luminance2 + 0.05);
+  } @else {
+    @return ($luminance2 + 0.05) / ($luminance1 + 0.05);
+  }
+}
+
+// Alpha/opacity
+@function alpha($color, $opacity) {
+  @return rgba($color, $opacity);
+}
+
+// Desaturate color
+@function desaturate-custom($color, $amount) {
+  @return desaturate($color, $amount);
+}
+
+// Saturate color
+@function saturate-custom($color, $amount) {
+  @return saturate($color, $amount);
+}
+
+// ============================================================================
+// SPACING FUNCTIONS
+// ============================================================================
+
+// Get spacing value by multiplier
+@function spacing($multiplier) {
+  @return $spacing-4 * $multiplier;
+}
+
+// Negative spacing
+@function -spacing($multiplier) {
+  @return -1 * ($spacing-4 * $multiplier);
+}
+
+// ============================================================================
+// TYPOGRAPHY FUNCTIONS
+// ============================================================================
+
+// Fluid typography using clamp()
+@function fluid-type($min-size, $max-size, $min-width: $breakpoint-sm, $max-width: $breakpoint-xl) {
+  $min-size-unitless: strip-unit($min-size);
+  $max-size-unitless: strip-unit($max-size);
+  $min-width-unitless: strip-unit($min-width);
+  $max-width-unitless: strip-unit($max-width);
+
+  $slope: ($max-size-unitless - $min-size-unitless) / ($max-width-unitless - $min-width-unitless);
+  $y-axis-intersection: -$min-width-unitless * $slope + $min-size-unitless;
+
+  @return clamp(
+    #{$min-size},
+    #{$y-axis-intersection}rem + #{$slope * 100}vw,
+    #{$max-size}
+  );
+}
+
+// Line height based on font size
+@function line-height-from-font-size($font-size, $ratio: 1.5) {
+  @return $font-size * $ratio;
+}
+
+// ============================================================================
+// LAYOUT FUNCTIONS
+// ============================================================================
+
+// Calculate percentage width for grid columns
+@function grid-width($columns, $total-columns: 12) {
+  @return percentage($columns / $total-columns);
+}
+
+// Calculate gutter offset
+@function gutter-offset($gutter) {
+  @return -1 * ($gutter / 2);
+}
+
+// Calculate container padding
+@function container-padding($breakpoint) {
+  @if $breakpoint < $breakpoint-md {
+    @return $spacing-4;
+  } @else if $breakpoint < $breakpoint-lg {
+    @return $spacing-6;
+  } @else {
+    @return $spacing-8;
+  }
+}
+
+// ============================================================================
+// Z-INDEX FUNCTIONS
+// ============================================================================
+
+// Get z-index by layer name
+@function z($layer) {
+  $z-layers: (
+    'base': 1,
+    'dropdown': $z-index-dropdown,
+    'sticky': $z-index-sticky,
+    'fixed': $z-index-fixed,
+    'modal-backdrop': $z-index-modal-backdrop,
+    'modal': $z-index-modal,
+    'popover': $z-index-popover,
+    'tooltip': $z-index-tooltip,
+    'toast': $z-index-toast
+  );
+
+  @if map-has-key($z-layers, $layer) {
+    @return map-get($z-layers, $layer);
+  }
+
+  @warn "Unknown z-index layer: #{$layer}";
+  @return null;
+}
+
+// ============================================================================
+// SHADOW FUNCTIONS
+// ============================================================================
+
+// Get shadow by size
+@function shadow($size) {
+  $shadows: (
+    'xs': $shadow-xs,
+    'sm': $shadow-sm,
+    'md': $shadow-md,
+    'lg': $shadow-lg,
+    'xl': $shadow-xl,
+    '2xl': $shadow-2xl,
+    'inner': $shadow-inner,
+    'none': $shadow-none
+  );
+
+  @if map-has-key($shadows, $size) {
+    @return map-get($shadows, $size);
+  }
+
+  @warn "Unknown shadow size: #{$size}";
+  @return $shadow-md;
+}
+
+// Create custom shadow
+@function create-shadow($x, $y, $blur, $spread, $color, $inset: false) {
+  @if $inset {
+    @return inset $x $y $blur $spread $color;
+  } @else {
+    @return $x $y $blur $spread $color;
+  }
+}
+
+// ============================================================================
+// MATH FUNCTIONS
+// ============================================================================
+
+// Power function
+@function pow($base, $exponent) {
+  $result: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $result: $result * $base;
+    }
+  } @else if $exponent < 0 {
+    @for $i from $exponent through -1 {
+      $result: $result / $base;
+    }
+  }
+
+  @return $result;
+}
+
+// Square root (approximation using Newton's method)
+@function sqrt($number) {
+  @if $number < 0 {
+    @warn "Cannot calculate square root of negative number";
+    @return null;
+  }
+
+  @if $number == 0 {
+    @return 0;
+  }
+
+  $x: $number;
+  $root: $number / 2;
+
+  @for $i from 1 through 10 {
+    $root: ($root + $number / $root) / 2;
+  }
+
+  @return $root;
+}
+
+// Clamp a value between min and max
+@function clamp-value($value, $min, $max) {
+  @return max($min, min($value, $max));
+}
+
+// ============================================================================
+// STRING FUNCTIONS
+// ============================================================================
+
+// Replace string
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+// Convert to lowercase
+@function to-lower-case($string) {
+  @return to-lower-case($string);
+}
+
+// Convert to uppercase
+@function to-upper-case($string) {
+  @return to-upper-case($string);
+}
+
+// ============================================================================
+// MAP FUNCTIONS
+// ============================================================================
+
+// Deep get from nested map
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+
+    @if $map == null {
+      @return null;
+    }
+  }
+
+  @return $map;
+}
+
+// Check if map has nested key
+@function map-deep-has($map, $keys...) {
+  @each $key in $keys {
+    @if not map-has-key($map, $key) {
+      @return false;
+    }
+
+    $map: map-get($map, $key);
+  }
+
+  @return true;
+}
+
+// Get map value with fallback
+@function map-get-fallback($map, $key, $fallback) {
+  @if map-has-key($map, $key) {
+    @return map-get($map, $key);
+  }
+
+  @return $fallback;
+}
+
+// ============================================================================
+// RESPONSIVE FUNCTIONS
+// ============================================================================
+
+// Get breakpoint value
+@function breakpoint($name) {
+  $breakpoints: (
+    'xs': $breakpoint-xs,
+    'sm': $breakpoint-sm,
+    'md': $breakpoint-md,
+    'lg': $breakpoint-lg,
+    'xl': $breakpoint-xl,
+    'xxl': $breakpoint-xxl
+  );
+
+  @if map-has-key($breakpoints, $name) {
+    @return map-get($breakpoints, $name);
+  }
+
+  @warn "Unknown breakpoint: #{$name}";
+  @return null;
+}
+
+// ============================================================================
+// BORDER RADIUS FUNCTIONS
+// ============================================================================
+
+// Get border radius by size
+@function radius($size) {
+  $radii: (
+    'none': $radius-none,
+    'sm': $radius-sm,
+    'md': $radius-md,
+    'lg': $radius-lg,
+    'xl': $radius-xl,
+    '2xl': $radius-2xl,
+    '3xl': $radius-3xl,
+    'full': $radius-full
+  );
+
+  @if map-has-key($radii, $size) {
+    @return map-get($radii, $size);
+  }
+
+  @warn "Unknown radius size: #{$size}";
+  @return $radius-md;
+}
+
+// ============================================================================
+// TIMING FUNCTIONS
+// ============================================================================
+
+// Get transition duration
+@function duration($speed) {
+  $durations: (
+    'fast': $duration-fast,
+    'base': $duration-base,
+    'slow': $duration-slow,
+    'slower': $duration-slower
+  );
+
+  @if map-has-key($durations, $speed) {
+    @return map-get($durations, $speed);
+  }
+
+  @warn "Unknown duration: #{$speed}";
+  @return $duration-base;
+}
+
+// ============================================================================
+// OPACITY FUNCTIONS
+// ============================================================================
+
+// Get opacity by percentage
+@function opacity($percentage) {
+  @return $percentage / 100;
+}
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+// Check if value is a number
+@function is-number($value) {
+  @return type-of($value) == 'number';
+}
+
+// Check if value is a color
+@function is-color($value) {
+  @return type-of($value) == 'color';
+}
+
+// Check if value is a string
+@function is-string($value) {
+  @return type-of($value) == 'string';
+}
+
+// Check if value is a list
+@function is-list($value) {
+  @return type-of($value) == 'list';
+}
+
+// Check if value is a map
+@function is-map($value) {
+  @return type-of($value) == 'map';
+}
+
+// ============================================================================
+// ANGLE FUNCTIONS
+// ============================================================================
+
+// Convert degrees to radians
+@function deg-to-rad($degrees) {
+  @return $degrees * 3.14159265359 / 180;
+}
+
+// Convert radians to degrees
+@function rad-to-deg($radians) {
+  @return $radians * 180 / 3.14159265359;
+}
+
+// ============================================================================
+// GRADIENT FUNCTIONS
+// ============================================================================
+
+// Create linear gradient
+@function linear-gradient-custom($direction, $color-stops...) {
+  @return linear-gradient($direction, $color-stops);
+}
+
+// Create radial gradient
+@function radial-gradient-custom($shape, $color-stops...) {
+  @return radial-gradient($shape, $color-stops);
+}

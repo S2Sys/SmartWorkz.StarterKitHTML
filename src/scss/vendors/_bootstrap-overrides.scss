@@ -1,0 +1,189 @@
+// File: src/scss/vendors/_bootstrap-overrides.scss
+// Smart Workz Premium Admin Template - Bootstrap 5.3 Customization
+// Override and extend Bootstrap default styles with our design system
+
+// ============================================================================
+// IMPORT BOOTSTRAP WITH CUSTOM VARIABLES
+// ============================================================================
+
+// Override Bootstrap variables with our design system tokens
+$primary: $color-primary;
+$secondary: $color-secondary;
+$success: $color-success;
+$warning: $color-warning;
+$danger: $color-error;
+$info: $color-info;
+
+$body-bg: $color-bg-body;
+$body-color: $color-text-primary;
+
+$font-family-base: $font-family-body;
+$font-family-sans-serif: $font-family-body;
+$font-family-monospace: $font-family-code;
+
+$font-size-base: 1rem;
+$line-height-base: $line-height-relaxed;
+
+$border-radius: $radius-md;
+$border-radius-sm: $radius-sm;
+$border-radius-lg: $radius-lg;
+
+$box-shadow-sm: $shadow-sm;
+$box-shadow: $shadow-md;
+$box-shadow-lg: $shadow-lg;
+
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// ============================================================================
+// BOOTSTRAP COMPONENT CUSTOMIZATIONS
+// ============================================================================
+
+// Buttons - Enhanced with our design system
+.btn {
+  font-weight: $font-weight-medium;
+  transition: $transition-button;
+
+  &:focus-visible {
+    box-shadow: $shadow-focus;
+  }
+
+  &.btn-lg {
+    height: $button-height-lg;
+  }
+
+  &.btn-sm {
+    height: $button-height-sm;
+  }
+}
+
+// Cards - Enhanced styling
+.card {
+  border-color: $color-border;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $duration-base $ease-out;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  .card-header {
+    background-color: $color-bg-subtle;
+    border-bottom-color: $color-border;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+// Forms - Enhanced with our design system
+.form-control {
+  border-color: $color-border;
+  transition: border-color $duration-fast $ease-out,
+              box-shadow $duration-fast $ease-out;
+
+  &:focus {
+    border-color: $color-border-focus;
+    box-shadow: $shadow-focus;
+  }
+
+  &.is-invalid {
+    border-color: $color-error;
+
+    &:focus {
+      box-shadow: $shadow-focus-error;
+    }
+  }
+
+  &.is-valid {
+    border-color: $color-success;
+
+    &:focus {
+      box-shadow: $shadow-focus-success;
+    }
+  }
+}
+
+// Modals - Enhanced backdrop and animations
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, $overlay-opacity);
+}
+
+.modal-content {
+  border-radius: $radius-modal;
+  box-shadow: $shadow-2xl;
+}
+
+// Tables - Enhanced styling
+.table {
+  > thead {
+    background-color: $color-bg-subtle;
+    font-weight: $font-weight-semibold;
+  }
+
+  > tbody {
+    > tr {
+      transition: background-color $duration-fast $ease-out;
+
+      &:hover {
+        background-color: $color-bg-overlay;
+      }
+    }
+  }
+}
+
+// Navbar - Enhanced styling
+.navbar {
+  box-shadow: $shadow-sm;
+}
+
+// Alerts - Enhanced with our colors
+.alert {
+  border-radius: $radius-lg;
+}
+
+// Badges - Enhanced styling
+.badge {
+  font-weight: $font-weight-medium;
+}
+
+// Pagination - Enhanced styling
+.pagination {
+  .page-link {
+    transition: $transition-colors;
+
+    &:focus {
+      box-shadow: $shadow-focus;
+    }
+  }
+}
+
+// Dropdown - Enhanced styling
+.dropdown-menu {
+  border-color: $color-border;
+  box-shadow: $shadow-lg;
+  border-radius: $radius-lg;
+}
+
+// Tooltips & Popovers - Enhanced styling
+.tooltip {
+  .tooltip-inner {
+    background-color: $color-gray-900;
+    border-radius: $radius-md;
+  }
+}
+
+.popover {
+  border-color: $color-border;
+  box-shadow: $shadow-lg;
+  border-radius: $radius-lg;
+}
+
+// Progress bars - Enhanced styling
+.progress {
+  background-color: $color-gray-200;
+  border-radius: $radius-full;
+}
+
+// Breadcrumb - Enhanced styling
+.breadcrumb {
+  background-color: transparent;
+}
