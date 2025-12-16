@@ -20,9 +20,10 @@
         
         /* Navbar */
         .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .navbar__container { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .navbar__brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        .navbar__nav { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        .navbar__container { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 3rem; }
+        .navbar__brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--primary); flex-shrink: 0; }
+        .navbar__nav { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex: 1; }
+        .navbar__actions { margin-left: auto; flex-shrink: 0; }
         .navbar__link { color: #64748B; font-weight: 500; }
         .navbar__link:hover, .navbar__link.active { color: var(--primary); }
         .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
