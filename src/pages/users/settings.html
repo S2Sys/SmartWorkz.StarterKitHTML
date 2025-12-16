@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Account Settings - Smart Workz Admin">
+    <title>Settings | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <!-- CSS - CDN Fallback -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-styles.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .settings-nav { background: #fff; border-radius: 0.75rem; padding: 0.5rem; margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .settings-nav .nav-link { color: #64748B; padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-weight: 500; transition: all 0.2s; }
+        .settings-nav .nav-link:hover { background: #F1F5F9; color: #1E293B; }
+        .settings-nav .nav-link.active { background: var(--primary); color: #fff; }
+    </style>
+</head>
+<body class="app-body">
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
+                    <span class="sidebar__brand-text">Smart Workz</span>
+                </a>
+                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Main Menu</h3>
+                    <ul class="sidebar__nav-list">
+                        <li class="sidebar__nav-item">
+                            <a href="../dashboard/index.html" class="sidebar__nav-link">
+                                <i class="bi bi-grid-1x2 sidebar__nav-icon"></i>
+                                <span class="sidebar__nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Account</h3>
+                    <ul class="sidebar__nav-list">
+                        <li class="sidebar__nav-item">
+                            <a href="profile.html" class="sidebar__nav-link">
+                                <i class="bi bi-person sidebar__nav-icon"></i>
+                                <span class="sidebar__nav-text">Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar__nav-item">
+                            <a href="settings.html" class="sidebar__nav-link sidebar__nav-link--active">
+                                <i class="bi bi-gear sidebar__nav-icon"></i>
+                                <span class="sidebar__nav-text">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-content">
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarOpen" aria-label="Open sidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <nav class="header__breadcrumb" aria-label="Breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Settings</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="header-spacer"></div>
+
+            <main id="main-content" class="app-main">
+                <div class="page-header">
+                    <h1 class="page-header__title">Account Settings</h1>
+                    <p class="page-header__subtitle">Manage your account settings and preferences.</p>
+                </div>
+
+                <div class="row">
+                    <!-- Settings Navigation -->
+                    <div class="col-lg-3 mb-4">
+                        <div class="card">
+                            <div class="card-body p-2">
+                                <nav class="settings-nav">
+                                    <a href="#profile" class="settings-nav__link settings-nav__link--active">
+                                        <i class="bi bi-person"></i> Profile
+                                    </a>
+                                    <a href="#security" class="settings-nav__link">
+                                        <i class="bi bi-shield-lock"></i> Security
+                                    </a>
+                                    <a href="#notifications" class="settings-nav__link">
+                                        <i class="bi bi-bell"></i> Notifications
+                                    </a>
+                                    <a href="#appearance" class="settings-nav__link">
+                                        <i class="bi bi-palette"></i> Appearance
+                                    </a>
+                                    <a href="#billing" class="settings-nav__link">
+                                        <i class="bi bi-credit-card"></i> Billing
+                                    </a>
+                                    <a href="#danger" class="settings-nav__link settings-nav__link--danger">
+                                        <i class="bi bi-exclamation-triangle"></i> Danger Zone
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Content -->
+                    <div class="col-lg-9">
+                        <!-- Profile Settings -->
+                        <div class="card mb-4" id="profile">
+                            <div class="card-header">
+                                <h3 class="card-title">Profile Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="d-flex align-items-center gap-4 mb-4">
+                                        <img src="https://i.pravatar.cc/150?img=68" alt="Profile" class="avatar avatar-xl">
+                                        <div>
+                                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-upload"></i> Change Photo
+                                            </button>
+                                            <button type="button" class="btn btn-ghost-danger btn-sm">Remove</button>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">First Name</label>
+                                            <input type="text" class="form-control" value="John">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" value="Doe">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" class="form-control" value="john.doe@company.com">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Phone</label>
+                                            <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Bio</label>
+                                            <textarea class="form-control" rows="3">Full-stack developer with 8+ years of experience.</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Security Settings -->
+                        <div class="card mb-4" id="security">
+                            <div class="card-header">
+                                <h3 class="card-title">Security</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="settings-item">
+                                    <div class="settings-item__info">
+                                        <h4>Change Password</h4>
+                                        <p>Update your password regularly to keep your account secure.</p>
+                                    </div>
+                                    <button class="btn btn-outline-primary">Change</button>
+                                </div>
+                                <hr>
+                                <div class="settings-item">
+                                    <div class="settings-item__info">
+                                        <h4>Two-Factor Authentication</h4>
+                                        <p>Add an extra layer of security to your account.</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="twoFactor">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="settings-item">
+                                    <div class="settings-item__info">
+                                        <h4>Active Sessions</h4>
+                                        <p>Manage your active sessions across devices.</p>
+                                    </div>
+                                    <button class="btn btn-outline-secondary">View All</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification Settings -->
+                        <div class="card mb-4" id="notifications">
+                            <div class="card-header">
+                                <h3 class="card-title">Notifications</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="settings-item">
+                                    <div class="settings-item__info">
+                                        <h4>Email Notifications</h4>
+                                        <p>Receive email notifications for important updates.</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="settings-item">
+                                    <div class="settings-item__info">
+                                        <h4>Push Notifications</h4>
+                                        <p>Receive push notifications in your browser.</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="settings-item">
+                                    <div class="settings-item__info">
+                                        <h4>Marketing Emails</h4>
+                                        <p>Receive news and updates about our products.</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Appearance Settings -->
+                        <div class="card mb-4" id="appearance">
+                            <div class="card-header">
+                                <h3 class="card-title">Appearance</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <label class="form-label">Theme</label>
+                                    <div class="theme-selector">
+                                        <label class="theme-option">
+                                            <input type="radio" name="theme" value="light" checked>
+                                            <span class="theme-option__preview theme-option__preview--light">
+                                                <i class="bi bi-sun"></i>
+                                            </span>
+                                            <span>Light</span>
+                                        </label>
+                                        <label class="theme-option">
+                                            <input type="radio" name="theme" value="dark">
+                                            <span class="theme-option__preview theme-option__preview--dark">
+                                                <i class="bi bi-moon-stars"></i>
+                                            </span>
+                                            <span>Dark</span>
+                                        </label>
+                                        <label class="theme-option">
+                                            <input type="radio" name="theme" value="system">
+                                            <span class="theme-option__preview theme-option__preview--system">
+                                                <i class="bi bi-laptop"></i>
+                                            </span>
+                                            <span>System</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="form-label">Color Scheme</label>
+                                    <div class="color-selector">
+                                        <label class="color-option" title="Blue">
+                                            <input type="radio" name="color" value="blue" checked>
+                                            <span style="background-color: #4F46E5;"></span>
+                                        </label>
+                                        <label class="color-option" title="Purple">
+                                            <input type="radio" name="color" value="purple">
+                                            <span style="background-color: #7C3AED;"></span>
+                                        </label>
+                                        <label class="color-option" title="Green">
+                                            <input type="radio" name="color" value="green">
+                                            <span style="background-color: #059669;"></span>
+                                        </label>
+                                        <label class="color-option" title="Orange">
+                                            <input type="radio" name="color" value="orange">
+                                            <span style="background-color: #EA580C;"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Danger Zone -->
+                        <div class="card card-danger" id="danger">
+                            <div class="card-header">
+                                <h3 class="card-title">Danger Zone</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="settings-item">
+                                    <div class="settings-item__info">
+                                        <h4>Delete Account</h4>
+                                        <p>Permanently delete your account and all data. This action cannot be undone.</p>
+                                    </div>
+                                    <button class="btn btn-danger">Delete Account</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <p class="footer__copyright">&copy; 2025 <a href="#">Smart Workz</a>. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../../../dist/js/vendor.min.js"></script>
+    <script src="../../../dist/js/app.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+</body>
+</html>
+

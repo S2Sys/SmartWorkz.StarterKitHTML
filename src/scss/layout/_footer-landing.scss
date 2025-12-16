@@ -1,0 +1,148 @@
+// File: src/scss/layout/_footer-landing.scss
+// Smart Workz Premium Admin Template - Landing Page Footer Styles
+
+// ============================================================================
+// LANDING PAGE FOOTER
+// ============================================================================
+
+.footer-landing {
+  background-color: $color-gray-900;
+  color: $color-white;
+  padding: $spacing-16 0 0;
+}
+
+.footer-landing__container {
+  max-width: $container-xl;
+  margin: 0 auto;
+  padding: 0 $spacing-4;
+}
+
+.footer-landing__grid {
+  display: grid;
+  gap: $spacing-8;
+  margin-bottom: $spacing-12;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: $spacing-12;
+  }
+}
+
+.footer-landing__brand {
+  max-width: 300px;
+}
+
+.footer-landing__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  text-decoration: none;
+  margin-bottom: $spacing-4;
+
+  i {
+    color: $color-primary-light;
+    font-size: 1.5rem;
+  }
+}
+
+.footer-landing__description {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  line-height: $line-height-relaxed;
+  margin-bottom: $spacing-4;
+}
+
+.footer-landing__social {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.footer-landing__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: $radius-md;
+  background-color: rgba($color-white, 0.1);
+  color: $color-white;
+  font-size: 1.125rem;
+  transition: $transition-all;
+
+  &:hover {
+    background-color: $color-primary;
+  }
+}
+
+.footer-landing__column {
+  min-width: 0;
+}
+
+.footer-landing__title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  color: $color-white;
+  margin: 0 0 $spacing-4;
+}
+
+.footer-landing__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: $spacing-2;
+  }
+}
+
+.footer-landing__list-link {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  text-decoration: none;
+  transition: $transition-colors;
+
+  &:hover {
+    color: $color-white;
+  }
+}
+
+.footer-landing__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-4;
+  padding: $spacing-6 0;
+  border-top: 1px solid rgba($color-white, 0.1);
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.footer-landing__copyright {
+  font-size: $font-size-sm;
+  color: $color-gray-500;
+  margin: 0;
+}
+
+.footer-landing__bottom-links {
+  display: flex;
+  gap: $spacing-4;
+}
+
+.footer-landing__bottom-link {
+  font-size: $font-size-sm;
+  color: $color-gray-500;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-white;
+  }
+}
+

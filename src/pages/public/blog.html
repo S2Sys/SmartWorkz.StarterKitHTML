@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Workz Blog - Insights, tutorials, and industry news">
+    <title>Blog | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../dist/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-dark: #4338CA; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; color: #1E293B; margin: 0; background: #F8FAFC; overflow-x: hidden; }
+        a { color: var(--primary); text-decoration: none; }
+        
+        /* Navbar */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .navbar__container { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .navbar__brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .navbar__nav { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        .navbar__link { color: #64748B; font-weight: 500; }
+        .navbar__link:hover, .navbar__link.active { color: var(--primary); }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        
+        /* Hero */
+        .hero { padding: 10rem 1.5rem 5rem; background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); text-align: center; }
+        .hero__title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero__subtitle { font-size: 1.25rem; color: #64748B; max-width: 600px; margin: 0 auto 2rem; }
+        .search-box { max-width: 500px; margin: 0 auto; display: flex; gap: 0.5rem; }
+        .search-box input { flex: 1; padding: 0.875rem 1rem; border: none; border-radius: 0.5rem; font-size: 1rem; }
+        .search-box button { padding: 0.875rem 1.5rem; }
+        
+        /* Blog Section */
+        .blog-section { padding: 4rem 1.5rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Categories */
+        .categories { display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap; }
+        .category-btn { padding: 0.5rem 1.25rem; border-radius: 2rem; background: #fff; color: #64748B; font-weight: 500; border: 1px solid #E2E8F0; cursor: pointer; transition: all 0.2s; }
+        .category-btn:hover, .category-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        
+        /* Featured Post */
+        .featured-post { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; background: #fff; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 3rem; }
+        .featured-post__image { height: 400px; }
+        .featured-post__image img { width: 100%; height: 100%; object-fit: cover; }
+        .featured-post__content { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+        .featured-post__badge { display: inline-block; background: var(--primary); color: #fff; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; width: fit-content; }
+        .featured-post__title { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
+        .featured-post__excerpt { color: #64748B; line-height: 1.7; margin-bottom: 1.5rem; }
+        .featured-post__meta { display: flex; align-items: center; gap: 1rem; }
+        .featured-post__author { display: flex; align-items: center; gap: 0.75rem; }
+        .featured-post__author img { width: 40px; height: 40px; border-radius: 50%; }
+        .featured-post__author-name { font-weight: 600; }
+        .featured-post__date { color: #94A3B8; font-size: 0.875rem; }
+        
+        /* Blog Grid */
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .blog-card { background: #fff; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .blog-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+        .blog-card__image { height: 200px; overflow: hidden; }
+        .blog-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .blog-card:hover .blog-card__image img { transform: scale(1.05); }
+        .blog-card__content { padding: 1.5rem; }
+        .blog-card__category { display: inline-block; color: var(--primary); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+        .blog-card__title { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.4; }
+        .blog-card__title a { color: #1E293B; }
+        .blog-card__title a:hover { color: var(--primary); }
+        .blog-card__excerpt { color: #64748B; font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1rem; }
+        .blog-card__footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid #F1F5F9; }
+        .blog-card__author { display: flex; align-items: center; gap: 0.5rem; }
+        .blog-card__author img { width: 32px; height: 32px; border-radius: 50%; }
+        .blog-card__author-name { font-size: 0.875rem; font-weight: 500; }
+        .blog-card__date { color: #94A3B8; font-size: 0.8125rem; }
+        
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem; }
+        .pagination__btn { width: 40px; height: 40px; border-radius: 0.5rem; border: 1px solid #E2E8F0; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+        .pagination__btn:hover, .pagination__btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        
+        /* Newsletter */
+        .newsletter { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 4rem 1.5rem; text-align: center; margin-top: 4rem; }
+        .newsletter__title { font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .newsletter__text { opacity: 0.9; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .newsletter__form { display: flex; gap: 0.75rem; max-width: 450px; margin: 0 auto; }
+        .newsletter__form input { flex: 1; padding: 0.875rem 1rem; border: none; border-radius: 0.5rem; }
+        .newsletter__form button { background: #fff; color: var(--primary); font-weight: 600; }
+        
+        /* Footer */
+        .footer { background: #0F172A; color: rgba(255,255,255,0.7); padding: 4rem 1.5rem 2rem; }
+        .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto 3rem; }
+        .footer__brand { font-size: 1.5rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .footer__title { color: #fff; font-weight: 600; margin-bottom: 1.5rem; }
+        .footer__list { list-style: none; padding: 0; margin: 0; }
+        .footer__list li { margin-bottom: 0.75rem; }
+        .footer__list a { color: rgba(255,255,255,0.7); }
+        .footer__list a:hover { color: #fff; }
+        .footer__bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; max-width: 1200px; margin: 0 auto; text-align: center; }
+        
+        @media (max-width: 992px) {
+            .featured-post { grid-template-columns: 1fr; }
+            .featured-post__image { height: 300px; }
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .navbar__nav { display: none; }
+            .footer__grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 576px) {
+            .hero__title { font-size: 2rem; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .search-box { flex-direction: column; }
+            .newsletter__form { flex-direction: column; }
+            .footer__grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="../landing.html" class="navbar__brand">
+                <i class="bi bi-hexagon-fill"></i>
+                Smart Workz
+            </a>
+            <ul class="navbar__nav">
+                <li><a href="../landing.html" class="navbar__link">Home</a></li>
+                <li><a href="about.html" class="navbar__link">About</a></li>
+                <li><a href="services.html" class="navbar__link">Services</a></li>
+                <li><a href="blog.html" class="navbar__link active">Blog</a></li>
+                <li><a href="shop.html" class="navbar__link">Shop</a></li>
+                <li><a href="contact.html" class="navbar__link">Contact</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <a href="../auth/login.html" class="btn btn-outline">Sign In</a>
+                <a href="../auth/register.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 class="hero__title">Our Blog</h1>
+        <p class="hero__subtitle">Insights, tutorials, and industry news to help you build better digital products.</p>
+        <div class="search-box">
+            <input type="search" placeholder="Search articles...">
+            <button class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <!-- Categories -->
+            <div class="categories">
+                <button class="category-btn active">All</button>
+                <button class="category-btn">Technology</button>
+                <button class="category-btn">Design</button>
+                <button class="category-btn">Business</button>
+                <button class="category-btn">Tutorials</button>
+                <button class="category-btn">News</button>
+            </div>
+
+            <!-- Featured Post -->
+            <article class="featured-post">
+                <div class="featured-post__image">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=500&fit=crop" alt="Featured Post">
+                </div>
+                <div class="featured-post__content">
+                    <span class="featured-post__badge">Featured</span>
+                    <h2 class="featured-post__title">The Future of Web Development: Trends to Watch in 2025</h2>
+                    <p class="featured-post__excerpt">Explore the emerging technologies and methodologies that are shaping the future of web development. From AI-powered tools to new frameworks, here's what you need to know.</p>
+                    <div class="featured-post__meta">
+                        <div class="featured-post__author">
+                            <img src="https://i.pravatar.cc/40?img=68" alt="Author">
+                            <div>
+                                <div class="featured-post__author-name">John Doe</div>
+                                <div class="featured-post__date">Dec 5, 2025 · 8 min read</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop" alt="Blog Post">
+                    </div>
+                    <div class="blog-card__content">
+                        <span class="blog-card__category">Business</span>
+                        <h3 class="blog-card__title"><a href="blog-post.html">10 Strategies to Scale Your SaaS Business</a></h3>
+                        <p class="blog-card__excerpt">Learn proven strategies to grow your SaaS company from startup to enterprise.</p>
+                        <div class="blog-card__footer">
+                            <div class="blog-card__author">
+                                <img src="https://i.pravatar.cc/32?img=32" alt="Author">
+                                <span class="blog-card__author-name">Sarah J.</span>
+                            </div>
+                            <span class="blog-card__date">Dec 3, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=250&fit=crop" alt="Blog Post">
+                    </div>
+                    <div class="blog-card__content">
+                        <span class="blog-card__category">Design</span>
+                        <h3 class="blog-card__title"><a href="blog-post.html">Mastering UI Design: Color Theory Basics</a></h3>
+                        <p class="blog-card__excerpt">Understanding color theory is essential for creating beautiful user interfaces.</p>
+                        <div class="blog-card__footer">
+                            <div class="blog-card__author">
+                                <img src="https://i.pravatar.cc/32?img=12" alt="Author">
+                                <span class="blog-card__author-name">Mike C.</span>
+                            </div>
+                            <span class="blog-card__date">Dec 1, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=250&fit=crop" alt="Blog Post">
+                    </div>
+                    <div class="blog-card__content">
+                        <span class="blog-card__category">Technology</span>
+                        <h3 class="blog-card__title"><a href="blog-post.html">Getting Started with TypeScript in 2025</a></h3>
+                        <p class="blog-card__excerpt">A comprehensive guide to TypeScript for JavaScript developers.</p>
+                        <div class="blog-card__footer">
+                            <div class="blog-card__author">
+                                <img src="https://i.pravatar.cc/32?img=47" alt="Author">
+                                <span class="blog-card__author-name">Emily D.</span>
+                            </div>
+                            <span class="blog-card__date">Nov 28, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop" alt="Blog Post">
+                    </div>
+                    <div class="blog-card__content">
+                        <span class="blog-card__category">Tutorials</span>
+                        <h3 class="blog-card__title"><a href="blog-post.html">Building a REST API with Node.js</a></h3>
+                        <p class="blog-card__excerpt">Step-by-step tutorial to create a production-ready REST API.</p>
+                        <div class="blog-card__footer">
+                            <div class="blog-card__author">
+                                <img src="https://i.pravatar.cc/32?img=68" alt="Author">
+                                <span class="blog-card__author-name">John D.</span>
+                            </div>
+                            <span class="blog-card__date">Nov 25, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=250&fit=crop" alt="Blog Post">
+                    </div>
+                    <div class="blog-card__content">
+                        <span class="blog-card__category">News</span>
+                        <h3 class="blog-card__title"><a href="blog-post.html">Smart Workz Raises $10M Series A</a></h3>
+                        <p class="blog-card__excerpt">We're excited to announce our Series A funding round.</p>
+                        <div class="blog-card__footer">
+                            <div class="blog-card__author">
+                                <img src="https://i.pravatar.cc/32?img=32" alt="Author">
+                                <span class="blog-card__author-name">Sarah J.</span>
+                            </div>
+                            <span class="blog-card__date">Nov 20, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=250&fit=crop" alt="Blog Post">
+                    </div>
+                    <div class="blog-card__content">
+                        <span class="blog-card__category">Technology</span>
+                        <h3 class="blog-card__title"><a href="blog-post.html">Understanding Docker Containers</a></h3>
+                        <p class="blog-card__excerpt">Everything you need to know about containerization.</p>
+                        <div class="blog-card__footer">
+                            <div class="blog-card__author">
+                                <img src="https://i.pravatar.cc/32?img=12" alt="Author">
+                                <span class="blog-card__author-name">Mike C.</span>
+                            </div>
+                            <span class="blog-card__date">Nov 15, 2025</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination__btn"><i class="bi bi-chevron-left"></i></button>
+                <button class="pagination__btn active">1</button>
+                <button class="pagination__btn">2</button>
+                <button class="pagination__btn">3</button>
+                <button class="pagination__btn">4</button>
+                <button class="pagination__btn"><i class="bi bi-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2 class="newsletter__title">Subscribe to Our Newsletter</h2>
+        <p class="newsletter__text">Get the latest articles, tutorials, and news delivered to your inbox weekly.</p>
+        <form class="newsletter__form">
+            <input type="email" placeholder="Enter your email">
+            <button type="submit" class="btn">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div>
+                <div class="footer__brand">
+                    <i class="bi bi-hexagon-fill"></i>
+                    Smart Workz
+                </div>
+                <p style="line-height: 1.6;">Building the future of digital solutions. Premium templates and tools for modern businesses.</p>
+            </div>
+            <div>
+                <h4 class="footer__title">Company</h4>
+                <ul class="footer__list">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer__title">Categories</h4>
+                <ul class="footer__list">
+                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Design</a></li>
+                    <li><a href="#">Business</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer__title">Legal</h4>
+                <ul class="footer__list">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2025 Smart Workz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
+

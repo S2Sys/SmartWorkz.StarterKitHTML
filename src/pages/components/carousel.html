@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel & Slideshow | Components Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-light: #EEF2FF; --success: #22C55E; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        .docs-sidebar { width: 260px; background: #fff; border-right: 1px solid #E2E8F0; position: fixed; top: 0; left: 0; bottom: 0; padding: 1.5rem; overflow-y: auto; }
+        .docs-sidebar__brand { font-weight: 700; font-size: 1.125rem; color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .docs-sidebar__nav { list-style: none; padding: 0; margin: 0; }
+        .docs-sidebar__link { display: block; padding: 0.5rem 0.75rem; color: #64748B; text-decoration: none; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.25rem; }
+        .docs-sidebar__link:hover { background: #F1F5F9; color: #1E293B; }
+        .docs-sidebar__link.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .docs-main { margin-left: 260px; padding: 2rem; }
+        .docs-header { margin-bottom: 2rem; }
+        .docs-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .docs-header p { color: #64748B; margin: 0; }
+        .component-section { margin-bottom: 3rem; }
+        .component-section__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .component-preview { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.75rem; overflow: hidden; }
+        .component-preview__demo { padding: 1.5rem; }
+        .component-preview__code { background: #1E293B; color: #E2E8F0; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; overflow-x: auto; display: none; max-height: 500px; white-space: pre-wrap; }
+        .component-preview__code.show { display: block; }
+        .component-preview__actions { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid #E2E8F0; background: #F8FAFC; }
+        .btn-action { padding: 0.375rem 0.75rem; border: 1px solid #E2E8F0; background: #fff; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; }
+        .btn-action:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-action.copied { background: var(--success); color: #fff; border-color: var(--success); }
+        @media (max-width: 768px) { .docs-sidebar { display: none; } .docs-main { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <aside class="docs-sidebar">
+        <a href="index.html" class="docs-sidebar__brand"><i class="bi bi-book"></i> Components</a>
+        <nav>
+            <ul class="docs-sidebar__nav">
+                <li><a href="wizards.html" class="docs-sidebar__link">Wizards</a></li>
+                <li><a href="carousel.html" class="docs-sidebar__link active">Carousel</a></li>
+                <li><a href="video.html" class="docs-sidebar__link">Video</a></li>
+                <li><a href="gallery.html" class="docs-sidebar__link">Gallery</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="docs-main">
+        <div class="docs-header">
+            <h1>Carousel & Slideshow</h1>
+            <p>Image slideshows and content carousels</p>
+        </div>
+
+        <!-- Basic Carousel -->
+        <section class="component-section">
+            <h2 class="component-section__title">1. Basic Image Carousel</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=Slide+1" class="d-block w-100" alt="Slide 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://via.placeholder.com/800x400/7C3AED/FFFFFF?text=Slide+2" class="d-block w-100" alt="Slide 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://via.placeholder.com/800x400/22C55E/FFFFFF?text=Slide+3" class="d-block w-100" alt="Slide 3">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code1">&lt;div id="carousel1" class="carousel slide" data-bs-ride="carousel"&gt;
+    &lt;div class="carousel-inner"&gt;
+        &lt;div class="carousel-item active"&gt;
+            &lt;img src="slide1.jpg" class="d-block w-100" alt="Slide 1"&gt;
+        &lt;/div&gt;
+        &lt;div class="carousel-item"&gt;
+            &lt;img src="slide2.jpg" class="d-block w-100" alt="Slide 2"&gt;
+        &lt;/div&gt;
+        &lt;div class="carousel-item"&gt;
+            &lt;img src="slide3.jpg" class="d-block w-100" alt="Slide 3"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev"&gt;
+        &lt;span class="carousel-control-prev-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next"&gt;
+        &lt;span class="carousel-control-next-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code1')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code1', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carousel with Indicators -->
+        <section class="component-section">
+            <h2 class="component-section__title">2. Carousel with Indicators</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div id="carousel2" class="carousel slide">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carousel2" data-bs-slide-to="0" class="active"></button>
+                            <button type="button" data-bs-target="#carousel2" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#carousel2" data-bs-slide-to="2"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://via.placeholder.com/800x400/1E293B/FFFFFF?text=Image+One" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://via.placeholder.com/800x400/0F172A/FFFFFF?text=Image+Two" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://via.placeholder.com/800x400/334155/FFFFFF?text=Image+Three" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code2">&lt;div id="carousel2" class="carousel slide"&gt;
+    &lt;div class="carousel-indicators"&gt;
+        &lt;button type="button" data-bs-target="#carousel2" data-bs-slide-to="0" class="active"&gt;&lt;/button&gt;
+        &lt;button type="button" data-bs-target="#carousel2" data-bs-slide-to="1"&gt;&lt;/button&gt;
+        &lt;button type="button" data-bs-target="#carousel2" data-bs-slide-to="2"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="carousel-inner"&gt;
+        &lt;div class="carousel-item active"&gt;
+            &lt;img src="image1.jpg" class="d-block w-100" alt="..."&gt;
+        &lt;/div&gt;
+        &lt;!-- More items --&gt;
+    &lt;/div&gt;
+    &lt;button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev"&gt;
+        &lt;span class="carousel-control-prev-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next"&gt;
+        &lt;span class="carousel-control-next-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code2')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code2', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carousel with Captions -->
+        <section class="component-section">
+            <h2 class="component-section__title">3. Carousel with Captions</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div id="carousel3" class="carousel slide">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=Feature+1" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>First Slide Title</h5>
+                                    <p>Some description text for the first slide.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://via.placeholder.com/800x400/7C3AED/FFFFFF?text=Feature+2" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Second Slide Title</h5>
+                                    <p>Some description text for the second slide.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel3" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel3" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code3">&lt;div id="carousel3" class="carousel slide"&gt;
+    &lt;div class="carousel-inner"&gt;
+        &lt;div class="carousel-item active"&gt;
+            &lt;img src="image.jpg" class="d-block w-100" alt="..."&gt;
+            &lt;div class="carousel-caption d-none d-md-block"&gt;
+                &lt;h5&gt;First Slide Title&lt;/h5&gt;
+                &lt;p&gt;Some description text for the first slide.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class="carousel-control-prev" type="button" data-bs-target="#carousel3" data-bs-slide="prev"&gt;
+        &lt;span class="carousel-control-prev-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="carousel-control-next" type="button" data-bs-target="#carousel3" data-bs-slide="next"&gt;
+        &lt;span class="carousel-control-next-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code3')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code3', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crossfade -->
+        <section class="component-section">
+            <h2 class="component-section__title">4. Crossfade Animation</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div id="carousel4" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://via.placeholder.com/800x300/EF4444/FFFFFF?text=Fade+1" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://via.placeholder.com/800x300/F59E0B/FFFFFF?text=Fade+2" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://via.placeholder.com/800x300/22C55E/FFFFFF?text=Fade+3" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code4">&lt;!-- Add carousel-fade class for crossfade effect --&gt;
+&lt;div id="carousel4" class="carousel slide carousel-fade" data-bs-ride="carousel"&gt;
+    &lt;div class="carousel-inner"&gt;
+        &lt;div class="carousel-item active"&gt;
+            &lt;img src="image1.jpg" class="d-block w-100" alt="..."&gt;
+        &lt;/div&gt;
+        &lt;div class="carousel-item"&gt;
+            &lt;img src="image2.jpg" class="d-block w-100" alt="..."&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code4')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code4', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleCode(id) { document.getElementById(id).classList.toggle('show'); }
+        function copyCode(id, btn) {
+            navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

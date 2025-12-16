@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video | Components Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-light: #EEF2FF; --success: #22C55E; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        .docs-sidebar { width: 260px; background: #fff; border-right: 1px solid #E2E8F0; position: fixed; top: 0; left: 0; bottom: 0; padding: 1.5rem; overflow-y: auto; }
+        .docs-sidebar__brand { font-weight: 700; font-size: 1.125rem; color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .docs-sidebar__nav { list-style: none; padding: 0; margin: 0; }
+        .docs-sidebar__link { display: block; padding: 0.5rem 0.75rem; color: #64748B; text-decoration: none; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.25rem; }
+        .docs-sidebar__link:hover { background: #F1F5F9; color: #1E293B; }
+        .docs-sidebar__link.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .docs-main { margin-left: 260px; padding: 2rem; }
+        .docs-header { margin-bottom: 2rem; }
+        .docs-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .docs-header p { color: #64748B; margin: 0; }
+        .component-section { margin-bottom: 3rem; }
+        .component-section__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .component-preview { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.75rem; overflow: hidden; }
+        .component-preview__demo { padding: 1.5rem; }
+        .component-preview__code { background: #1E293B; color: #E2E8F0; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; overflow-x: auto; display: none; max-height: 400px; white-space: pre-wrap; }
+        .component-preview__code.show { display: block; }
+        .component-preview__actions { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid #E2E8F0; background: #F8FAFC; }
+        .btn-action { padding: 0.375rem 0.75rem; border: 1px solid #E2E8F0; background: #fff; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; }
+        .btn-action:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-action.copied { background: var(--success); color: #fff; border-color: var(--success); }
+        .video-placeholder { background: linear-gradient(135deg, #1E293B, #0F172A); border-radius: 0.75rem; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; }
+        .video-placeholder__play { width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        .video-placeholder__play i { font-size: 2rem; color: #fff; margin-left: 5px; }
+        @media (max-width: 768px) { .docs-sidebar { display: none; } .docs-main { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <aside class="docs-sidebar">
+        <a href="index.html" class="docs-sidebar__brand"><i class="bi bi-book"></i> Components</a>
+        <nav>
+            <ul class="docs-sidebar__nav">
+                <li><a href="carousel.html" class="docs-sidebar__link">Carousel</a></li>
+                <li><a href="video.html" class="docs-sidebar__link active">Video</a></li>
+                <li><a href="gallery.html" class="docs-sidebar__link">Gallery</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="docs-main">
+        <div class="docs-header">
+            <h1>Video</h1>
+            <p>Video players and embedded media</p>
+        </div>
+
+        <!-- Responsive Video Embed -->
+        <section class="component-section">
+            <h2 class="component-section__title">1. Responsive Video Embed</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code1">&lt;!-- 16:9 Aspect Ratio --&gt;
+&lt;div class="ratio ratio-16x9"&gt;
+    &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID" title="YouTube video" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;!-- 4:3 Aspect Ratio --&gt;
+&lt;div class="ratio ratio-4x3"&gt;
+    &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID" title="YouTube video" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;!-- 1:1 Aspect Ratio --&gt;
+&lt;div class="ratio ratio-1x1"&gt;
+    &lt;iframe src="..." allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code1')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code1', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video with Thumbnail -->
+        <section class="component-section">
+            <h2 class="component-section__title">2. Video with Play Button Overlay</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="video-placeholder">
+                        <div class="video-placeholder__play">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code2">&lt;div style="background:linear-gradient(135deg,#1E293B,#0F172A);border-radius:0.75rem;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;"&gt;
+    &lt;!-- Video thumbnail as background-image --&gt;
+    &lt;div style="width:80px;height:80px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);"&gt;
+        &lt;i class="bi bi-play-fill" style="font-size:2rem;color:#fff;margin-left:5px;"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Click to load actual video
+document.querySelector('.video-placeholder').addEventListener('click', function() {
+    this.innerHTML = '&lt;iframe src="VIDEO_URL?autoplay=1" class="w-100 h-100" allowfullscreen&gt;&lt;/iframe&gt;';
+});
+&lt;/script&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code2')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code2', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HTML5 Video -->
+        <section class="component-section">
+            <h2 class="component-section__title">3. HTML5 Video Player</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <video class="w-100" style="border-radius:0.75rem;" controls poster="https://via.placeholder.com/800x450/4F46E5/FFFFFF?text=Video+Poster">
+                        <source src="video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <pre class="component-preview__code" id="code3">&lt;video class="w-100" style="border-radius:0.75rem;" controls poster="poster-image.jpg"&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+    &lt;source src="video.webm" type="video/webm"&gt;
+    Your browser does not support the video tag.
+&lt;/video&gt;
+
+&lt;!-- With autoplay (muted required) --&gt;
+&lt;video class="w-100" autoplay muted loop&gt;
+    &lt;source src="background-video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code3')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code3', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Card -->
+        <section class="component-section">
+            <h2 class="component-section__title">4. Video Card</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="position-relative">
+                                    <img src="https://via.placeholder.com/400x225/1E293B/FFFFFF?text=Video+Thumbnail" class="card-img-top" alt="Video">
+                                    <div class="position-absolute top-50 start-50 translate-middle">
+                                        <div style="width:50px;height:50px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                            <i class="bi bi-play-fill" style="font-size:1.5rem;color:#4F46E5;margin-left:3px;"></i>
+                                        </div>
+                                    </div>
+                                    <span class="position-absolute bottom-0 end-0 m-2 badge bg-dark">12:34</span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Introduction to Web Development</h5>
+                                    <p class="card-text text-muted small">Learn the basics of HTML, CSS, and JavaScript.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">10.5K views</small>
+                                        <small class="text-muted">2 days ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code4">&lt;div class="card"&gt;
+    &lt;div class="position-relative"&gt;
+        &lt;img src="thumbnail.jpg" class="card-img-top" alt="Video"&gt;
+        &lt;div class="position-absolute top-50 start-50 translate-middle"&gt;
+            &lt;div style="width:50px;height:50px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;"&gt;
+                &lt;i class="bi bi-play-fill" style="font-size:1.5rem;color:#4F46E5;margin-left:3px;"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;span class="position-absolute bottom-0 end-0 m-2 badge bg-dark"&gt;12:34&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="card-body"&gt;
+        &lt;h5 class="card-title"&gt;Video Title&lt;/h5&gt;
+        &lt;p class="card-text text-muted small"&gt;Description&lt;/p&gt;
+        &lt;div class="d-flex justify-content-between"&gt;
+            &lt;small class="text-muted"&gt;10.5K views&lt;/small&gt;
+            &lt;small class="text-muted"&gt;2 days ago&lt;/small&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code4')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code4', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleCode(id) { document.getElementById(id).classList.toggle('show'); }
+        function copyCode(id, btn) {
+            navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+
+

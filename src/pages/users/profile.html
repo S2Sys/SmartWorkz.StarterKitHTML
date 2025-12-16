@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User Profile - Smart Workz Admin">
+    <title>Profile | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <!-- CSS - CDN Fallback -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-styles.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .profile-header { background: linear-gradient(135deg, var(--primary), #4338CA); color: #fff; padding: 3rem; border-radius: 0.75rem; margin-bottom: 1.5rem; text-align: center; }
+        .profile-avatar { width: 120px; height: 120px; border-radius: 50%; border: 4px solid #fff; margin-bottom: 1rem; object-fit: cover; }
+        .profile-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .profile-role { opacity: 0.9; }
+    </style>
+</head>
+<body class="app-body">
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
+                    <span class="sidebar__brand-text">Smart Workz</span>
+                </a>
+                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Main Menu</h3>
+                    <ul class="sidebar__nav-list">
+                        <li class="sidebar__nav-item">
+                            <a href="../dashboard/index.html" class="sidebar__nav-link">
+                                <i class="bi bi-grid-1x2 sidebar__nav-icon"></i>
+                                <span class="sidebar__nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Management</h3>
+                    <ul class="sidebar__nav-list">
+                        <li class="sidebar__nav-item sidebar__nav-item--has-submenu sidebar__nav-item--open">
+                            <a href="#" class="sidebar__nav-link sidebar__nav-link--active">
+                                <i class="bi bi-people sidebar__nav-icon"></i>
+                                <span class="sidebar__nav-text">Users</span>
+                                <i class="bi bi-chevron-right sidebar__nav-arrow"></i>
+                            </a>
+                            <ul class="sidebar__submenu">
+                                <li><a href="user-list.html" class="sidebar__submenu-link">All Users</a></li>
+                                <li><a href="profile.html" class="sidebar__submenu-link sidebar__submenu-link--active">Profile</a></li>
+                                <li><a href="settings.html" class="sidebar__submenu-link">Settings</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-content">
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarOpen" aria-label="Open sidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <nav class="header__breadcrumb" aria-label="Breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <a href="user-list.html">Users</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Profile</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="header-spacer"></div>
+
+            <main id="main-content" class="app-main">
+                <!-- Profile Header -->
+                <div class="profile-header mb-4">
+                    <div class="profile-header__cover"></div>
+                    <div class="profile-header__content">
+                        <div class="profile-header__avatar">
+                            <img src="https://i.pravatar.cc/150?img=68" alt="John Doe">
+                            <span class="profile-header__status"></span>
+                        </div>
+                        <div class="profile-header__info">
+                            <h1 class="profile-header__name">John Doe</h1>
+                            <p class="profile-header__role">Administrator • Engineering</p>
+                            <p class="profile-header__location">
+                                <i class="bi bi-geo-alt"></i> San Francisco, CA
+                            </p>
+                        </div>
+                        <div class="profile-header__actions">
+                            <button class="btn btn-outline-primary">
+                                <i class="bi bi-envelope"></i> Message
+                            </button>
+                            <a href="settings.html" class="btn btn-primary">
+                                <i class="bi bi-pencil"></i> Edit Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-lg-4 mb-4">
+                        <!-- About -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="card-title">About</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted">Full-stack developer with 8+ years of experience building web applications. Passionate about clean code and user experience.</p>
+                                <ul class="profile-info-list">
+                                    <li>
+                                        <i class="bi bi-briefcase"></i>
+                                        <span>Engineering at <strong>Smart Workz</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-mortarboard"></i>
+                                        <span>CS Degree, Stanford University</span>
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-envelope"></i>
+                                        <span>john.doe@company.com</span>
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-telephone"></i>
+                                        <span>+1 (555) 123-4567</span>
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-calendar3"></i>
+                                        <span>Joined January 2020</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Skills -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="card-title">Skills</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge badge-outline-primary">JavaScript</span>
+                                    <span class="badge badge-outline-primary">TypeScript</span>
+                                    <span class="badge badge-outline-primary">React</span>
+                                    <span class="badge badge-outline-primary">Node.js</span>
+                                    <span class="badge badge-outline-primary">Python</span>
+                                    <span class="badge badge-outline-primary">PostgreSQL</span>
+                                    <span class="badge badge-outline-primary">AWS</span>
+                                    <span class="badge badge-outline-primary">Docker</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Social</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="profile-social-list">
+                                    <li>
+                                        <a href="#" class="profile-social-link">
+                                            <i class="bi bi-linkedin"></i>
+                                            <span>LinkedIn</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="profile-social-link">
+                                            <i class="bi bi-github"></i>
+                                            <span>GitHub</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="profile-social-link">
+                                            <i class="bi bi-twitter-x"></i>
+                                            <span>Twitter</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-lg-8 mb-4">
+                        <!-- Stats -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="h2 mb-1 text-primary">156</div>
+                                        <div class="text-muted">Projects</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="h2 mb-1 text-success">1,234</div>
+                                        <div class="text-muted">Tasks Completed</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <div class="h2 mb-1 text-info">98%</div>
+                                        <div class="text-muted">Success Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabs -->
+                        <div class="card">
+                            <div class="tabs card-tabs">
+                                <ul class="tabs__nav" role="tablist">
+                                    <li class="tabs__item active" role="tab" aria-selected="true">Activity</li>
+                                    <li class="tabs__item" role="tab">Projects</li>
+                                    <li class="tabs__item" role="tab">Teams</li>
+                                </ul>
+                                <div class="tabs__content">
+                                    <div class="tabs__panel active" role="tabpanel">
+                                        <div class="activity-feed">
+                                            <div class="activity-item">
+                                                <div class="activity-icon activity-icon--success">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <p class="activity-text">Completed task <a href="#">"Update dashboard UI"</a></p>
+                                                    <span class="activity-time">2 hours ago</span>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon activity-icon--primary">
+                                                    <i class="bi bi-chat-dots"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <p class="activity-text">Commented on <a href="#">"API Integration"</a></p>
+                                                    <span class="activity-time">5 hours ago</span>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon activity-icon--info">
+                                                    <i class="bi bi-folder-plus"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <p class="activity-text">Created project <strong>"Mobile App v2"</strong></p>
+                                                    <span class="activity-time">1 day ago</span>
+                                                </div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon activity-icon--warning">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <p class="activity-text">Invited <strong>3 new members</strong> to the team</p>
+                                                    <span class="activity-time">2 days ago</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <p class="footer__copyright">&copy; 2025 <a href="#">Smart Workz</a>. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../../../dist/js/vendor.min.js"></script>
+    <script src="../../../dist/js/app.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+</body>
+</html>
+

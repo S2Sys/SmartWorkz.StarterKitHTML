@@ -1,0 +1,372 @@
+// File: src/scss/components/_breadcrumbs.scss
+// Smart Workz Premium Admin Template - Breadcrumb Navigation
+// Navigation breadcrumbs with various separator styles
+
+// ============================================================================
+// BREADCRUMB BASE
+// ============================================================================
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-1;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: $font-size-sm;
+}
+
+// ============================================================================
+// BREADCRUMB ITEM
+// ============================================================================
+
+.breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  color: $color-text-muted;
+
+  // Separator
+  &:not(:last-child)::after {
+    content: '/';
+    margin-left: $spacing-1;
+    color: $color-text-disabled;
+  }
+
+  // Current/active item
+  &:last-child {
+    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+
+    &:not(:last-child)::after {
+      color: $color-text-disabled-dark;
+    }
+  }
+}
+
+// ============================================================================
+// BREADCRUMB LINK
+// ============================================================================
+
+.breadcrumb__link {
+  color: inherit;
+  text-decoration: none;
+  transition: color $duration-fast $ease-out;
+
+  &:hover {
+    color: $color-primary;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
+// ============================================================================
+// BREADCRUMB ICON
+// ============================================================================
+
+.breadcrumb__icon {
+  font-size: 1rem;
+  color: $color-text-muted;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// Home icon link
+.breadcrumb__home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: $color-text-muted;
+  transition: color $duration-fast $ease-out;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  i {
+    font-size: 1rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+
+    &:hover {
+      color: $color-primary-light;
+    }
+  }
+}
+
+// ============================================================================
+// SEPARATOR VARIANTS
+// ============================================================================
+
+// Chevron separator
+.breadcrumb--chevron {
+  .breadcrumb__item:not(:last-child)::after {
+    content: '\F285'; // bi-chevron-right
+    font-family: 'bootstrap-icons';
+    font-size: 0.75rem;
+  }
+}
+
+// Arrow separator
+.breadcrumb--arrow {
+  .breadcrumb__item:not(:last-child)::after {
+    content: '\F138'; // bi-arrow-right-short
+    font-family: 'bootstrap-icons';
+    font-size: 1rem;
+  }
+}
+
+// Dot separator
+.breadcrumb--dot {
+  .breadcrumb__item:not(:last-child)::after {
+    content: '•';
+    font-size: 0.75rem;
+  }
+}
+
+// Pipe separator
+.breadcrumb--pipe {
+  .breadcrumb__item:not(:last-child)::after {
+    content: '|';
+  }
+}
+
+// No separator
+.breadcrumb--no-separator {
+  gap: $spacing-3;
+
+  .breadcrumb__item:not(:last-child)::after {
+    content: none;
+  }
+}
+
+// ============================================================================
+// STYLED VARIANTS
+// ============================================================================
+
+// With background
+.breadcrumb--bg {
+  padding: $spacing-2 $spacing-4;
+  background-color: $color-bg-subtle;
+  border-radius: $radius-md;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+  }
+}
+
+// Bordered
+.breadcrumb--bordered {
+  padding: $spacing-2 $spacing-4;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-md;
+
+  [data-theme="dark"] & {
+    border-color: $color-border-dark-mode;
+  }
+}
+
+// Card style
+.breadcrumb--card {
+  padding: $spacing-3 $spacing-4;
+  background-color: $color-white;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-surface-dark;
+    border-color: $color-border-dark-mode;
+  }
+}
+
+// ============================================================================
+// SIZES
+// ============================================================================
+
+.breadcrumb--sm {
+  font-size: $font-size-xs;
+  gap: $spacing-0-5;
+
+  .breadcrumb__item:not(:last-child)::after {
+    margin-left: $spacing-0-5;
+  }
+
+  .breadcrumb__icon {
+    font-size: 0.875rem;
+  }
+}
+
+.breadcrumb--lg {
+  font-size: $font-size-base;
+  gap: $spacing-2;
+
+  .breadcrumb__item:not(:last-child)::after {
+    margin-left: $spacing-2;
+  }
+}
+
+// ============================================================================
+// BREADCRUMB WITH DROPDOWN
+// ============================================================================
+
+.breadcrumb__dropdown {
+  position: relative;
+}
+
+.breadcrumb__dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-2;
+  background-color: $color-bg-subtle;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: inherit;
+  color: $color-text-muted;
+  cursor: pointer;
+  transition: $transition-button;
+
+  &:hover {
+    background-color: $color-bg-muted;
+    color: $color-text-primary;
+  }
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+
+    &:hover {
+      background-color: $color-bg-subtle-dark;
+      color: $color-text-primary-dark;
+    }
+  }
+}
+
+.breadcrumb__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  margin-top: $spacing-1;
+  padding: $spacing-1;
+  background-color: $color-white;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.5rem);
+  transition: opacity $duration-fast $ease-out,
+              transform $duration-fast $ease-out,
+              visibility $duration-fast;
+  z-index: $z-index-dropdown;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-surface-dark;
+    border-color: $color-border-dark-mode;
+  }
+}
+
+.breadcrumb__dropdown-item {
+  display: block;
+  width: 100%;
+  padding: $spacing-2 $spacing-3;
+  background: transparent;
+  border: none;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color $duration-fast $ease-out;
+
+  &:hover {
+    background-color: $color-bg-subtle;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+
+    &:hover {
+      background-color: $color-bg-overlay-dark;
+    }
+  }
+}
+
+// ============================================================================
+// BREADCRUMB WRAPPER (WITH TITLE)
+// ============================================================================
+
+.breadcrumb-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.breadcrumb-wrapper--row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-4;
+
+  @media (max-width: $breakpoint-md - 1) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.breadcrumb-wrapper__title {
+  margin: 0;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+// ============================================================================
+// STRUCTURED DATA SUPPORT
+// ============================================================================
+
+// For SEO-friendly breadcrumbs with schema.org markup
+.breadcrumb[itemscope] {
+  .breadcrumb__item[itemprop="itemListElement"] {
+    .breadcrumb__link[itemprop="item"] {
+      // Styles are inherited
+    }
+  }
+}
+

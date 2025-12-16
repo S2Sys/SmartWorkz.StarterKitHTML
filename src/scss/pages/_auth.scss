@@ -1,0 +1,690 @@
+// File: src/scss/pages/_auth.scss
+// Smart Workz Premium Admin Template - Authentication Page Styles
+// Styles for login, register, forgot password, 2FA pages
+
+// ============================================================================
+// AUTH PAGE BASE
+// ============================================================================
+
+.auth-page {
+  min-height: 100vh;
+  background-color: $color-bg-body;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-body-dark;
+  }
+}
+
+// ============================================================================
+// AUTH ILLUSTRATION (LEFT PANEL)
+// ============================================================================
+
+.auth-illustration {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  position: relative;
+  overflow: hidden;
+
+  // Decorative pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+}
+
+.auth-illustration__content {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  color: $color-white;
+}
+
+.auth-illustration__logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-8;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+
+  i {
+    font-size: 2rem;
+  }
+}
+
+.auth-illustration__title {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-4;
+  line-height: $line-height-tight;
+}
+
+.auth-illustration__text {
+  font-size: $font-size-lg;
+  opacity: 0.9;
+  line-height: $line-height-relaxed;
+  margin-bottom: $spacing-8;
+}
+
+.auth-illustration__features {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.auth-illustration__feature {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  font-size: $font-size-base;
+
+  i {
+    font-size: 1.25rem;
+    opacity: 0.8;
+  }
+}
+
+// Stats variant
+.auth-illustration__stats {
+  display: flex;
+  gap: $spacing-8;
+  margin-top: $spacing-8;
+}
+
+.auth-illustration__stat {
+  text-align: center;
+}
+
+.auth-illustration__stat-value {
+  display: block;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+}
+
+.auth-illustration__stat-label {
+  font-size: $font-size-sm;
+  opacity: 0.8;
+}
+
+// ============================================================================
+// AUTH FORM WRAPPER
+// ============================================================================
+
+.auth-form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-6;
+  width: 100%;
+}
+
+// ============================================================================
+// AUTH FORM
+// ============================================================================
+
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-form--centered {
+  text-align: center;
+
+  .auth-form__body {
+    text-align: left;
+  }
+}
+
+.auth-form__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-6;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+
+  i {
+    font-size: 2rem;
+    color: $color-primary;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.auth-form__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto $spacing-4;
+  background-color: $color-primary-50;
+  border-radius: $radius-full;
+  color: $color-primary;
+
+  i {
+    font-size: 2rem;
+  }
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-primary, 0.15);
+    color: $color-primary-light;
+  }
+}
+
+.auth-form__icon--success {
+  background-color: $color-success-50;
+  color: $color-success;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-success, 0.15);
+    color: $color-success-light;
+  }
+}
+
+.auth-form__icon--info {
+  background-color: $color-info-50;
+  color: $color-info;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-info, 0.15);
+    color: $color-info-light;
+  }
+}
+
+.auth-form__icon--primary {
+  background-color: $color-primary-50;
+  color: $color-primary;
+}
+
+.auth-form__header {
+  margin-bottom: $spacing-6;
+}
+
+.auth-form__title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin: 0 0 $spacing-2;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.auth-form__subtitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin: 0;
+
+  a {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+  }
+}
+
+.auth-form__body {
+  .form-group {
+    margin-bottom: $spacing-4;
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+}
+
+.auth-form__footer {
+  margin-top: $spacing-6;
+  text-align: center;
+}
+
+.auth-form__terms {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin: 0;
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.auth-form__back {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-decoration: none;
+  transition: color $duration-fast $ease-out;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      color: $color-primary-light;
+    }
+  }
+}
+
+// ============================================================================
+// SOCIAL LOGIN
+// ============================================================================
+
+.auth-social {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.auth-social__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  width: 100%;
+  height: 2.75rem;
+  font-weight: $font-weight-medium;
+}
+
+.auth-social__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+// ============================================================================
+// AUTH DIVIDER
+// ============================================================================
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: $spacing-6 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: $color-border-light;
+
+    [data-theme="dark"] & {
+      background-color: $color-border-dark-mode;
+    }
+  }
+
+  span {
+    padding: 0 $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+}
+
+// ============================================================================
+// PASSWORD STRENGTH
+// ============================================================================
+
+.password-strength {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.password-strength__bar {
+  flex: 1;
+  height: 4px;
+  background-color: $color-bg-muted;
+  border-radius: $radius-full;
+  overflow: hidden;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+  }
+}
+
+.password-strength__fill {
+  height: 100%;
+  background-color: $color-error;
+  border-radius: $radius-full;
+  transition: width $duration-base $ease-out, background-color $duration-base $ease-out;
+
+  &[data-strength="weak"] {
+    background-color: $color-error;
+  }
+
+  &[data-strength="fair"] {
+    background-color: $color-warning;
+  }
+
+  &[data-strength="good"] {
+    background-color: $color-info;
+  }
+
+  &[data-strength="strong"] {
+    background-color: $color-success;
+  }
+}
+
+.password-strength__text {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  white-space: nowrap;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// PASSWORD REQUIREMENTS
+// ============================================================================
+
+.password-requirements {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: $font-size-xs;
+}
+
+.password-requirements__item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-1 0;
+  color: $color-text-muted;
+
+  i {
+    font-size: 0.625rem;
+  }
+
+  &--valid {
+    color: $color-success;
+
+    i::before {
+      content: '\F26B'; // bi-check-circle-fill
+    }
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// OTP INPUT
+// ============================================================================
+
+.otp-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+}
+
+.otp-input__field {
+  width: 3rem;
+  height: 3.5rem;
+  text-align: center;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  background-color: $color-bg-subtle;
+  border: 2px solid $color-border;
+  border-radius: $radius-lg;
+  transition: border-color $duration-fast $ease-out;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    background-color: $color-white;
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+    background-color: $color-bg-overlay-dark;
+    border-color: $color-border-dark-mode;
+
+    &:focus {
+      background-color: $color-bg-surface-dark;
+    }
+  }
+}
+
+.otp-input__separator {
+  font-size: $font-size-xl;
+  color: $color-text-muted;
+  padding: 0 $spacing-1;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// AUTH ALTERNATIVES
+// ============================================================================
+
+.auth-form__alternatives {
+  margin-top: $spacing-6;
+  padding-top: $spacing-6;
+  border-top: 1px solid $color-border-light;
+  text-align: center;
+
+  [data-theme="dark"] & {
+    border-top-color: $color-border-dark-mode;
+  }
+}
+
+.auth-form__alternatives-text {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $spacing-3;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.auth-form__alternatives-links {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.auth-form__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-2;
+  font-size: $font-size-sm;
+  color: $color-primary;
+  text-decoration: none;
+  border-radius: $radius-md;
+  transition: background-color $duration-fast $ease-out;
+
+  &:hover {
+    background-color: $color-primary-50;
+  }
+
+  [data-theme="dark"] &:hover {
+    background-color: rgba($color-primary, 0.15);
+  }
+}
+
+// ============================================================================
+// AUTH INSTRUCTIONS
+// ============================================================================
+
+.auth-instructions {
+  padding: $spacing-4;
+  background-color: $color-bg-subtle;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-4;
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-relaxed;
+
+    [data-theme="dark"] & {
+      color: $color-text-secondary-dark;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+  }
+}
+
+// ============================================================================
+// AUTH RESEND
+// ============================================================================
+
+.auth-resend {
+  text-align: center;
+  margin-bottom: $spacing-4;
+}
+
+.auth-resend__text {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $spacing-2;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.auth-resend__countdown {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-top: $spacing-2;
+
+  span {
+    font-weight: $font-weight-semibold;
+    color: $color-primary;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// AUTH TIPS
+// ============================================================================
+
+.auth-tips {
+  padding: $spacing-4;
+  background-color: $color-info-50;
+  border-radius: $radius-lg;
+  text-align: left;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-info, 0.1);
+  }
+}
+
+.auth-tips__title {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-info-dark;
+  margin: 0 0 $spacing-2;
+
+  i {
+    font-size: 1rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-info-light;
+  }
+}
+
+.auth-tips__list {
+  margin: 0;
+  padding-left: $spacing-5;
+  font-size: $font-size-sm;
+  color: $color-info-dark;
+
+  li {
+    margin-bottom: $spacing-1;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  [data-theme="dark"] & {
+    color: $color-info-light;
+  }
+}
+
+// ============================================================================
+// FORM HELPERS
+// ============================================================================
+
+.form-link {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.btn-toggle-password {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+

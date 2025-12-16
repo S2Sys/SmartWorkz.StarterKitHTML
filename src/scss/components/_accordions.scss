@@ -1,0 +1,426 @@
+// File: src/scss/components/_accordions.scss
+// Smart Workz Premium Admin Template - Accordion Components
+// Collapsible content panels with single/multiple open modes
+
+// ============================================================================
+// ACCORDION CONTAINER
+// ============================================================================
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+// Flush variant (no outer border/radius)
+.accordion--flush {
+  gap: 0;
+
+  .accordion__item {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+}
+
+// ============================================================================
+// ACCORDION ITEM
+// ============================================================================
+
+.accordion__item {
+  background-color: $color-white;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-surface-dark;
+    border-color: $color-border-dark-mode;
+  }
+}
+
+// Open state
+.accordion__item--open {
+  .accordion__icon {
+    transform: rotate(180deg);
+  }
+}
+
+// ============================================================================
+// ACCORDION HEADER (TRIGGER)
+// ============================================================================
+
+.accordion__header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: $spacing-4;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color $duration-fast $ease-out;
+
+  &:hover {
+    background-color: $color-bg-subtle;
+
+    [data-theme="dark"] & {
+      background-color: $color-bg-overlay-dark;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: inset $shadow-focus;
+  }
+}
+
+// Header content wrapper
+.accordion__header-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  min-width: 0;
+}
+
+// Header icon (left)
+.accordion__header-icon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-primary-50;
+  border-radius: $radius-md;
+  color: $color-primary;
+
+  i {
+    font-size: 1.25rem;
+  }
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-primary, 0.15);
+    color: $color-primary-light;
+  }
+}
+
+// Header text
+.accordion__title {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin: 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.accordion__subtitle {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin: $spacing-0-5 0 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// Toggle icon (right)
+.accordion__icon {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: $color-text-muted;
+  font-size: 1rem;
+  transition: transform $duration-base $ease-out;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// ACCORDION BODY (CONTENT)
+// ============================================================================
+
+.accordion__collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows $duration-base $ease-out;
+
+  .accordion__item--open & {
+    grid-template-rows: 1fr;
+  }
+}
+
+.accordion__body-wrapper {
+  overflow: hidden;
+}
+
+.accordion__body {
+  padding: 0 $spacing-4 $spacing-4;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+  }
+
+  // First element margin reset
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+// With top border
+.accordion__body--bordered {
+  border-top: 1px solid $color-border-light;
+  padding-top: $spacing-4;
+  margin-top: 0;
+
+  [data-theme="dark"] & {
+    border-top-color: $color-border-dark-mode;
+  }
+}
+
+// ============================================================================
+// BORDERED VARIANT
+// ============================================================================
+
+.accordion--bordered {
+  .accordion__item {
+    border: 1px solid $color-border;
+
+    [data-theme="dark"] & {
+      border-color: $color-border-dark-mode;
+    }
+  }
+
+  .accordion__body {
+    border-top: 1px solid $color-border-light;
+    padding-top: $spacing-4;
+
+    [data-theme="dark"] & {
+      border-top-color: $color-border-dark-mode;
+    }
+  }
+}
+
+// ============================================================================
+// SEPARATED VARIANT
+// ============================================================================
+
+.accordion--separated {
+  gap: $spacing-3;
+
+  .accordion__item {
+    box-shadow: $shadow-sm;
+  }
+}
+
+// ============================================================================
+// MINIMAL VARIANT
+// ============================================================================
+
+.accordion--minimal {
+  gap: 0;
+
+  .accordion__item {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid $color-border-light;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    [data-theme="dark"] & {
+      border-bottom-color: $color-border-dark-mode;
+    }
+  }
+
+  .accordion__header {
+    padding: $spacing-4 0;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  .accordion__body {
+    padding: 0 0 $spacing-4;
+  }
+}
+
+// ============================================================================
+// ICON POSITION VARIANTS
+// ============================================================================
+
+// Icon on left
+.accordion--icon-left {
+  .accordion__header {
+    flex-direction: row-reverse;
+  }
+
+  .accordion__icon {
+    margin-left: 0;
+    margin-right: $spacing-3;
+  }
+}
+
+// Plus/minus icon
+.accordion--plus-minus {
+  .accordion__icon::before {
+    content: '\F4FE'; // bi-plus
+    font-family: 'bootstrap-icons';
+  }
+
+  .accordion__item--open .accordion__icon::before {
+    content: '\F2EA'; // bi-dash
+  }
+}
+
+// ============================================================================
+// COLORED VARIANTS
+// ============================================================================
+
+.accordion--primary {
+  .accordion__item--open {
+    .accordion__header {
+      background-color: $color-primary-50;
+      color: $color-primary;
+
+      [data-theme="dark"] & {
+        background-color: rgba($color-primary, 0.15);
+      }
+    }
+
+    .accordion__title {
+      color: $color-primary;
+
+      [data-theme="dark"] & {
+        color: $color-primary-light;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// SIZES
+// ============================================================================
+
+.accordion--sm {
+  .accordion__header {
+    padding: $spacing-3;
+  }
+
+  .accordion__title {
+    font-size: $font-size-sm;
+  }
+
+  .accordion__body {
+    padding: 0 $spacing-3 $spacing-3;
+    font-size: $font-size-xs;
+  }
+
+  .accordion__header-icon {
+    width: 2rem;
+    height: 2rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+.accordion--lg {
+  .accordion__header {
+    padding: $spacing-5;
+  }
+
+  .accordion__title {
+    font-size: $font-size-lg;
+  }
+
+  .accordion__body {
+    padding: 0 $spacing-5 $spacing-5;
+  }
+}
+
+// ============================================================================
+// FAQ ACCORDION (SPECIAL VARIANT)
+// ============================================================================
+
+.accordion-faq {
+  .accordion__item {
+    background-color: $color-bg-subtle;
+    border: none;
+
+    [data-theme="dark"] & {
+      background-color: $color-bg-overlay-dark;
+    }
+  }
+
+  .accordion__header {
+    padding: $spacing-5;
+  }
+
+  .accordion__title {
+    font-size: $font-size-lg;
+
+    &::before {
+      content: 'Q.';
+      margin-right: $spacing-2;
+      color: $color-primary;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  .accordion__body {
+    padding: 0 $spacing-5 $spacing-5;
+    padding-left: calc(#{$spacing-5} + 1.5rem);
+    font-size: $font-size-base;
+
+    &::before {
+      content: 'A.';
+      position: absolute;
+      left: $spacing-5;
+      color: $color-success;
+      font-weight: $font-weight-bold;
+    }
+
+    position: relative;
+  }
+}
+
+// ============================================================================
+// NESTED ACCORDIONS
+// ============================================================================
+
+.accordion__body .accordion {
+  margin-top: $spacing-4;
+
+  .accordion__item {
+    background-color: $color-bg-subtle;
+
+    [data-theme="dark"] & {
+      background-color: $color-bg-overlay-dark;
+    }
+  }
+}
+

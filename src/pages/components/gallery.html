@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Components Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-light: #EEF2FF; --success: #22C55E; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        .docs-sidebar { width: 260px; background: #fff; border-right: 1px solid #E2E8F0; position: fixed; top: 0; left: 0; bottom: 0; padding: 1.5rem; overflow-y: auto; }
+        .docs-sidebar__brand { font-weight: 700; font-size: 1.125rem; color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .docs-sidebar__nav { list-style: none; padding: 0; margin: 0; }
+        .docs-sidebar__link { display: block; padding: 0.5rem 0.75rem; color: #64748B; text-decoration: none; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.25rem; }
+        .docs-sidebar__link:hover { background: #F1F5F9; color: #1E293B; }
+        .docs-sidebar__link.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .docs-main { margin-left: 260px; padding: 2rem; }
+        .docs-header { margin-bottom: 2rem; }
+        .docs-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .docs-header p { color: #64748B; margin: 0; }
+        .component-section { margin-bottom: 3rem; }
+        .component-section__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .component-preview { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.75rem; overflow: hidden; }
+        .component-preview__demo { padding: 1.5rem; }
+        .component-preview__code { background: #1E293B; color: #E2E8F0; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; overflow-x: auto; display: none; max-height: 500px; white-space: pre-wrap; }
+        .component-preview__code.show { display: block; }
+        .component-preview__actions { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid #E2E8F0; background: #F8FAFC; }
+        .btn-action { padding: 0.375rem 0.75rem; border: 1px solid #E2E8F0; background: #fff; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; }
+        .btn-action:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-action.copied { background: var(--success); color: #fff; border-color: var(--success); }
+        .gallery-item { position: relative; border-radius: 0.75rem; overflow: hidden; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; }
+        .gallery-item:hover .gallery-item__overlay { opacity: 1; }
+        .gallery-item__overlay i { font-size: 2rem; color: #fff; }
+        @media (max-width: 768px) { .docs-sidebar { display: none; } .docs-main { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <aside class="docs-sidebar">
+        <a href="index.html" class="docs-sidebar__brand"><i class="bi bi-book"></i> Components</a>
+        <nav>
+            <ul class="docs-sidebar__nav">
+                <li><a href="carousel.html" class="docs-sidebar__link">Carousel</a></li>
+                <li><a href="video.html" class="docs-sidebar__link">Video</a></li>
+                <li><a href="gallery.html" class="docs-sidebar__link active">Gallery</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="docs-main">
+        <div class="docs-header">
+            <h1>Gallery</h1>
+            <p>Image galleries and media management</p>
+        </div>
+
+        <!-- Basic Grid Gallery -->
+        <section class="component-section">
+            <h2 class="component-section__title">1. Grid Gallery</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/400x300/4F46E5/FFFFFF?text=Image+1" alt="Gallery 1">
+                                <div class="gallery-item__overlay"><i class="bi bi-zoom-in"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/400x300/7C3AED/FFFFFF?text=Image+2" alt="Gallery 2">
+                                <div class="gallery-item__overlay"><i class="bi bi-zoom-in"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/400x300/22C55E/FFFFFF?text=Image+3" alt="Gallery 3">
+                                <div class="gallery-item__overlay"><i class="bi bi-zoom-in"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/400x300/EF4444/FFFFFF?text=Image+4" alt="Gallery 4">
+                                <div class="gallery-item__overlay"><i class="bi bi-zoom-in"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/400x300/F59E0B/FFFFFF?text=Image+5" alt="Gallery 5">
+                                <div class="gallery-item__overlay"><i class="bi bi-zoom-in"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Image+6" alt="Gallery 6">
+                                <div class="gallery-item__overlay"><i class="bi bi-zoom-in"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code1">&lt;div class="row g-3"&gt;
+    &lt;div class="col-md-4"&gt;
+        &lt;div style="position:relative;border-radius:0.75rem;overflow:hidden;cursor:pointer;"&gt;
+            &lt;img src="image1.jpg" style="width:100%;height:200px;object-fit:cover;"&gt;
+            &lt;!-- Hover overlay --&gt;
+            &lt;div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;display:flex;align-items:center;justify-content:center;"&gt;
+                &lt;i class="bi bi-zoom-in" style="font-size:2rem;color:#fff;"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More items... --&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code1')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code1', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery with Filters -->
+        <section class="component-section">
+            <h2 class="component-section__title">2. Gallery with Filter Tabs</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="d-flex gap-2 mb-4">
+                        <button class="btn btn-primary btn-sm">All</button>
+                        <button class="btn btn-outline-secondary btn-sm">Nature</button>
+                        <button class="btn btn-outline-secondary btn-sm">Architecture</button>
+                        <button class="btn btn-outline-secondary btn-sm">People</button>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <img src="https://via.placeholder.com/200x200/4F46E5/FFFFFF?text=1" class="img-fluid rounded" alt="">
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <img src="https://via.placeholder.com/200x200/7C3AED/FFFFFF?text=2" class="img-fluid rounded" alt="">
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <img src="https://via.placeholder.com/200x200/22C55E/FFFFFF?text=3" class="img-fluid rounded" alt="">
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <img src="https://via.placeholder.com/200x200/EF4444/FFFFFF?text=4" class="img-fluid rounded" alt="">
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code2">&lt;!-- Filter buttons --&gt;
+&lt;div class="d-flex gap-2 mb-4"&gt;
+    &lt;button class="btn btn-primary btn-sm" data-filter="all"&gt;All&lt;/button&gt;
+    &lt;button class="btn btn-outline-secondary btn-sm" data-filter="nature"&gt;Nature&lt;/button&gt;
+    &lt;button class="btn btn-outline-secondary btn-sm" data-filter="architecture"&gt;Architecture&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Gallery items with data-category --&gt;
+&lt;div class="row g-3"&gt;
+    &lt;div class="col-6 col-md-3" data-category="nature"&gt;
+        &lt;img src="nature1.jpg" class="img-fluid rounded" alt=""&gt;
+    &lt;/div&gt;
+    &lt;div class="col-6 col-md-3" data-category="architecture"&gt;
+        &lt;img src="building1.jpg" class="img-fluid rounded" alt=""&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code2')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code2', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Upload Gallery -->
+        <section class="component-section">
+            <h2 class="component-section__title">3. Image Upload Manager</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="row g-3">
+                        <!-- Existing Images -->
+                        <div class="col-6 col-md-3">
+                            <div class="position-relative">
+                                <img src="https://via.placeholder.com/200x150/4F46E5/FFFFFF?text=Photo" class="img-fluid rounded" alt="">
+                                <div class="position-absolute top-0 end-0 p-1">
+                                    <button class="btn btn-danger btn-sm" style="width:24px;height:24px;padding:0;"><i class="bi bi-x"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="position-relative">
+                                <img src="https://via.placeholder.com/200x150/7C3AED/FFFFFF?text=Photo" class="img-fluid rounded" alt="">
+                                <div class="position-absolute top-0 end-0 p-1">
+                                    <button class="btn btn-danger btn-sm" style="width:24px;height:24px;padding:0;"><i class="bi bi-x"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Upload Button -->
+                        <div class="col-6 col-md-3">
+                            <div style="border:2px dashed #CBD5E1;border-radius:0.5rem;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;">
+                                <i class="bi bi-cloud-upload" style="font-size:2rem;color:#94A3B8;"></i>
+                                <span style="font-size:0.875rem;color:#64748B;margin-top:0.5rem;">Upload Image</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code3">&lt;div class="row g-3"&gt;
+    &lt;!-- Existing image with delete button --&gt;
+    &lt;div class="col-6 col-md-3"&gt;
+        &lt;div class="position-relative"&gt;
+            &lt;img src="photo.jpg" class="img-fluid rounded" alt=""&gt;
+            &lt;div class="position-absolute top-0 end-0 p-1"&gt;
+                &lt;button class="btn btn-danger btn-sm" style="width:24px;height:24px;padding:0;"&gt;
+                    &lt;i class="bi bi-x"&gt;&lt;/i&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Upload dropzone --&gt;
+    &lt;div class="col-6 col-md-3"&gt;
+        &lt;div style="border:2px dashed #CBD5E1;border-radius:0.5rem;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;"&gt;
+            &lt;i class="bi bi-cloud-upload" style="font-size:2rem;color:#94A3B8;"&gt;&lt;/i&gt;
+            &lt;span style="font-size:0.875rem;color:#64748B;margin-top:0.5rem;"&gt;Upload Image&lt;/span&gt;
+            &lt;input type="file" style="display:none;" accept="image/*"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code3')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code3', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Gallery -->
+        <section class="component-section">
+            <h2 class="component-section__title">4. Lightbox Modal</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/300x200/4F46E5/FFFFFF?text=Click+Me" class="img-fluid rounded" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#lightboxModal" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/300x200/7C3AED/FFFFFF?text=Click+Me" class="img-fluid rounded" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#lightboxModal" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img src="https://via.placeholder.com/300x200/22C55E/FFFFFF?text=Click+Me" class="img-fluid rounded" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#lightboxModal" alt="">
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code4">&lt;!-- Thumbnail --&gt;
+&lt;img src="thumbnail.jpg" class="img-fluid" data-bs-toggle="modal" data-bs-target="#lightboxModal" style="cursor:pointer;"&gt;
+
+&lt;!-- Lightbox Modal --&gt;
+&lt;div class="modal fade" id="lightboxModal" tabindex="-1"&gt;
+    &lt;div class="modal-dialog modal-dialog-centered modal-lg"&gt;
+        &lt;div class="modal-content bg-transparent border-0"&gt;
+            &lt;div class="modal-body p-0"&gt;
+                &lt;button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"&gt;&lt;/button&gt;
+                &lt;img src="full-image.jpg" class="img-fluid rounded"&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code4')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code4', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Masonry Gallery -->
+        <section class="component-section">
+            <h2 class="component-section__title">5. Masonry Layout</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="row" data-masonry='{"percentPosition": true}'>
+                        <div class="col-6 col-md-4 mb-3">
+                            <img src="https://via.placeholder.com/300x400/4F46E5/FFFFFF?text=Tall" class="img-fluid rounded" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 mb-3">
+                            <img src="https://via.placeholder.com/300x200/7C3AED/FFFFFF?text=Short" class="img-fluid rounded" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 mb-3">
+                            <img src="https://via.placeholder.com/300x300/22C55E/FFFFFF?text=Square" class="img-fluid rounded" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 mb-3">
+                            <img src="https://via.placeholder.com/300x250/EF4444/FFFFFF?text=Medium" class="img-fluid rounded" alt="">
+                        </div>
+                        <div class="col-6 col-md-4 mb-3">
+                            <img src="https://via.placeholder.com/300x350/F59E0B/FFFFFF?text=Tall" class="img-fluid rounded" alt="">
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code5">&lt;!-- Include Masonry library --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"&gt;&lt;/script&gt;
+
+&lt;div class="row" data-masonry='{"percentPosition": true}'&gt;
+    &lt;div class="col-6 col-md-4 mb-3"&gt;
+        &lt;img src="tall-image.jpg" class="img-fluid rounded" alt=""&gt;
+    &lt;/div&gt;
+    &lt;div class="col-6 col-md-4 mb-3"&gt;
+        &lt;img src="short-image.jpg" class="img-fluid rounded" alt=""&gt;
+    &lt;/div&gt;
+    &lt;div class="col-6 col-md-4 mb-3"&gt;
+        &lt;img src="square-image.jpg" class="img-fluid rounded" alt=""&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code5')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code5', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div class="modal fade" id="lightboxModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark border-0">
+                <div class="modal-body p-0 text-center">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+                    <img src="https://via.placeholder.com/800x600/4F46E5/FFFFFF?text=Full+Size+Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleCode(id) { document.getElementById(id).classList.toggle('show'); }
+        function copyCode(id, btn) {
+            navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+
+

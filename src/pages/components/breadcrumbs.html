@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breadcrumbs | Components Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-light: #EEF2FF; --success: #22C55E; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        .docs-sidebar { width: 260px; background: #fff; border-right: 1px solid #E2E8F0; position: fixed; top: 0; left: 0; bottom: 0; padding: 1.5rem; overflow-y: auto; }
+        .docs-sidebar__brand { font-weight: 700; font-size: 1.125rem; color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .docs-sidebar__nav { list-style: none; padding: 0; margin: 0; }
+        .docs-sidebar__link { display: block; padding: 0.5rem 0.75rem; color: #64748B; text-decoration: none; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.25rem; }
+        .docs-sidebar__link:hover { background: #F1F5F9; color: #1E293B; }
+        .docs-sidebar__link.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .docs-main { margin-left: 260px; padding: 2rem; }
+        .docs-header { margin-bottom: 2rem; }
+        .docs-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .docs-header p { color: #64748B; margin: 0; }
+        .component-section { margin-bottom: 3rem; }
+        .component-section__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .component-preview { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.75rem; overflow: hidden; }
+        .component-preview__demo { padding: 1.5rem; }
+        .component-preview__code { background: #1E293B; color: #E2E8F0; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; overflow-x: auto; display: none; max-height: 300px; white-space: pre-wrap; }
+        .component-preview__code.show { display: block; }
+        .component-preview__actions { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid #E2E8F0; background: #F8FAFC; }
+        .btn-action { padding: 0.375rem 0.75rem; border: 1px solid #E2E8F0; background: #fff; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; }
+        .btn-action:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-action.copied { background: var(--success); color: #fff; border-color: var(--success); }
+        @media (max-width: 768px) { .docs-sidebar { display: none; } .docs-main { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <aside class="docs-sidebar">
+        <a href="index.html" class="docs-sidebar__brand"><i class="bi bi-book"></i> Components</a>
+        <nav>
+            <ul class="docs-sidebar__nav">
+                <li><a href="navbars.html" class="docs-sidebar__link">Navbars</a></li>
+                <li><a href="breadcrumbs.html" class="docs-sidebar__link active">Breadcrumbs</a></li>
+                <li><a href="buttons.html" class="docs-sidebar__link">Buttons</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="docs-main">
+        <div class="docs-header">
+            <h1>Breadcrumbs</h1>
+            <p>Navigation breadcrumb trails</p>
+        </div>
+
+        <!-- Basic Breadcrumb -->
+        <section class="component-section">
+            <h2 class="component-section__title">1. Basic Breadcrumb</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Library</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                </div>
+                <pre class="component-preview__code" id="code1">&lt;nav aria-label="breadcrumb"&gt;
+    &lt;ol class="breadcrumb"&gt;
+        &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Library&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="breadcrumb-item active" aria-current="page"&gt;Data&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code1')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code1', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breadcrumb with Icons -->
+        <section class="component-section">
+            <h2 class="component-section__title">2. Breadcrumb with Icons</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house me-1"></i>Home</a></li>
+                            <li class="breadcrumb-item"><a href="#"><i class="bi bi-folder me-1"></i>Projects</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-file-earmark me-1"></i>Current Project</li>
+                        </ol>
+                    </nav>
+                </div>
+                <pre class="component-preview__code" id="code2">&lt;nav aria-label="breadcrumb"&gt;
+    &lt;ol class="breadcrumb"&gt;
+        &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;&lt;i class="bi bi-house me-1"&gt;&lt;/i&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;&lt;i class="bi bi-folder me-1"&gt;&lt;/i&gt;Projects&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="breadcrumb-item active" aria-current="page"&gt;&lt;i class="bi bi-file-earmark me-1"&gt;&lt;/i&gt;Current Project&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code2')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code2', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Styled -->
+        <section class="component-section">
+            <h2 class="component-section__title">3. Custom Styled Breadcrumb</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <nav style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;">
+                        <a href="#" style="color:#4F46E5;text-decoration:none;">Home</a>
+                        <i class="bi bi-chevron-right" style="color:#94A3B8;font-size:0.75rem;"></i>
+                        <a href="#" style="color:#4F46E5;text-decoration:none;">Dashboard</a>
+                        <i class="bi bi-chevron-right" style="color:#94A3B8;font-size:0.75rem;"></i>
+                        <span style="color:#64748B;">Analytics</span>
+                    </nav>
+                </div>
+                <pre class="component-preview__code" id="code3">&lt;nav style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;"&gt;
+    &lt;a href="#" style="color:#4F46E5;text-decoration:none;"&gt;Home&lt;/a&gt;
+    &lt;i class="bi bi-chevron-right" style="color:#94A3B8;font-size:0.75rem;"&gt;&lt;/i&gt;
+    &lt;a href="#" style="color:#4F46E5;text-decoration:none;"&gt;Dashboard&lt;/a&gt;
+    &lt;i class="bi bi-chevron-right" style="color:#94A3B8;font-size:0.75rem;"&gt;&lt;/i&gt;
+    &lt;span style="color:#64748B;"&gt;Analytics&lt;/span&gt;
+&lt;/nav&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code3')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code3', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleCode(id) { document.getElementById(id).classList.toggle('show'); }
+        function copyCode(id, btn) {
+            navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

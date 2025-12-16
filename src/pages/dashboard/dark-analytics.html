@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard | Smart Workz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0A0F;
+            --surface: #12121A;
+            --surface-2: #1A1A24;
+            --border: #2A2A3A;
+            --text: #FFFFFF;
+            --text-muted: #6B7280;
+            --primary: #6366F1;
+            --accent: #22D3EE;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); margin: 0; color: var(--text); min-height: 100vh; }
+
+        /* Header */
+        .header { padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+        .nav-pills { display: flex; gap: 0.5rem; background: var(--bg); padding: 0.25rem; border-radius: 0.5rem; }
+        .nav-pill { padding: 0.5rem 1rem; border-radius: 0.375rem; color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: all 0.2s; }
+        .nav-pill:hover { color: var(--text); }
+        .nav-pill.active { background: var(--primary); color: var(--text); }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+        .btn-glow { background: linear-gradient(135deg, var(--primary), var(--accent)); border: none; padding: 0.625rem 1.25rem; border-radius: 0.5rem; color: var(--text); font-weight: 600; font-size: 0.875rem; cursor: pointer; box-shadow: 0 0 20px rgba(99,102,241,0.4); transition: all 0.2s; }
+        .btn-glow:hover { box-shadow: 0 0 30px rgba(99,102,241,0.6); transform: translateY(-1px); }
+
+        /* Main */
+        .main { padding: 2rem; }
+
+        /* Metric Cards */
+        .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; position: relative; overflow: hidden; }
+        .metric-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--primary), transparent); }
+        .metric-card__label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; font-family: 'JetBrains Mono', monospace; }
+        .metric-card__value { font-size: 2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; display: flex; align-items: baseline; gap: 0.5rem; }
+        .metric-card__value span { font-size: 1rem; font-weight: 400; }
+        .metric-card__trend { display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; margin-top: 0.5rem; font-family: 'JetBrains Mono', monospace; }
+        .metric-card__trend--up { color: var(--success); }
+        .metric-card__trend--down { color: var(--danger); }
+        .metric-card__sparkline { position: absolute; bottom: 0; right: 0; width: 120px; height: 40px; opacity: 0.3; }
+        .metric-card--primary { border-color: rgba(99,102,241,0.3); }
+        .metric-card--primary::before { background: var(--primary); }
+        .metric-card--accent { border-color: rgba(34,211,238,0.3); }
+        .metric-card--accent::before { background: var(--accent); }
+        .metric-card--success { border-color: rgba(16,185,129,0.3); }
+        .metric-card--success::before { background: var(--success); }
+        .metric-card--warning { border-color: rgba(245,158,11,0.3); }
+        .metric-card--warning::before { background: var(--warning); }
+
+        /* Grid Layout */
+        .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+        /* Cards */
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden; }
+        .card__header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .card__title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .card__title i { color: var(--primary); }
+        .card__body { padding: 1.5rem; }
+
+        /* Chart Placeholder */
+        .chart-placeholder { height: 280px; background: linear-gradient(180deg, rgba(99,102,241,0.1) 0%, transparent 100%); border-radius: 0.5rem; display: flex; align-items: flex-end; justify-content: space-around; padding: 1rem; }
+        .chart-bar { width: 24px; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 0.25rem 0.25rem 0 0; transition: height 0.5s; }
+
+        /* Live Stats */
+        .live-indicator { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--success); font-family: 'JetBrains Mono', monospace; }
+        .live-indicator::before { content: ''; width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .realtime-stat { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .realtime-stat:last-child { border-bottom: none; }
+        .realtime-stat__label { display: flex; align-items: center; gap: 0.75rem; color: var(--text-muted); font-size: 0.875rem; }
+        .realtime-stat__icon { width: 36px; height: 36px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; background: var(--surface-2); }
+        .realtime-stat__value { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 1rem; }
+
+        /* Top Pages Table */
+        .table-dark { width: 100%; border-collapse: collapse; }
+        .table-dark th { text-align: left; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 0.75rem 0; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+        .table-dark td { padding: 0.875rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+        .table-dark tr:last-child td { border-bottom: none; }
+        .table-dark__page { display: flex; align-items: center; gap: 0.75rem; }
+        .table-dark__page-icon { width: 32px; height: 32px; background: var(--surface-2); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+        .table-dark__bar { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; width: 100px; }
+        .table-dark__bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 3px; }
+
+        /* Traffic Sources */
+        .source-item { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .source-item:last-child { border-bottom: none; }
+        .source-item__color { width: 12px; height: 12px; border-radius: 50%; }
+        .source-item__label { flex: 1; font-size: 0.875rem; }
+        .source-item__value { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+        .source-item__percent { color: var(--text-muted); font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .metrics { grid-template-columns: repeat(2, 1fr); } .grid-2-1 { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .metrics { grid-template-columns: 1fr; } .nav-pills { display: none; } .header { padding: 1rem; } .main { padding: 1rem; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo"><i class="bi bi-activity"></i> analytics_</div>
+        <nav class="nav-pills">
+            <a href="#" class="nav-pill active">Overview</a>
+            <a href="#" class="nav-pill">Traffic</a>
+            <a href="#" class="nav-pill">Conversions</a>
+            <a href="#" class="nav-pill">Behavior</a>
+            <a href="#" class="nav-pill">Realtime</a>
+        </nav>
+        <div class="header-actions">
+            <button class="btn-glow"><i class="bi bi-download"></i> Export</button>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Metrics -->
+        <div class="metrics">
+            <div class="metric-card metric-card--primary">
+                <div class="metric-card__label">Total Visitors</div>
+                <div class="metric-card__value">847,293 <span>users</span></div>
+                <div class="metric-card__trend metric-card__trend--up"><i class="bi bi-arrow-up"></i> 12.5% vs last week</div>
+            </div>
+            <div class="metric-card metric-card--accent">
+                <div class="metric-card__label">Page Views</div>
+                <div class="metric-card__value">2.4M <span>views</span></div>
+                <div class="metric-card__trend metric-card__trend--up"><i class="bi bi-arrow-up"></i> 8.2% vs last week</div>
+            </div>
+            <div class="metric-card metric-card--success">
+                <div class="metric-card__label">Avg. Session</div>
+                <div class="metric-card__value">4:32 <span>min</span></div>
+                <div class="metric-card__trend metric-card__trend--up"><i class="bi bi-arrow-up"></i> 2.1% vs last week</div>
+            </div>
+            <div class="metric-card metric-card--warning">
+                <div class="metric-card__label">Bounce Rate</div>
+                <div class="metric-card__value">34.2 <span>%</span></div>
+                <div class="metric-card__trend metric-card__trend--down"><i class="bi bi-arrow-down"></i> 5.4% vs last week</div>
+            </div>
+        </div>
+
+        <div class="grid-2-1">
+            <!-- Traffic Chart -->
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title"><i class="bi bi-graph-up"></i> Traffic Overview</h2>
+                    <div class="live-indicator">LIVE</div>
+                </div>
+                <div class="card__body">
+                    <div class="chart-placeholder">
+                        <div class="chart-bar" style="height: 40%;"></div>
+                        <div class="chart-bar" style="height: 65%;"></div>
+                        <div class="chart-bar" style="height: 45%;"></div>
+                        <div class="chart-bar" style="height: 80%;"></div>
+                        <div class="chart-bar" style="height: 55%;"></div>
+                        <div class="chart-bar" style="height: 90%;"></div>
+                        <div class="chart-bar" style="height: 70%;"></div>
+                        <div class="chart-bar" style="height: 85%;"></div>
+                        <div class="chart-bar" style="height: 60%;"></div>
+                        <div class="chart-bar" style="height: 75%;"></div>
+                        <div class="chart-bar" style="height: 95%;"></div>
+                        <div class="chart-bar" style="height: 82%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Stats -->
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title"><i class="bi bi-lightning"></i> Real-time</h2>
+                </div>
+                <div class="card__body" style="padding: 0.5rem 1.5rem;">
+                    <div class="realtime-stat">
+                        <div class="realtime-stat__label">
+                            <div class="realtime-stat__icon"><i class="bi bi-people" style="color: var(--primary);"></i></div>
+                            Active Users
+                        </div>
+                        <div class="realtime-stat__value" style="color: var(--primary);">1,247</div>
+                    </div>
+                    <div class="realtime-stat">
+                        <div class="realtime-stat__label">
+                            <div class="realtime-stat__icon"><i class="bi bi-eye" style="color: var(--accent);"></i></div>
+                            Page Views/min
+                        </div>
+                        <div class="realtime-stat__value" style="color: var(--accent);">342</div>
+                    </div>
+                    <div class="realtime-stat">
+                        <div class="realtime-stat__label">
+                            <div class="realtime-stat__icon"><i class="bi bi-cursor" style="color: var(--success);"></i></div>
+                            Events/min
+                        </div>
+                        <div class="realtime-stat__value" style="color: var(--success);">89</div>
+                    </div>
+                    <div class="realtime-stat">
+                        <div class="realtime-stat__label">
+                            <div class="realtime-stat__icon"><i class="bi bi-cart" style="color: var(--warning);"></i></div>
+                            Conversions
+                        </div>
+                        <div class="realtime-stat__value" style="color: var(--warning);">24</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2-1">
+            <!-- Top Pages -->
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title"><i class="bi bi-file-earmark-text"></i> Top Pages</h2>
+                </div>
+                <div class="card__body" style="padding: 0.5rem 1.5rem;">
+                    <table class="table-dark">
+                        <thead>
+                            <tr>
+                                <th>Page</th>
+                                <th>Views</th>
+                                <th>Visitors</th>
+                                <th>Performance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="table-dark__page"><div class="table-dark__page-icon"><i class="bi bi-house"></i></div>/home</div></td>
+                                <td>124,847</td>
+                                <td>89,234</td>
+                                <td><div class="table-dark__bar"><div class="table-dark__bar-fill" style="width: 92%;"></div></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="table-dark__page"><div class="table-dark__page-icon"><i class="bi bi-box"></i></div>/products</div></td>
+                                <td>89,234</td>
+                                <td>67,892</td>
+                                <td><div class="table-dark__bar"><div class="table-dark__bar-fill" style="width: 78%;"></div></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="table-dark__page"><div class="table-dark__page-icon"><i class="bi bi-info-circle"></i></div>/about</div></td>
+                                <td>45,678</td>
+                                <td>34,567</td>
+                                <td><div class="table-dark__bar"><div class="table-dark__bar-fill" style="width: 52%;"></div></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="table-dark__page"><div class="table-dark__page-icon"><i class="bi bi-telephone"></i></div>/contact</div></td>
+                                <td>23,456</td>
+                                <td>18,234</td>
+                                <td><div class="table-dark__bar"><div class="table-dark__bar-fill" style="width: 35%;"></div></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Traffic Sources -->
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title"><i class="bi bi-diagram-3"></i> Traffic Sources</h2>
+                </div>
+                <div class="card__body" style="padding: 0.5rem 1.5rem;">
+                    <div class="source-item">
+                        <div class="source-item__color" style="background: var(--primary);"></div>
+                        <div class="source-item__label">Organic Search</div>
+                        <div class="source-item__value">45.8K</div>
+                        <div class="source-item__percent">42%</div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-item__color" style="background: var(--accent);"></div>
+                        <div class="source-item__label">Direct</div>
+                        <div class="source-item__value">28.4K</div>
+                        <div class="source-item__percent">26%</div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-item__color" style="background: var(--success);"></div>
+                        <div class="source-item__label">Social Media</div>
+                        <div class="source-item__value">18.7K</div>
+                        <div class="source-item__percent">17%</div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-item__color" style="background: var(--warning);"></div>
+                        <div class="source-item__label">Referral</div>
+                        <div class="source-item__value">10.9K</div>
+                        <div class="source-item__percent">10%</div>
+                    </div>
+                    <div class="source-item">
+                        <div class="source-item__color" style="background: var(--danger);"></div>
+                        <div class="source-item__label">Email</div>
+                        <div class="source-item__value">5.4K</div>
+                        <div class="source-item__percent">5%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

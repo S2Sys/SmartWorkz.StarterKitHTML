@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Smart Workz - Get in touch with our team">
+    <title>Contact Us | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../dist/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-dark: #4338CA; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; color: #1E293B; margin: 0; overflow-x: hidden; }
+        a { color: var(--primary); text-decoration: none; }
+        
+        /* Navbar */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .navbar__container { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .navbar__brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .navbar__nav { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        .navbar__link { color: #64748B; font-weight: 500; }
+        .navbar__link:hover, .navbar__link.active { color: var(--primary); }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        
+        /* Hero */
+        .hero { padding: 10rem 1.5rem 5rem; background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); text-align: center; }
+        .hero__title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero__subtitle { font-size: 1.25rem; color: #64748B; max-width: 600px; margin: 0 auto; }
+        
+        /* Contact Section */
+        .contact-section { padding: 5rem 1.5rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
+        
+        /* Contact Info */
+        .contact-info h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+        .contact-info p { color: #64748B; margin-bottom: 2rem; line-height: 1.7; }
+        .contact-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .contact-item__icon { width: 50px; height: 50px; border-radius: 0.75rem; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+        .contact-item__content h4 { font-weight: 600; margin-bottom: 0.25rem; }
+        .contact-item__content p { color: #64748B; margin: 0; }
+        .social-links { display: flex; gap: 1rem; margin-top: 2rem; }
+        .social-link { width: 44px; height: 44px; border-radius: 50%; background: #F1F5F9; color: #64748B; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: all 0.2s; }
+        .social-link:hover { background: var(--primary); color: #fff; }
+        
+        /* Contact Form */
+        .contact-form { background: #fff; padding: 2.5rem; border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .contact-form h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.875rem; }
+        .form-control { width: 100%; padding: 0.875rem 1rem; border: 1px solid #E2E8F0; border-radius: 0.5rem; font-size: 1rem; transition: all 0.2s; }
+        .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+        textarea.form-control { min-height: 150px; resize: vertical; }
+        .btn-submit { width: 100%; padding: 1rem; font-size: 1rem; }
+        
+        /* Map */
+        .map-section { padding: 0; height: 400px; background: #E2E8F0; }
+        .map-section iframe { width: 100%; height: 100%; border: 0; }
+        
+        /* FAQ */
+        .faq-section { padding: 5rem 1.5rem; background: #F8FAFC; }
+        .section-header { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
+        .section-title { font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem; }
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+        .faq-item { background: #fff; padding: 1.5rem; border-radius: 0.75rem; }
+        .faq-item h4 { font-weight: 600; margin-bottom: 0.5rem; }
+        .faq-item p { color: #64748B; margin: 0; line-height: 1.6; }
+        
+        /* Footer */
+        .footer { background: #0F172A; color: rgba(255,255,255,0.7); padding: 4rem 1.5rem 2rem; }
+        .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto 3rem; }
+        .footer__brand { font-size: 1.5rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .footer__title { color: #fff; font-weight: 600; margin-bottom: 1.5rem; }
+        .footer__list { list-style: none; padding: 0; margin: 0; }
+        .footer__list li { margin-bottom: 0.75rem; }
+        .footer__list a { color: rgba(255,255,255,0.7); }
+        .footer__list a:hover { color: #fff; }
+        .footer__bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; max-width: 1200px; margin: 0 auto; text-align: center; }
+        
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .navbar__nav { display: none; }
+            .footer__grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 576px) {
+            .hero__title { font-size: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer__grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="../landing.html" class="navbar__brand">
+                <i class="bi bi-hexagon-fill"></i>
+                Smart Workz
+            </a>
+            <ul class="navbar__nav">
+                <li><a href="../landing.html" class="navbar__link">Home</a></li>
+                <li><a href="about.html" class="navbar__link">About</a></li>
+                <li><a href="services.html" class="navbar__link">Services</a></li>
+                <li><a href="blog.html" class="navbar__link">Blog</a></li>
+                <li><a href="shop.html" class="navbar__link">Shop</a></li>
+                <li><a href="contact.html" class="navbar__link active">Contact</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <a href="../auth/login.html" class="btn btn-outline">Sign In</a>
+                <a href="../auth/register.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 class="hero__title">Get in Touch</h1>
+        <p class="hero__subtitle">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Let's Talk</h2>
+                    <p>Whether you have a question about features, pricing, need a demo, or anything else, our team is ready to answer all your questions.</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-item__icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class="contact-item__content">
+                            <h4>Visit Us</h4>
+                            <p>123 Business Street, Suite 100<br>San Francisco, CA 94102</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-item__icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="contact-item__content">
+                            <h4>Email Us</h4>
+                            <p>hello@smartworkz.com<br>support@smartworkz.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-item__icon">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div class="contact-item__content">
+                            <h4>Call Us</h4>
+                            <p>+1 (555) 123-4567<br>Mon-Fri 9am-6pm PST</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name *</label>
+                                <input type="text" class="form-control" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" placeholder="Doe" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control" placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" placeholder="+1 (555) 000-0000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject *</label>
+                            <select class="form-control" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="sales">Sales Question</option>
+                                <option value="support">Technical Support</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message *</label>
+                            <textarea class="form-control" placeholder="Tell us how we can help you..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="bi bi-send"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="map-section">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100939.98555098464!2d-122.50764017948551!3d37.75780956546692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1699900000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>What are your business hours?</h4>
+                    <p>Our support team is available Monday through Friday, 9am to 6pm Pacific Time. For urgent issues, we offer 24/7 email support.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How quickly do you respond?</h4>
+                    <p>We aim to respond to all inquiries within 24 hours during business days. Priority support customers receive responses within 4 hours.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you offer phone support?</h4>
+                    <p>Yes, phone support is available for our Professional and Enterprise customers. Contact us to schedule a call.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I schedule a demo?</h4>
+                    <p>Absolutely! Fill out the contact form above and select "Sales Question" to schedule a personalized demo with our team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div>
+                <div class="footer__brand">
+                    <i class="bi bi-hexagon-fill"></i>
+                    Smart Workz
+                </div>
+                <p style="line-height: 1.6;">Building the future of digital solutions. Premium templates and tools for modern businesses.</p>
+            </div>
+            <div>
+                <h4 class="footer__title">Company</h4>
+                <ul class="footer__list">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer__title">Resources</h4>
+                <ul class="footer__list">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">API Reference</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer__title">Legal</h4>
+                <ul class="footer__list">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2025 Smart Workz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
+

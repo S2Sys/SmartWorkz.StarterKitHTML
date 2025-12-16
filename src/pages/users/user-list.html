@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User Management - Smart Workz Admin">
+    <title>Users | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <!-- CSS - CDN Fallback -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-styles.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="app-body">
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <div class="app-wrapper">
+        <!-- Sidebar (same as dashboard) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
+                    <span class="sidebar__brand-text">Smart Workz</span>
+                </a>
+                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Dashboards</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../dashboard/index.html" class="sidebar__nav-link"><i class="bi bi-speedometer2 sidebar__nav-icon"></i><span class="sidebar__nav-text">Main</span></a></li>
+                        <li><a href="../dashboard/crm.html" class="sidebar__nav-link"><i class="bi bi-briefcase sidebar__nav-icon"></i><span class="sidebar__nav-text">CRM</span></a></li>
+                        <li><a href="../dashboard/social.html" class="sidebar__nav-link"><i class="bi bi-share sidebar__nav-icon"></i><span class="sidebar__nav-text">Social</span></a></li>
+                        <li><a href="../dashboard/dark-analytics.html" class="sidebar__nav-link"><i class="bi bi-activity sidebar__nav-icon"></i><span class="sidebar__nav-text">Analytics</span></a></li>
+                        <li><a href="../dashboard/minimal.html" class="sidebar__nav-link"><i class="bi bi-grid-1x2 sidebar__nav-icon"></i><span class="sidebar__nav-text">Minimal</span></a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Management</h3>
+                    <ul class="sidebar__nav-list">
+                        <li class="sidebar__nav-item sidebar__nav-item--has-submenu sidebar__nav-item--open">
+                            <a href="#" class="sidebar__nav-link sidebar__nav-link--active">
+                                <i class="bi bi-people sidebar__nav-icon"></i>
+                                <span class="sidebar__nav-text">Users</span>
+                                <i class="bi bi-chevron-right sidebar__nav-arrow"></i>
+                            </a>
+                            <ul class="sidebar__submenu">
+                                <li><a href="user-list.html" class="sidebar__submenu-link sidebar__submenu-link--active">All Users</a></li>
+                                <li><a href="user-form.html" class="sidebar__submenu-link">Add User</a></li>
+                                <li><a href="profile.html" class="sidebar__submenu-link">Profile</a></li>
+                                <li><a href="settings.html" class="sidebar__submenu-link">Settings</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Apps</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../apps/inbox.html" class="sidebar__nav-link"><i class="bi bi-envelope sidebar__nav-icon"></i><span class="sidebar__nav-text">Email</span></a></li>
+                        <li><a href="../apps/calendar.html" class="sidebar__nav-link"><i class="bi bi-calendar3 sidebar__nav-icon"></i><span class="sidebar__nav-text">Calendar</span></a></li>
+                        <li><a href="../apps/kanban.html" class="sidebar__nav-link"><i class="bi bi-kanban sidebar__nav-icon"></i><span class="sidebar__nav-text">Kanban</span></a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Pages</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../index.html" class="sidebar__nav-link"><i class="bi bi-grid sidebar__nav-icon"></i><span class="sidebar__nav-text">All Pages</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar__footer">
+                <div class="sidebar__user">
+                    <img src="https://i.pravatar.cc/150?img=68" alt="John Doe" class="sidebar__user-avatar">
+                    <div class="sidebar__user-info">
+                        <span class="sidebar__user-name">John Doe</span>
+                        <span class="sidebar__user-email">john@company.com</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarOpen" aria-label="Open sidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <nav class="header__breadcrumb" aria-label="Breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <a href="user-list.html">Users</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>All Users</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                    <div class="dropdown">
+                        <button class="header__user" id="userMenuBtn">
+                            <img src="https://i.pravatar.cc/150?img=68" alt="John Doe" class="header__user-avatar">
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <div class="header-spacer"></div>
+
+            <!-- Main Content -->
+            <main id="main-content" class="app-main">
+                <!-- Page Header -->
+                <div class="page-header page-header--flex">
+                    <div>
+                        <h1 class="page-header__title">Users</h1>
+                        <p class="page-header__subtitle">Manage your team members and their account permissions.</p>
+                    </div>
+                    <div class="page-header__actions">
+                        <button class="btn btn-outline-secondary">
+                            <i class="bi bi-download"></i> Export
+                        </button>
+                        <a href="user-form.html" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Add User
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Filters Card -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-4">
+                                <label class="form-label">Search</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Search users...">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Role</label>
+                                <select class="form-control">
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Status</label>
+                                <select class="form-control">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-secondary w-100">
+                                    <i class="bi bi-funnel"></i> Filter
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-ghost-secondary w-100">
+                                    <i class="bi bi-x"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40px;">
+                                            <input type="checkbox" class="form-check-input" id="selectAll">
+                                        </th>
+                                        <th>User</th>
+                                        <th>Role</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Last Active</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <img src="https://i.pravatar.cc/150?img=68" alt="" class="avatar avatar-md">
+                                                <div>
+                                                    <div class="fw-medium">John Doe</div>
+                                                    <div class="text-muted small">john.doe@company.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-primary">Admin</span></td>
+                                        <td>Engineering</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>Just now</td>
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                <a href="profile.html" class="btn btn-sm btn-icon btn-ghost-primary" title="View">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="user-form.html" class="btn btn-sm btn-icon btn-ghost-primary" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-icon btn-ghost-danger" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <img src="https://i.pravatar.cc/150?img=47" alt="" class="avatar avatar-md">
+                                                <div>
+                                                    <div class="fw-medium">Sarah Wilson</div>
+                                                    <div class="text-muted small">sarah.wilson@company.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-secondary">Manager</span></td>
+                                        <td>Marketing</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>2 hours ago</td>
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                <a href="profile.html" class="btn btn-sm btn-icon btn-ghost-primary" title="View">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="user-form.html" class="btn btn-sm btn-icon btn-ghost-primary" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-icon btn-ghost-danger" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="avatar avatar-md avatar-info">MJ</div>
+                                                <div>
+                                                    <div class="fw-medium">Mike Johnson</div>
+                                                    <div class="text-muted small">mike.johnson@company.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-outline-secondary">User</span></td>
+                                        <td>Sales</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                        <td>1 day ago</td>
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                <a href="profile.html" class="btn btn-sm btn-icon btn-ghost-primary" title="View">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="user-form.html" class="btn btn-sm btn-icon btn-ghost-primary" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-icon btn-ghost-danger" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <img src="https://i.pravatar.cc/150?img=32" alt="" class="avatar avatar-md">
+                                                <div>
+                                                    <div class="fw-medium">Anna Brown</div>
+                                                    <div class="text-muted small">anna.brown@company.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-outline-secondary">User</span></td>
+                                        <td>Design</td>
+                                        <td><span class="badge badge-danger">Inactive</span></td>
+                                        <td>1 week ago</td>
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                <a href="profile.html" class="btn btn-sm btn-icon btn-ghost-primary" title="View">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="user-form.html" class="btn btn-sm btn-icon btn-ghost-primary" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-icon btn-ghost-danger" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination-wrapper">
+                            <div class="pagination__info">
+                                Showing <strong>1</strong> to <strong>4</strong> of <strong>24</strong> users
+                            </div>
+                            <nav class="pagination" aria-label="Pagination">
+                                <a href="#" class="pagination__link pagination__link--disabled">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+                                <a href="#" class="pagination__link pagination__link--active">1</a>
+                                <a href="#" class="pagination__link">2</a>
+                                <a href="#" class="pagination__link">3</a>
+                                <span class="pagination__ellipsis">...</span>
+                                <a href="#" class="pagination__link">6</a>
+                                <a href="#" class="pagination__link">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <p class="footer__copyright">&copy; 2025 <a href="#">Smart Workz</a>. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../../../dist/js/vendor.min.js"></script>
+    <script src="../../../dist/js/app.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+</body>
+</html>
+

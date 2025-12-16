@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Product Detail - E-commerce - Smart Workz Admin">
+    <title>Premium Wireless Headphones | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <!-- CSS - CDN Fallback -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root { --primary: #4F46E5; --sidebar-width: 260px; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #F1F5F9; }
+        .app-body { display: flex; min-height: 100vh; }
+        .sidebar { width: var(--sidebar-width); background: #1E293B; color: #fff; position: fixed; top: 0; left: 0; bottom: 0; }
+        .sidebar__header { padding: 1.5rem; }
+        .sidebar__brand { display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .sidebar__link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.5rem; color: #94A3B8; text-decoration: none; }
+        .sidebar__link:hover, .sidebar__link.active { background: rgba(255,255,255,0.1); color: #fff; }
+        .main-content { flex: 1; margin-left: var(--sidebar-width); }
+        .header { background: #fff; padding: 1rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .page-content { padding: 1.5rem; }
+        .product-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background: #fff; border-radius: 0.75rem; padding: 2rem; }
+        .product-gallery__main { height: 400px; background: #F8FAFC; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .product-gallery__thumbs { display: flex; gap: 0.5rem; }
+        .product-gallery__thumb { width: 80px; height: 80px; border-radius: 0.5rem; background: #F8FAFC; cursor: pointer; border: 2px solid transparent; }
+        .product-gallery__thumb.active { border-color: var(--primary); }
+        .product-info__title { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .product-info__price { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; }
+        .product-info__rating { color: #F59E0B; margin-bottom: 1rem; }
+        .btn-primary { background: var(--primary); border-color: var(--primary); }
+        @media (max-width: 992px) { .product-detail { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; } }
+    </style>
+</head>
+<body class="app-body">
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
+                    <span class="sidebar__brand-text">Smart Workz</span>
+                </a>
+                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">E-Commerce</h3>
+                    <ul class="sidebar__nav-list">
+                        <li class="sidebar__nav-item sidebar__nav-item--has-submenu sidebar__nav-item--open">
+                            <a href="#" class="sidebar__nav-link sidebar__nav-link--active">
+                                <i class="bi bi-bag sidebar__nav-icon"></i>
+                                <span class="sidebar__nav-text">Shop</span>
+                            </a>
+                            <ul class="sidebar__submenu">
+                                <li><a href="products.html" class="sidebar__submenu-link">Products</a></li>
+                                <li><a href="product-detail.html" class="sidebar__submenu-link sidebar__submenu-link--active">Product Detail</a></li>
+                                <li><a href="cart.html" class="sidebar__submenu-link">Shopping Cart</a></li>
+                                <li><a href="checkout.html" class="sidebar__submenu-link">Checkout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-content">
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarOpen" aria-label="Open sidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <nav class="header__breadcrumb" aria-label="Breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <a href="products.html">Products</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Premium Wireless Headphones</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <a href="cart.html" class="header__action position-relative">
+                        <i class="bi bi-cart3"></i>
+                        <span class="header__badge">3</span>
+                    </a>
+                    <button class="header__action" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="header-spacer"></div>
+
+            <main id="main-content" class="app-main">
+                <div class="product-detail">
+                    <div class="row">
+                        <!-- Product Gallery -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="product-gallery">
+                                <div class="product-gallery__main">
+                                    <span class="product-badge product-badge--sale">-20%</span>
+                                    <img src="https://via.placeholder.com/600x600/4F46E5/FFFFFF?text=Headphones" alt="Premium Wireless Headphones" id="mainImage">
+                                    <button class="product-gallery__zoom" title="Zoom">
+                                        <i class="bi bi-zoom-in"></i>
+                                    </button>
+                                </div>
+                                <div class="product-gallery__thumbs">
+                                    <button class="product-gallery__thumb active">
+                                        <img src="https://via.placeholder.com/100x100/4F46E5/FFFFFF?text=1" alt="View 1">
+                                    </button>
+                                    <button class="product-gallery__thumb">
+                                        <img src="https://via.placeholder.com/100x100/6366F1/FFFFFF?text=2" alt="View 2">
+                                    </button>
+                                    <button class="product-gallery__thumb">
+                                        <img src="https://via.placeholder.com/100x100/818CF8/FFFFFF?text=3" alt="View 3">
+                                    </button>
+                                    <button class="product-gallery__thumb">
+                                        <img src="https://via.placeholder.com/100x100/A5B4FC/FFFFFF?text=4" alt="View 4">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Info -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="product-info">
+                                <div class="product-info__meta">
+                                    <span class="product-info__category">Electronics</span>
+                                    <span class="product-info__sku">SKU: WH-1000XM5</span>
+                                </div>
+
+                                <h1 class="product-info__title">Premium Wireless Headphones</h1>
+
+                                <div class="product-info__rating">
+                                    <div class="rating-stars">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                    </div>
+                                    <span class="rating-text">4.5 (128 reviews)</span>
+                                </div>
+
+                                <div class="product-info__price">
+                                    <span class="product-info__price-current">$159.99</span>
+                                    <span class="product-info__price-original">$199.99</span>
+                                    <span class="product-info__price-save">You save $40.00</span>
+                                </div>
+
+                                <p class="product-info__description">
+                                    Industry-leading noise cancellation with Dual Noise Sensor technology. 
+                                    Next-level music with Edge-AI, co-developed with Sony Music Studios. 
+                                    Crystal clear hands-free calling with 4 beamforming microphones.
+                                </p>
+
+                                <!-- Color Selection -->
+                                <div class="product-option">
+                                    <label class="product-option__label">Color: <strong>Black</strong></label>
+                                    <div class="product-option__colors">
+                                        <button class="color-swatch color-swatch--active" style="background-color: #1F2937;" title="Black"></button>
+                                        <button class="color-swatch" style="background-color: #F5F5F4;" title="Silver"></button>
+                                        <button class="color-swatch" style="background-color: #1E40AF;" title="Blue"></button>
+                                    </div>
+                                </div>
+
+                                <!-- Quantity -->
+                                <div class="product-option">
+                                    <label class="product-option__label">Quantity</label>
+                                    <div class="quantity-selector">
+                                        <button class="quantity-selector__btn" aria-label="Decrease">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <input type="number" class="quantity-selector__input" value="1" min="1" max="10">
+                                        <button class="quantity-selector__btn" aria-label="Increase">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </div>
+                                    <span class="product-info__stock">
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                        In Stock (24 available)
+                                    </span>
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="product-info__actions">
+                                    <button class="btn btn-primary btn-lg flex-grow-1">
+                                        <i class="bi bi-cart-plus"></i> Add to Cart
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-lg">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-lg">
+                                        <i class="bi bi-share"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Features -->
+                                <div class="product-features">
+                                    <div class="product-feature">
+                                        <i class="bi bi-truck"></i>
+                                        <div>
+                                            <strong>Free Shipping</strong>
+                                            <span>Orders over $100</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-feature">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                        <div>
+                                            <strong>30-Day Returns</strong>
+                                            <span>Hassle-free returns</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-feature">
+                                        <i class="bi bi-shield-check"></i>
+                                        <div>
+                                            <strong>2-Year Warranty</strong>
+                                            <span>Full coverage</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Tabs -->
+                    <div class="card mt-4">
+                        <div class="tabs card-tabs">
+                            <ul class="tabs__nav" role="tablist">
+                                <li class="tabs__item active" role="tab">Description</li>
+                                <li class="tabs__item" role="tab">Specifications</li>
+                                <li class="tabs__item" role="tab">Reviews (128)</li>
+                            </ul>
+                            <div class="tabs__content">
+                                <!-- Description Tab -->
+                                <div class="tabs__panel active" role="tabpanel">
+                                    <div class="product-description">
+                                        <h3>Product Overview</h3>
+                                        <p>Experience the next level of silence with the industry's leading noise cancellation. The Premium Wireless Headphones let you lose yourself in music, podcasts, and calls with unprecedented sound quality.</p>
+                                        
+                                        <h4>Key Features</h4>
+                                        <ul>
+                                            <li>Industry-leading noise cancellation with Dual Noise Sensor technology</li>
+                                            <li>30-hour battery life with quick charging (3 min charge = 3 hours playback)</li>
+                                            <li>Multipoint connection for seamless switching between devices</li>
+                                            <li>Speak-to-Chat automatically pauses music during conversations</li>
+                                            <li>Adaptive Sound Control adjusts ambient sounds to your activity</li>
+                                            <li>Touch sensor controls for easy operation</li>
+                                        </ul>
+
+                                        <h4>What's in the Box</h4>
+                                        <ul>
+                                            <li>Wireless Headphones</li>
+                                            <li>Carrying Case</li>
+                                            <li>USB-C Charging Cable</li>
+                                            <li>Audio Cable for Wired Connection</li>
+                                            <li>Airplane Adapter</li>
+                                            <li>Quick Start Guide</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Specifications Tab -->
+                                <div class="tabs__panel" role="tabpanel" hidden>
+                                    <table class="table table-specs">
+                                        <tbody>
+                                            <tr>
+                                                <th>Driver Unit</th>
+                                                <td>30mm</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Frequency Response</th>
+                                                <td>4Hz - 40,000Hz</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bluetooth Version</th>
+                                                <td>5.2</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Battery Life</th>
+                                                <td>30 hours (NC ON)</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Charging Time</th>
+                                                <td>3.5 hours</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Weight</th>
+                                                <td>250g</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Connectivity</th>
+                                                <td>Bluetooth, 3.5mm audio cable</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Reviews Tab -->
+                                <div class="tabs__panel" role="tabpanel" hidden>
+                                    <div class="reviews-summary">
+                                        <div class="reviews-summary__score">
+                                            <span class="reviews-summary__number">4.5</span>
+                                            <div class="rating-stars rating-stars--lg">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                            </div>
+                                            <span>Based on 128 reviews</span>
+                                        </div>
+                                        <div class="reviews-summary__bars">
+                                            <div class="review-bar">
+                                                <span>5 stars</span>
+                                                <div class="progress"><div class="progress__bar" style="width: 70%;"></div></div>
+                                                <span>89</span>
+                                            </div>
+                                            <div class="review-bar">
+                                                <span>4 stars</span>
+                                                <div class="progress"><div class="progress__bar" style="width: 20%;"></div></div>
+                                                <span>26</span>
+                                            </div>
+                                            <div class="review-bar">
+                                                <span>3 stars</span>
+                                                <div class="progress"><div class="progress__bar" style="width: 6%;"></div></div>
+                                                <span>8</span>
+                                            </div>
+                                            <div class="review-bar">
+                                                <span>2 stars</span>
+                                                <div class="progress"><div class="progress__bar" style="width: 3%;"></div></div>
+                                                <span>4</span>
+                                            </div>
+                                            <div class="review-bar">
+                                                <span>1 star</span>
+                                                <div class="progress"><div class="progress__bar" style="width: 1%;"></div></div>
+                                                <span>1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="reviews-list">
+                                        <div class="review-item">
+                                            <div class="review-item__header">
+                                                <img src="https://i.pravatar.cc/150?img=32" alt="Sarah M." class="review-item__avatar">
+                                                <div>
+                                                    <strong class="review-item__name">Sarah M.</strong>
+                                                    <div class="rating-stars">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                    </div>
+                                                </div>
+                                                <span class="review-item__date">2 days ago</span>
+                                            </div>
+                                            <p class="review-item__text">
+                                                Absolutely love these headphones! The noise cancellation is incredible - I can't hear anything when I'm on the train. 
+                                                Battery life is amazing too. Highly recommend!
+                                            </p>
+                                            <div class="review-item__helpful">
+                                                <span>Was this helpful?</span>
+                                                <button class="btn btn-sm btn-ghost-secondary"><i class="bi bi-hand-thumbs-up"></i> 24</button>
+                                                <button class="btn btn-sm btn-ghost-secondary"><i class="bi bi-hand-thumbs-down"></i> 2</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="review-item">
+                                            <div class="review-item__header">
+                                                <img src="https://i.pravatar.cc/150?img=68" alt="Mike T." class="review-item__avatar">
+                                                <div>
+                                                    <strong class="review-item__name">Mike T.</strong>
+                                                    <div class="rating-stars">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star"></i>
+                                                    </div>
+                                                </div>
+                                                <span class="review-item__date">1 week ago</span>
+                                            </div>
+                                            <p class="review-item__text">
+                                                Great sound quality and comfortable for long listening sessions. Only minor complaint is 
+                                                the touch controls can be a bit sensitive sometimes. Overall very happy with my purchase.
+                                            </p>
+                                            <div class="review-item__helpful">
+                                                <span>Was this helpful?</span>
+                                                <button class="btn btn-sm btn-ghost-secondary"><i class="bi bi-hand-thumbs-up"></i> 18</button>
+                                                <button class="btn btn-sm btn-ghost-secondary"><i class="bi bi-hand-thumbs-down"></i> 1</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-outline-primary btn-block mt-4">Load More Reviews</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+                <p class="footer__copyright">&copy; 2025 <a href="#">Smart Workz</a>. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../../../dist/js/vendor.min.js"></script>
+    <script src="../../../dist/js/app.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+</body>
+</html>
+

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Compose Email - Smart Workz Admin">
+    <title>Compose | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-styles.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .compose-card { background: #fff; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); max-width: 900px; }
+        .compose-header { padding: 1rem 1.5rem; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; }
+        .compose-header h2 { font-size: 1.125rem; font-weight: 600; margin: 0; }
+        .compose-body { padding: 1.5rem; }
+        .compose-field { margin-bottom: 1.25rem; }
+        .compose-field__label { font-weight: 500; font-size: 0.875rem; color: #64748B; margin-bottom: 0.5rem; display: block; }
+        .compose-field__input { width: 100%; padding: 0.75rem 1rem; border: 1px solid #E2E8F0; border-radius: 0.5rem; font-size: 0.9375rem; transition: all 0.2s; }
+        .compose-field__input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+        .compose-field__textarea { min-height: 350px; resize: vertical; font-family: inherit; line-height: 1.6; }
+        .compose-toolbar { display: flex; gap: 0.25rem; padding: 0.75rem; border: 1px solid #E2E8F0; border-bottom: none; border-radius: 0.5rem 0.5rem 0 0; background: #F8FAFC; }
+        .compose-toolbar__btn { width: 36px; height: 36px; border: none; background: transparent; border-radius: 0.375rem; color: #64748B; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.2s; }
+        .compose-toolbar__btn:hover { background: #E2E8F0; color: #1E293B; }
+        .compose-toolbar__divider { width: 1px; height: 24px; background: #E2E8F0; margin: 6px 0.5rem; }
+        .compose-editor { border-radius: 0 0 0.5rem 0.5rem; border-top: none; }
+        .compose-footer { padding: 1rem 1.5rem; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .compose-footer__left { display: flex; gap: 0.5rem; }
+        .compose-footer__right { display: flex; gap: 0.5rem; }
+        .attachment-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .attachment-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 0.5rem; font-size: 0.8125rem; }
+        .attachment-item__icon { color: #64748B; }
+        .attachment-item__remove { background: none; border: none; color: #94A3B8; cursor: pointer; padding: 0.125rem; }
+        .attachment-item__remove:hover { color: #EF4444; }
+    </style>
+</head>
+<body class="app-body">
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
+                    <span>Smart Workz</span>
+                </a>
+                <button class="sidebar__close" id="sidebarClose"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Dashboards</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../dashboard/index.html" class="sidebar__nav-link"><i class="bi bi-speedometer2 sidebar__nav-icon"></i><span class="sidebar__nav-text">Main</span></a></li>
+                        <li><a href="../dashboard/crm.html" class="sidebar__nav-link"><i class="bi bi-briefcase sidebar__nav-icon"></i><span class="sidebar__nav-text">CRM</span></a></li>
+                        <li><a href="../dashboard/social.html" class="sidebar__nav-link"><i class="bi bi-share sidebar__nav-icon"></i><span class="sidebar__nav-text">Social</span></a></li>
+                        <li><a href="../dashboard/dark-analytics.html" class="sidebar__nav-link"><i class="bi bi-activity sidebar__nav-icon"></i><span class="sidebar__nav-text">Analytics</span></a></li>
+                        <li><a href="../dashboard/minimal.html" class="sidebar__nav-link"><i class="bi bi-grid-1x2 sidebar__nav-icon"></i><span class="sidebar__nav-text">Minimal</span></a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Apps</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="inbox.html" class="sidebar__nav-link"><i class="bi bi-envelope sidebar__nav-icon"></i><span class="sidebar__nav-text">Inbox</span></a></li>
+                        <li><a href="compose.html" class="sidebar__nav-link sidebar__nav-link--active"><i class="bi bi-pencil-square sidebar__nav-icon"></i><span class="sidebar__nav-text">Compose</span></a></li>
+                        <li><a href="calendar.html" class="sidebar__nav-link"><i class="bi bi-calendar3 sidebar__nav-icon"></i><span class="sidebar__nav-text">Calendar</span></a></li>
+                        <li><a href="kanban.html" class="sidebar__nav-link"><i class="bi bi-kanban sidebar__nav-icon"></i><span class="sidebar__nav-text">Kanban</span></a></li>
+                        <li><a href="file-manager.html" class="sidebar__nav-link"><i class="bi bi-folder sidebar__nav-icon"></i><span class="sidebar__nav-text">Files</span></a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Pages</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../index.html" class="sidebar__nav-link"><i class="bi bi-grid sidebar__nav-icon"></i><span class="sidebar__nav-text">All Pages</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+                    <nav class="header__breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <a href="inbox.html">Email</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Compose</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action"><i class="bi bi-bell"></i></button>
+                    <button class="header__action"><i class="bi bi-gear"></i></button>
+                </div>
+            </header>
+
+            <main class="app-main">
+                <div class="compose-card">
+                    <div class="compose-header">
+                        <h2>New Message</h2>
+                        <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrows-fullscreen"></i></button>
+                    </div>
+                    <div class="compose-body">
+                        <div class="compose-field">
+                            <label class="compose-field__label">To</label>
+                            <input type="email" class="compose-field__input" placeholder="recipient@example.com">
+                        </div>
+                        <div class="compose-field">
+                            <label class="compose-field__label">Subject</label>
+                            <input type="text" class="compose-field__input" placeholder="Email subject">
+                        </div>
+                        <div class="compose-field">
+                            <label class="compose-field__label">Message</label>
+                            <div class="compose-toolbar">
+                                <button class="compose-toolbar__btn" title="Bold"><i class="bi bi-type-bold"></i></button>
+                                <button class="compose-toolbar__btn" title="Italic"><i class="bi bi-type-italic"></i></button>
+                                <button class="compose-toolbar__btn" title="Underline"><i class="bi bi-type-underline"></i></button>
+                                <span class="compose-toolbar__divider"></span>
+                                <button class="compose-toolbar__btn" title="Bullet List"><i class="bi bi-list-ul"></i></button>
+                                <button class="compose-toolbar__btn" title="Numbered List"><i class="bi bi-list-ol"></i></button>
+                                <span class="compose-toolbar__divider"></span>
+                                <button class="compose-toolbar__btn" title="Insert Link"><i class="bi bi-link-45deg"></i></button>
+                                <button class="compose-toolbar__btn" title="Insert Image"><i class="bi bi-image"></i></button>
+                            </div>
+                            <textarea class="compose-field__input compose-field__textarea compose-editor" placeholder="Write your message here..."></textarea>
+                        </div>
+                        <div class="attachment-list">
+                            <div class="attachment-item">
+                                <i class="bi bi-file-earmark-pdf attachment-item__icon"></i>
+                                <span>proposal.pdf</span>
+                                <button class="attachment-item__remove"><i class="bi bi-x"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compose-footer">
+                        <div class="compose-footer__left">
+                            <button class="btn btn-primary"><i class="bi bi-send"></i> Send</button>
+                            <button class="btn btn-outline-secondary"><i class="bi bi-paperclip"></i> Attach</button>
+                        </div>
+                        <div class="compose-footer__right">
+                            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-save"></i> Save Draft</button>
+                            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        });
+        document.getElementById('sidebarClose')?.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+        });
+    </script>
+</body>
+</html>

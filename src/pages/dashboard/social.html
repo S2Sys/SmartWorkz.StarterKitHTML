@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Dashboard | Smart Workz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAFBFC;
+            --card: #FFFFFF;
+            --text: #1A1A2E;
+            --muted: #6B7280;
+            --border: #E5E7EB;
+            --twitter: #1DA1F2;
+            --facebook: #4267B2;
+            --instagram: #E4405F;
+            --linkedin: #0077B5;
+            --youtube: #FF0000;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); margin: 0; color: var(--text); }
+        
+        /* Header */
+        .top-bar { background: var(--card); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .logo i { color: var(--instagram); }
+        .nav-tabs { display: flex; gap: 2rem; }
+        .nav-tab { color: var(--muted); text-decoration: none; font-weight: 500; padding: 0.5rem 0; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .nav-tab:hover { color: var(--text); }
+        .nav-tab.active { color: var(--text); border-bottom-color: var(--instagram); }
+        .user-menu { display: flex; align-items: center; gap: 1rem; }
+        .user-menu__btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--bg); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; }
+        .user-menu__btn:hover { background: var(--border); color: var(--text); }
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+
+        /* Main Layout */
+        .main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+        /* Platform Cards Row */
+        .platforms { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .platform-card { background: var(--card); border-radius: 1rem; padding: 1.25rem; text-align: center; border: 1px solid var(--border); transition: all 0.2s; cursor: pointer; }
+        .platform-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+        .platform-card__icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 0.75rem; color: #fff; }
+        .platform-card__icon--twitter { background: var(--twitter); }
+        .platform-card__icon--facebook { background: var(--facebook); }
+        .platform-card__icon--instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80); }
+        .platform-card__icon--linkedin { background: var(--linkedin); }
+        .platform-card__icon--youtube { background: var(--youtube); }
+        .platform-card__followers { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.125rem; }
+        .platform-card__label { font-size: 0.75rem; color: var(--muted); }
+        .platform-card__change { font-size: 0.75rem; margin-top: 0.5rem; padding: 0.25rem 0.5rem; border-radius: 1rem; display: inline-block; }
+        .platform-card__change--up { background: #DCFCE7; color: #16A34A; }
+        .platform-card__change--down { background: #FEE2E2; color: #DC2626; }
+
+        /* Dashboard Grid */
+        .dash-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+
+        /* Card Styles */
+        .card { background: var(--card); border-radius: 1rem; border: 1px solid var(--border); }
+        .card__header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .card__title { font-weight: 700; margin: 0; font-size: 1rem; }
+        .card__action { background: none; border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.5rem 1rem; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
+        .card__action:hover { background: var(--bg); }
+        .card__body { padding: 1.5rem; }
+
+        /* Posts Grid */
+        .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .post-card { border-radius: 0.75rem; overflow: hidden; cursor: pointer; transition: all 0.2s; position: relative; }
+        .post-card:hover { transform: scale(1.02); }
+        .post-card img { width: 100%; height: 180px; object-fit: cover; }
+        .post-card__overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: #fff; display: flex; gap: 1rem; }
+        .post-card__stat { display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; }
+
+        /* Engagement Stats */
+        .engagement-stat { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .engagement-stat:last-child { border-bottom: none; }
+        .engagement-stat__left { display: flex; align-items: center; gap: 0.75rem; }
+        .engagement-stat__icon { width: 40px; height: 40px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; }
+        .engagement-stat__icon--likes { background: #FEE2E2; color: #EF4444; }
+        .engagement-stat__icon--comments { background: #DBEAFE; color: #3B82F6; }
+        .engagement-stat__icon--shares { background: #DCFCE7; color: #22C55E; }
+        .engagement-stat__icon--saves { background: #FEF3C7; color: #F59E0B; }
+        .engagement-stat__label { font-weight: 500; }
+        .engagement-stat__value { font-size: 1.25rem; font-weight: 700; }
+
+        /* Schedule List */
+        .schedule-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .schedule-item:last-child { border-bottom: none; }
+        .schedule-item__time { font-size: 0.75rem; color: var(--muted); width: 50px; flex-shrink: 0; padding-top: 0.125rem; }
+        .schedule-item__content { flex: 1; }
+        .schedule-item__platform { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.7rem; padding: 0.125rem 0.5rem; border-radius: 1rem; margin-bottom: 0.25rem; }
+        .schedule-item__platform--instagram { background: #FCE7F3; color: #DB2777; }
+        .schedule-item__platform--twitter { background: #DBEAFE; color: #1D4ED8; }
+        .schedule-item__platform--linkedin { background: #DBEAFE; color: #1D4ED8; }
+        .schedule-item__title { font-weight: 500; font-size: 0.875rem; }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .platforms { grid-template-columns: repeat(3, 1fr); } .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { 
+            .platforms { grid-template-columns: repeat(2, 1fr); } 
+            .dash-grid { grid-template-columns: 1fr; } 
+            .nav-tabs { display: none; }
+            .posts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <div class="logo"><i class="bi bi-bar-chart-fill"></i> Social Hub</div>
+        <nav class="nav-tabs">
+            <a href="#" class="nav-tab active">Overview</a>
+            <a href="#" class="nav-tab">Analytics</a>
+            <a href="#" class="nav-tab">Content</a>
+            <a href="#" class="nav-tab">Schedule</a>
+            <a href="#" class="nav-tab">Inbox</a>
+        </nav>
+        <div class="user-menu">
+            <button class="user-menu__btn"><i class="bi bi-bell"></i></button>
+            <button class="user-menu__btn"><i class="bi bi-gear"></i></button>
+            <img src="https://i.pravatar.cc/150?img=32" alt="" class="user-avatar">
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Platform Stats -->
+        <div class="platforms">
+            <div class="platform-card">
+                <div class="platform-card__icon platform-card__icon--twitter"><i class="bi bi-twitter-x"></i></div>
+                <div class="platform-card__followers">24.5K</div>
+                <div class="platform-card__label">Followers</div>
+                <span class="platform-card__change platform-card__change--up">↑ 12.3%</span>
+            </div>
+            <div class="platform-card">
+                <div class="platform-card__icon platform-card__icon--facebook"><i class="bi bi-facebook"></i></div>
+                <div class="platform-card__followers">18.2K</div>
+                <div class="platform-card__label">Followers</div>
+                <span class="platform-card__change platform-card__change--up">↑ 5.8%</span>
+            </div>
+            <div class="platform-card">
+                <div class="platform-card__icon platform-card__icon--instagram"><i class="bi bi-instagram"></i></div>
+                <div class="platform-card__followers">89.7K</div>
+                <div class="platform-card__label">Followers</div>
+                <span class="platform-card__change platform-card__change--up">↑ 24.1%</span>
+            </div>
+            <div class="platform-card">
+                <div class="platform-card__icon platform-card__icon--linkedin"><i class="bi bi-linkedin"></i></div>
+                <div class="platform-card__followers">12.8K</div>
+                <div class="platform-card__label">Followers</div>
+                <span class="platform-card__change platform-card__change--down">↓ 2.4%</span>
+            </div>
+            <div class="platform-card">
+                <div class="platform-card__icon platform-card__icon--youtube"><i class="bi bi-youtube"></i></div>
+                <div class="platform-card__followers">156K</div>
+                <div class="platform-card__label">Subscribers</div>
+                <span class="platform-card__change platform-card__change--up">↑ 8.9%</span>
+            </div>
+        </div>
+
+        <div class="dash-grid">
+            <!-- Recent Posts -->
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Top Performing Posts</h2>
+                    <button class="card__action">View All</button>
+                </div>
+                <div class="card__body">
+                    <div class="posts-grid">
+                        <div class="post-card">
+                            <img src="https://via.placeholder.com/300x200/6366F1/FFFFFF?text=Post+1" alt="">
+                            <div class="post-card__overlay">
+                                <span class="post-card__stat"><i class="bi bi-heart-fill"></i> 2.4K</span>
+                                <span class="post-card__stat"><i class="bi bi-chat-fill"></i> 128</span>
+                            </div>
+                        </div>
+                        <div class="post-card">
+                            <img src="https://via.placeholder.com/300x200/EC4899/FFFFFF?text=Post+2" alt="">
+                            <div class="post-card__overlay">
+                                <span class="post-card__stat"><i class="bi bi-heart-fill"></i> 1.8K</span>
+                                <span class="post-card__stat"><i class="bi bi-chat-fill"></i> 95</span>
+                            </div>
+                        </div>
+                        <div class="post-card">
+                            <img src="https://via.placeholder.com/300x200/10B981/FFFFFF?text=Post+3" alt="">
+                            <div class="post-card__overlay">
+                                <span class="post-card__stat"><i class="bi bi-heart-fill"></i> 1.5K</span>
+                                <span class="post-card__stat"><i class="bi bi-chat-fill"></i> 72</span>
+                            </div>
+                        </div>
+                        <div class="post-card">
+                            <img src="https://via.placeholder.com/300x200/F59E0B/FFFFFF?text=Post+4" alt="">
+                            <div class="post-card__overlay">
+                                <span class="post-card__stat"><i class="bi bi-heart-fill"></i> 1.2K</span>
+                                <span class="post-card__stat"><i class="bi bi-chat-fill"></i> 64</span>
+                            </div>
+                        </div>
+                        <div class="post-card">
+                            <img src="https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Post+5" alt="">
+                            <div class="post-card__overlay">
+                                <span class="post-card__stat"><i class="bi bi-heart-fill"></i> 980</span>
+                                <span class="post-card__stat"><i class="bi bi-chat-fill"></i> 48</span>
+                            </div>
+                        </div>
+                        <div class="post-card">
+                            <img src="https://via.placeholder.com/300x200/8B5CF6/FFFFFF?text=Post+6" alt="">
+                            <div class="post-card__overlay">
+                                <span class="post-card__stat"><i class="bi bi-heart-fill"></i> 856</span>
+                                <span class="post-card__stat"><i class="bi bi-chat-fill"></i> 36</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <!-- Engagement Stats -->
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">This Week's Engagement</h2>
+                    </div>
+                    <div class="card__body" style="padding: 0.5rem 1.5rem;">
+                        <div class="engagement-stat">
+                            <div class="engagement-stat__left">
+                                <div class="engagement-stat__icon engagement-stat__icon--likes"><i class="bi bi-heart-fill"></i></div>
+                                <span class="engagement-stat__label">Likes</span>
+                            </div>
+                            <span class="engagement-stat__value">12,847</span>
+                        </div>
+                        <div class="engagement-stat">
+                            <div class="engagement-stat__left">
+                                <div class="engagement-stat__icon engagement-stat__icon--comments"><i class="bi bi-chat-fill"></i></div>
+                                <span class="engagement-stat__label">Comments</span>
+                            </div>
+                            <span class="engagement-stat__value">1,284</span>
+                        </div>
+                        <div class="engagement-stat">
+                            <div class="engagement-stat__left">
+                                <div class="engagement-stat__icon engagement-stat__icon--shares"><i class="bi bi-share-fill"></i></div>
+                                <span class="engagement-stat__label">Shares</span>
+                            </div>
+                            <span class="engagement-stat__value">842</span>
+                        </div>
+                        <div class="engagement-stat">
+                            <div class="engagement-stat__left">
+                                <div class="engagement-stat__icon engagement-stat__icon--saves"><i class="bi bi-bookmark-fill"></i></div>
+                                <span class="engagement-stat__label">Saves</span>
+                            </div>
+                            <span class="engagement-stat__value">2,156</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheduled Posts -->
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Scheduled Posts</h2>
+                        <button class="card__action">+ New</button>
+                    </div>
+                    <div class="card__body" style="padding: 0.5rem 1.5rem;">
+                        <div class="schedule-item">
+                            <div class="schedule-item__time">10:00 AM</div>
+                            <div class="schedule-item__content">
+                                <span class="schedule-item__platform schedule-item__platform--instagram"><i class="bi bi-instagram"></i> Instagram</span>
+                                <div class="schedule-item__title">New product launch announcement</div>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-item__time">2:00 PM</div>
+                            <div class="schedule-item__content">
+                                <span class="schedule-item__platform schedule-item__platform--twitter"><i class="bi bi-twitter-x"></i> Twitter</span>
+                                <div class="schedule-item__title">Industry insights thread</div>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-item__time">5:00 PM</div>
+                            <div class="schedule-item__content">
+                                <span class="schedule-item__platform schedule-item__platform--linkedin"><i class="bi bi-linkedin"></i> LinkedIn</span>
+                                <div class="schedule-item__title">Company milestone celebration</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

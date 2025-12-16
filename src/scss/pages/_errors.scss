@@ -1,0 +1,385 @@
+// File: src/scss/pages/_errors.scss
+// Smart Workz Premium Admin Template - Error Page Styles
+
+// ============================================================================
+// ERROR PAGE BASE
+// ============================================================================
+
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, $color-bg-subtle 0%, $color-white 100%);
+  padding: $spacing-4;
+
+  [data-theme="dark"] & {
+    background: linear-gradient(180deg, $color-bg-body-dark 0%, $color-bg-surface-dark 100%);
+  }
+}
+
+.error-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.error-content {
+  text-align: center;
+}
+
+// ============================================================================
+// ERROR CODE
+// ============================================================================
+
+.error-code {
+  font-size: clamp(6rem, 20vw, 10rem);
+  font-weight: $font-weight-extrabold;
+  line-height: 1;
+  color: $color-primary;
+  margin-bottom: $spacing-2;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.error-code--warning {
+  background: linear-gradient(135deg, $color-warning 0%, $color-warning-dark 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.error-code--danger {
+  background: linear-gradient(135deg, $color-error 0%, $color-error-dark 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ============================================================================
+// ERROR ILLUSTRATION
+// ============================================================================
+
+.error-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto $spacing-4;
+  background-color: $color-primary-50;
+  border-radius: $radius-full;
+  color: $color-primary;
+
+  i {
+    font-size: 3rem;
+  }
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-primary, 0.15);
+    color: $color-primary-light;
+  }
+}
+
+.error-illustration--warning {
+  background-color: $color-warning-100;
+  color: $color-warning-dark;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-warning, 0.15);
+    color: $color-warning-light;
+  }
+}
+
+.error-illustration--danger {
+  background-color: $color-error-100;
+  color: $color-error;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-error, 0.15);
+    color: $color-error-light;
+  }
+}
+
+.error-illustration--info {
+  background-color: $color-info-100;
+  color: $color-info;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-info, 0.15);
+    color: $color-info-light;
+  }
+}
+
+.error-illustration--large {
+  width: 8rem;
+  height: 8rem;
+
+  i {
+    font-size: 4rem;
+    animation: spinSlow 8s linear infinite;
+  }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// ============================================================================
+// ERROR CONTENT
+// ============================================================================
+
+.error-title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin: 0 0 $spacing-3;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: $font-size-3xl;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.error-message {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+  margin: 0 0 $spacing-6;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+  }
+}
+
+// ============================================================================
+// ERROR ACTIONS
+// ============================================================================
+
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-6;
+}
+
+// ============================================================================
+// ERROR DETAILS
+// ============================================================================
+
+.error-details {
+  padding: $spacing-3;
+  background-color: $color-bg-subtle;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-4;
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+
+  code {
+    padding: $spacing-0-5 $spacing-1;
+    background-color: $color-bg-muted;
+    border-radius: $radius-sm;
+    font-family: $font-family-code;
+    font-size: $font-size-xs;
+  }
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+
+    code {
+      background-color: $color-bg-subtle-dark;
+    }
+  }
+}
+
+// ============================================================================
+// ERROR HELP
+// ============================================================================
+
+.error-help {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// MAINTENANCE COUNTDOWN
+// ============================================================================
+
+.maintenance-countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-6;
+}
+
+.countdown-item {
+  text-align: center;
+}
+
+.countdown-value {
+  display: block;
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  line-height: 1;
+  min-width: 80px;
+  padding: $spacing-3;
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-surface-dark;
+    color: $color-text-primary-dark;
+  }
+}
+
+.countdown-label {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-top: $spacing-1;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.countdown-separator {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-muted;
+  margin-top: -$spacing-4;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// MAINTENANCE PROGRESS
+// ============================================================================
+
+.maintenance-progress {
+  max-width: 300px;
+  margin: 0 auto $spacing-6;
+}
+
+.maintenance-progress__text {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin: $spacing-2 0 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// MAINTENANCE NOTIFY
+// ============================================================================
+
+.maintenance-notify {
+  max-width: 350px;
+  margin: 0 auto $spacing-6;
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-3;
+
+    [data-theme="dark"] & {
+      color: $color-text-secondary-dark;
+    }
+  }
+}
+
+.maintenance-notify__form {
+  display: flex;
+  gap: $spacing-2;
+
+  .form-control {
+    flex: 1;
+  }
+}
+
+// ============================================================================
+// ERROR SOCIAL
+// ============================================================================
+
+.error-social {
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin-bottom: $spacing-3;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+}
+
+.error-social__links {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+}
+
+// ============================================================================
+// SESSION INFO
+// ============================================================================
+
+.session-info {
+  padding: $spacing-4;
+  background-color: $color-info-50;
+  border-radius: $radius-lg;
+  margin-top: $spacing-6;
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+    color: $color-info-dark;
+
+    i {
+      margin-right: $spacing-2;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-info, 0.1);
+
+    p {
+      color: $color-info-light;
+    }
+  }
+}
+

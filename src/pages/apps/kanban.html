@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kanban Board - Smart Workz Admin">
+    <title>Kanban | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <!-- CSS - CDN Fallback -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-styles.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .app-main { overflow-x: auto; }
+        .kanban-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .kanban-board { display: flex; gap: 1.5rem; min-height: calc(100vh - 200px); padding-bottom: 1rem; }
+        .kanban-column { width: 320px; min-width: 320px; background: #fff; border-radius: 0.75rem; padding: 1rem; }
+        .kanban-column__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 2px solid #E2E8F0; }
+        .kanban-column__title { font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .kanban-column__count { background: #E2E8F0; padding: 0.125rem 0.5rem; border-radius: 1rem; font-size: 0.75rem; }
+        .kanban-card { background: #F8FAFC; border-radius: 0.5rem; padding: 1rem; margin-bottom: 0.75rem; cursor: grab; border: 1px solid #E2E8F0; transition: all 0.2s; }
+        .kanban-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .kanban-card__title { font-weight: 600; margin-bottom: 0.5rem; }
+        .kanban-card__labels { display: flex; gap: 0.25rem; margin-bottom: 0.75rem; }
+        .kanban-label { font-size: 0.625rem; padding: 0.125rem 0.5rem; border-radius: 1rem; font-weight: 600; }
+        .kanban-label--feature { background: #DCFCE7; color: #16A34A; }
+        .kanban-label--bug { background: #FEE2E2; color: #DC2626; }
+        .kanban-label--urgent { background: #FEF3C7; color: #D97706; }
+        .kanban-card__footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; color: #64748B; }
+        .kanban-card__assignees { display: flex; }
+        .kanban-card__assignee { width: 28px; height: 28px; border-radius: 50%; background: #E2E8F0; margin-left: -8px; border: 2px solid #fff; object-fit: cover; }
+    </style>
+</head>
+<body class="app-body">
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
+                    <span class="sidebar__brand-text">Smart Workz</span>
+                </a>
+                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Dashboards</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../dashboard/index.html" class="sidebar__nav-link"><i class="bi bi-speedometer2 sidebar__nav-icon"></i><span class="sidebar__nav-text">Main</span></a></li>
+                        <li><a href="../dashboard/crm.html" class="sidebar__nav-link"><i class="bi bi-briefcase sidebar__nav-icon"></i><span class="sidebar__nav-text">CRM</span></a></li>
+                        <li><a href="../dashboard/social.html" class="sidebar__nav-link"><i class="bi bi-share sidebar__nav-icon"></i><span class="sidebar__nav-text">Social</span></a></li>
+                        <li><a href="../dashboard/dark-analytics.html" class="sidebar__nav-link"><i class="bi bi-activity sidebar__nav-icon"></i><span class="sidebar__nav-text">Analytics</span></a></li>
+                        <li><a href="../dashboard/minimal.html" class="sidebar__nav-link"><i class="bi bi-grid-1x2 sidebar__nav-icon"></i><span class="sidebar__nav-text">Minimal</span></a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Apps</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="inbox.html" class="sidebar__nav-link"><i class="bi bi-envelope sidebar__nav-icon"></i><span class="sidebar__nav-text">Email</span></a></li>
+                        <li><a href="calendar.html" class="sidebar__nav-link"><i class="bi bi-calendar3 sidebar__nav-icon"></i><span class="sidebar__nav-text">Calendar</span></a></li>
+                        <li><a href="kanban.html" class="sidebar__nav-link sidebar__nav-link--active"><i class="bi bi-kanban sidebar__nav-icon"></i><span class="sidebar__nav-text">Kanban</span></a></li>
+                        <li><a href="file-manager.html" class="sidebar__nav-link"><i class="bi bi-folder sidebar__nav-icon"></i><span class="sidebar__nav-text">Files</span></a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Pages</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../index.html" class="sidebar__nav-link"><i class="bi bi-grid sidebar__nav-icon"></i><span class="sidebar__nav-text">All Pages</span></a></li>
+                        <li><a href="../landing.html" class="sidebar__nav-link"><i class="bi bi-house sidebar__nav-icon"></i><span class="sidebar__nav-text">Landing</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-content">
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarOpen" aria-label="Open sidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <nav class="header__breadcrumb" aria-label="Breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Kanban Board</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action" id="themeToggle" aria-label="Toggle dark mode">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="header-spacer"></div>
+
+            <main id="main-content" class="app-main app-main--kanban">
+                <!-- Board Header -->
+                <div class="kanban-header">
+                    <div class="kanban-header__info">
+                        <h1 class="kanban-header__title">Product Roadmap</h1>
+                        <div class="kanban-header__meta">
+                            <span class="kanban-header__members">
+                                <img src="https://i.pravatar.cc/150?img=68" alt="">
+                                <img src="https://i.pravatar.cc/150?img=32" alt="">
+                                <img src="https://i.pravatar.cc/150?img=47" alt="">
+                                <span class="kanban-header__more">+3</span>
+                            </span>
+                            <span class="text-muted">|</span>
+                            <span class="text-muted">12 tasks</span>
+                        </div>
+                    </div>
+                    <div class="kanban-header__actions">
+                        <div class="input-group input-group--sm">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search tasks...">
+                        </div>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-funnel"></i> Filter
+                        </button>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="bi bi-plus"></i> Add Task
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kanban Board -->
+                <div class="kanban-board">
+                    <!-- Backlog Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column__header">
+                            <div class="kanban-column__title">
+                                <span class="kanban-column__dot" style="background: #6B7280;"></span>
+                                <h3>Backlog</h3>
+                                <span class="kanban-column__count">3</span>
+                            </div>
+                            <button class="btn btn-icon btn-ghost-secondary btn-sm">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </div>
+                        <div class="kanban-column__body">
+                            <div class="kanban-card">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #7C3AED;">Feature</span>
+                                </div>
+                                <h4 class="kanban-card__title">Implement dark mode toggle</h4>
+                                <p class="kanban-card__desc">Add ability to switch between light and dark themes</p>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 3</span>
+                                        <span><i class="bi bi-paperclip"></i> 1</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=32" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                            <div class="kanban-card">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #059669;">Enhancement</span>
+                                </div>
+                                <h4 class="kanban-card__title">Improve loading performance</h4>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 5</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=47" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                            <div class="kanban-card">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #DC2626;">Bug</span>
+                                </div>
+                                <h4 class="kanban-card__title">Fix sidebar collapse on mobile</h4>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 2</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=68" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="kanban-column__add">
+                            <i class="bi bi-plus"></i> Add Card
+                        </button>
+                    </div>
+
+                    <!-- To Do Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column__header">
+                            <div class="kanban-column__title">
+                                <span class="kanban-column__dot" style="background: #4F46E5;"></span>
+                                <h3>To Do</h3>
+                                <span class="kanban-column__count">4</span>
+                            </div>
+                            <button class="btn btn-icon btn-ghost-secondary btn-sm">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </div>
+                        <div class="kanban-column__body">
+                            <div class="kanban-card">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #7C3AED;">Feature</span>
+                                    <span class="kanban-label" style="background: #DC2626;">High Priority</span>
+                                </div>
+                                <h4 class="kanban-card__title">Create user authentication flow</h4>
+                                <p class="kanban-card__desc">Implement login, register, and password reset pages</p>
+                                <div class="kanban-card__checklist">
+                                    <i class="bi bi-check2-square"></i>
+                                    <span>3/5 completed</span>
+                                </div>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 8</span>
+                                        <span><i class="bi bi-paperclip"></i> 3</span>
+                                    </div>
+                                    <div class="kanban-card__avatars">
+                                        <img src="https://i.pravatar.cc/150?img=68" alt="">
+                                        <img src="https://i.pravatar.cc/150?img=32" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kanban-card">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #059669;">Enhancement</span>
+                                </div>
+                                <h4 class="kanban-card__title">Add chart components</h4>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 2</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=47" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                            <div class="kanban-card kanban-card--image">
+                                <img src="https://via.placeholder.com/300x150/4F46E5/FFFFFF?text=Design" alt="" class="kanban-card__image">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #D97706;">Design</span>
+                                </div>
+                                <h4 class="kanban-card__title">Update dashboard layout</h4>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 12</span>
+                                        <span><i class="bi bi-paperclip"></i> 5</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=12" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                            <div class="kanban-card">
+                                <h4 class="kanban-card__title">Write documentation</h4>
+                                <div class="kanban-card__due kanban-card__due--warning">
+                                    <i class="bi bi-clock"></i> Dec 10
+                                </div>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 1</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=32" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="kanban-column__add">
+                            <i class="bi bi-plus"></i> Add Card
+                        </button>
+                    </div>
+
+                    <!-- In Progress Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column__header">
+                            <div class="kanban-column__title">
+                                <span class="kanban-column__dot" style="background: #D97706;"></span>
+                                <h3>In Progress</h3>
+                                <span class="kanban-column__count">2</span>
+                            </div>
+                            <button class="btn btn-icon btn-ghost-secondary btn-sm">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </div>
+                        <div class="kanban-column__body">
+                            <div class="kanban-card">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #7C3AED;">Feature</span>
+                                </div>
+                                <h4 class="kanban-card__title">Build e-commerce module</h4>
+                                <p class="kanban-card__desc">Product listing, cart, and checkout pages</p>
+                                <div class="kanban-card__progress">
+                                    <div class="progress progress--sm">
+                                        <div class="progress__bar" style="width: 65%;"></div>
+                                    </div>
+                                    <span>65%</span>
+                                </div>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 15</span>
+                                        <span><i class="bi bi-paperclip"></i> 8</span>
+                                    </div>
+                                    <div class="kanban-card__avatars">
+                                        <img src="https://i.pravatar.cc/150?img=68" alt="">
+                                        <img src="https://i.pravatar.cc/150?img=47" alt="">
+                                        <img src="https://i.pravatar.cc/150?img=12" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kanban-card">
+                                <div class="kanban-card__labels">
+                                    <span class="kanban-label" style="background: #DC2626;">Bug</span>
+                                </div>
+                                <h4 class="kanban-card__title">Fix form validation errors</h4>
+                                <div class="kanban-card__due kanban-card__due--danger">
+                                    <i class="bi bi-clock"></i> Overdue
+                                </div>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-chat"></i> 4</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=68" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="kanban-column__add">
+                            <i class="bi bi-plus"></i> Add Card
+                        </button>
+                    </div>
+
+                    <!-- Done Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column__header">
+                            <div class="kanban-column__title">
+                                <span class="kanban-column__dot" style="background: #059669;"></span>
+                                <h3>Done</h3>
+                                <span class="kanban-column__count">3</span>
+                            </div>
+                            <button class="btn btn-icon btn-ghost-secondary btn-sm">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </div>
+                        <div class="kanban-column__body">
+                            <div class="kanban-card kanban-card--completed">
+                                <h4 class="kanban-card__title">Setup project structure</h4>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-check-circle"></i> Completed</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=68" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                            <div class="kanban-card kanban-card--completed">
+                                <h4 class="kanban-card__title">Create design system</h4>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-check-circle"></i> Completed</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=47" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                            <div class="kanban-card kanban-card--completed">
+                                <h4 class="kanban-card__title">Build component library</h4>
+                                <div class="kanban-card__footer">
+                                    <div class="kanban-card__meta">
+                                        <span><i class="bi bi-check-circle"></i> Completed</span>
+                                    </div>
+                                    <img src="https://i.pravatar.cc/150?img=32" alt="" class="kanban-card__avatar">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="kanban-column__add">
+                            <i class="bi bi-plus"></i> Add Card
+                        </button>
+                    </div>
+
+                    <!-- Add Column -->
+                    <div class="kanban-column kanban-column--add">
+                        <button class="kanban-column__add-btn">
+                            <i class="bi bi-plus"></i>
+                            <span>Add Column</span>
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../../../dist/js/vendor.min.js"></script>
+    <script src="../../../dist/js/app.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+</body>
+</html>
+

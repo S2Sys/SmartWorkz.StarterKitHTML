@@ -1,0 +1,562 @@
+// File: src/scss/components/_skeleton-loaders.scss
+// Smart Workz Premium Admin Template - Skeleton Loaders
+// Content placeholder animations for loading states
+
+// ============================================================================
+// SKELETON BASE
+// ============================================================================
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    $color-gray-200 25%,
+    $color-gray-100 50%,
+    $color-gray-200 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  border-radius: $radius-md;
+
+  [data-theme="dark"] & {
+    background: linear-gradient(
+      90deg,
+      $color-gray-700 25%,
+      $color-gray-600 50%,
+      $color-gray-700 75%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// ============================================================================
+// SKELETON SHAPES
+// ============================================================================
+
+// Text line
+.skeleton-text {
+  height: 1rem;
+  width: 100%;
+  @extend .skeleton;
+}
+
+.skeleton-text--xs {
+  height: 0.75rem;
+}
+
+.skeleton-text--sm {
+  height: 0.875rem;
+}
+
+.skeleton-text--lg {
+  height: 1.25rem;
+}
+
+.skeleton-text--xl {
+  height: 1.5rem;
+}
+
+// Title/Heading
+.skeleton-title {
+  height: 1.5rem;
+  width: 60%;
+  @extend .skeleton;
+}
+
+.skeleton-title--lg {
+  height: 2rem;
+}
+
+// Paragraph (multiple lines)
+.skeleton-paragraph {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+// Circle (avatar)
+.skeleton-circle {
+  border-radius: $radius-full;
+  @extend .skeleton;
+}
+
+.skeleton-circle--xs {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.skeleton-circle--sm {
+  width: 2rem;
+  height: 2rem;
+}
+
+.skeleton-circle--md {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.skeleton-circle--lg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.skeleton-circle--xl {
+  width: 4rem;
+  height: 4rem;
+}
+
+// Rectangle (image placeholder)
+.skeleton-rect {
+  @extend .skeleton;
+}
+
+.skeleton-rect--sm {
+  height: 100px;
+}
+
+.skeleton-rect--md {
+  height: 150px;
+}
+
+.skeleton-rect--lg {
+  height: 200px;
+}
+
+.skeleton-rect--square {
+  aspect-ratio: 1 / 1;
+}
+
+.skeleton-rect--video {
+  aspect-ratio: 16 / 9;
+}
+
+// Button shape
+.skeleton-button {
+  height: 2.5rem;
+  width: 100px;
+  border-radius: $radius-button;
+  @extend .skeleton;
+}
+
+.skeleton-button--sm {
+  height: 2rem;
+  width: 80px;
+}
+
+.skeleton-button--lg {
+  height: 3rem;
+  width: 120px;
+}
+
+// Badge shape
+.skeleton-badge {
+  height: 1.25rem;
+  width: 60px;
+  border-radius: $radius-full;
+  @extend .skeleton;
+}
+
+// ============================================================================
+// SKELETON CARD
+// ============================================================================
+
+.skeleton-card {
+  padding: $spacing-4;
+  background-color: $color-white;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-card;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-surface-dark;
+    border-color: $color-border-dark-mode;
+  }
+}
+
+.skeleton-card__header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-4;
+}
+
+.skeleton-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.skeleton-card__footer {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+  padding-top: $spacing-4;
+  border-top: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-top-color: $color-border-dark-mode;
+  }
+}
+
+// Card with image
+.skeleton-card--image {
+  padding: 0;
+  overflow: hidden;
+
+  .skeleton-card__image {
+    width: 100%;
+    height: 150px;
+    border-radius: 0;
+  }
+
+  .skeleton-card__content {
+    padding: $spacing-4;
+  }
+}
+
+// ============================================================================
+// SKELETON TABLE
+// ============================================================================
+
+.skeleton-table {
+  width: 100%;
+}
+
+.skeleton-table__header {
+  display: flex;
+  gap: $spacing-4;
+  padding: $spacing-3 $spacing-4;
+  background-color: $color-bg-subtle;
+  border-bottom: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.skeleton-table__row {
+  display: flex;
+  gap: $spacing-4;
+  padding: $spacing-3 $spacing-4;
+  border-bottom: 1px solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.skeleton-table__cell {
+  flex: 1;
+  @extend .skeleton-text;
+}
+
+.skeleton-table__cell--avatar {
+  flex: 0 0 40px;
+  @extend .skeleton-circle--md;
+}
+
+.skeleton-table__cell--badge {
+  flex: 0 0 80px;
+  @extend .skeleton-badge;
+}
+
+.skeleton-table__cell--actions {
+  flex: 0 0 100px;
+  display: flex;
+  gap: $spacing-2;
+}
+
+// ============================================================================
+// SKELETON LIST
+// ============================================================================
+
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-list__item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3 0;
+  border-bottom: 1px solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.skeleton-list__avatar {
+  flex-shrink: 0;
+  @extend .skeleton-circle--md;
+}
+
+.skeleton-list__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.skeleton-list__action {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  @extend .skeleton;
+  border-radius: $radius-md;
+}
+
+// ============================================================================
+// SKELETON PROFILE
+// ============================================================================
+
+.skeleton-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-4;
+  padding: $spacing-6;
+}
+
+.skeleton-profile__avatar {
+  width: 6rem;
+  height: 6rem;
+  @extend .skeleton-circle;
+}
+
+.skeleton-profile__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-2;
+  width: 100%;
+  max-width: 200px;
+}
+
+.skeleton-profile__stats {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-8;
+  width: 100%;
+  margin-top: $spacing-4;
+}
+
+.skeleton-profile__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-1;
+}
+
+// ============================================================================
+// SKELETON STATS CARD
+// ============================================================================
+
+.skeleton-stats {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: $spacing-4;
+}
+
+.skeleton-stats__content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.skeleton-stats__icon {
+  width: 3rem;
+  height: 3rem;
+  @extend .skeleton;
+  border-radius: $radius-lg;
+}
+
+// ============================================================================
+// SKELETON FORM
+// ============================================================================
+
+.skeleton-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.skeleton-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.skeleton-form__label {
+  height: 0.875rem;
+  width: 100px;
+  @extend .skeleton;
+}
+
+.skeleton-form__input {
+  height: 2.5rem;
+  width: 100%;
+  @extend .skeleton;
+}
+
+.skeleton-form__textarea {
+  height: 6rem;
+  width: 100%;
+  @extend .skeleton;
+}
+
+.skeleton-form__actions {
+  display: flex;
+  gap: $spacing-2;
+  margin-top: $spacing-2;
+}
+
+// ============================================================================
+// SKELETON CHART
+// ============================================================================
+
+.skeleton-chart {
+  width: 100%;
+  height: 250px;
+  @extend .skeleton;
+  border-radius: $radius-lg;
+}
+
+.skeleton-chart--sm {
+  height: 150px;
+}
+
+.skeleton-chart--lg {
+  height: 350px;
+}
+
+// ============================================================================
+// SKELETON DASHBOARD
+// ============================================================================
+
+.skeleton-dashboard {
+  display: grid;
+  gap: $spacing-4;
+}
+
+.skeleton-dashboard__stats {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: repeat(1, 1fr);
+
+  @media (min-width: $breakpoint-sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.skeleton-dashboard__charts {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: 1fr;
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+// ============================================================================
+// SKELETON ANIMATION VARIANTS
+// ============================================================================
+
+// Pulse animation instead of shimmer
+.skeleton--pulse {
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+  background: $color-gray-200;
+
+  [data-theme="dark"] & {
+    background: $color-gray-700;
+  }
+}
+
+@keyframes skeletonPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+// Wave animation
+.skeleton--wave {
+  position: relative;
+  overflow: hidden;
+  background: $color-gray-200;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($color-white, 0.4),
+      transparent
+    );
+    animation: skeletonWave 1.5s linear infinite;
+  }
+
+  [data-theme="dark"] & {
+    background: $color-gray-700;
+
+    &::after {
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba($color-white, 0.1),
+        transparent
+      );
+    }
+  }
+}
+
+@keyframes skeletonWave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+// No animation
+.skeleton--static {
+  animation: none;
+  background: $color-gray-200;
+
+  [data-theme="dark"] & {
+    background: $color-gray-700;
+  }
+}
+

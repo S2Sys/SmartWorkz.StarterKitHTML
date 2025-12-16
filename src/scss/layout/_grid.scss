@@ -1,0 +1,326 @@
+// File: src/scss/layout/_grid.scss
+// Smart Workz Premium Admin Template - Custom Grid Utilities
+// Extends Bootstrap's grid system with additional utilities
+
+// ============================================================================
+// ADMIN LAYOUT GRID
+// ============================================================================
+
+// Main app wrapper that contains sidebar + content
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+// Content area (everything except sidebar)
+.app-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0; // Prevents flex item overflow
+  transition: margin-left $duration-base $ease-in-out;
+
+  // When sidebar is visible on desktop
+  @media (min-width: $breakpoint-lg) {
+    margin-left: $sidebar-width;
+  }
+
+  // When sidebar is collapsed
+  .sidebar-collapsed & {
+    @media (min-width: $breakpoint-lg) {
+      margin-left: $sidebar-width-collapsed;
+    }
+  }
+}
+
+// Main content area
+.app-main {
+  flex: 1;
+  padding: $spacing-6;
+  overflow-x: hidden;
+
+  @media (max-width: $breakpoint-md - 1) {
+    padding: $spacing-4;
+  }
+}
+
+// ============================================================================
+// PAGE LAYOUTS
+// ============================================================================
+
+// Full-width page (no sidebar) - for auth pages, errors, landing
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Centered content layout (auth pages)
+.page-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: $spacing-4;
+}
+
+// Split layout (e.g., auth with illustration)
+.page-split {
+  display: flex;
+  min-height: 100vh;
+
+  @media (max-width: $breakpoint-lg - 1) {
+    flex-direction: column;
+  }
+}
+
+.page-split__left,
+.page-split__right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-6;
+
+  @media (max-width: $breakpoint-lg - 1) {
+    min-height: 50vh;
+  }
+}
+
+.page-split__left {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+.page-split__right {
+  background-color: $color-white;
+}
+
+// ============================================================================
+// DASHBOARD GRID UTILITIES
+// ============================================================================
+
+// Dashboard row with equal height cards
+.row-deck {
+  > [class*="col"] {
+    display: flex;
+    flex-direction: column;
+
+    > .card {
+      flex: 1;
+    }
+  }
+}
+
+// Stats row (4 KPI cards)
+.row-stats {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: repeat(1, 1fr);
+
+  @media (min-width: $breakpoint-sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Charts row (2 columns on desktop)
+.row-charts {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: 1fr;
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+// Equal columns grid
+.row-equal {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: repeat(1, 1fr);
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// ============================================================================
+// CONTENT SECTIONS
+// ============================================================================
+
+// Page header section
+.page-header {
+  margin-bottom: $spacing-6;
+
+  @media (max-width: $breakpoint-md - 1) {
+    margin-bottom: $spacing-4;
+  }
+}
+
+.page-header__title {
+  margin: 0 0 $spacing-1;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.page-header__subtitle {
+  margin: 0;
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+}
+
+.page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+
+  @media (min-width: $breakpoint-md) {
+    margin-top: 0;
+  }
+}
+
+// Page header with actions on right (flex)
+.page-header--flex {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// Section divider
+.section-divider {
+  height: 1px;
+  background-color: $color-border-light;
+  margin: $spacing-6 0;
+  border: 0;
+}
+
+// ============================================================================
+// SPACING UTILITIES
+// ============================================================================
+
+// Section spacing
+.section {
+  margin-bottom: $spacing-6;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.section-sm {
+  margin-bottom: $spacing-4;
+}
+
+.section-lg {
+  margin-bottom: $spacing-8;
+}
+
+// Gap utilities (for flex/grid)
+.gap-0 { gap: 0; }
+.gap-1 { gap: $spacing-1; }
+.gap-2 { gap: $spacing-2; }
+.gap-3 { gap: $spacing-3; }
+.gap-4 { gap: $spacing-4; }
+.gap-5 { gap: $spacing-5; }
+.gap-6 { gap: $spacing-6; }
+.gap-8 { gap: $spacing-8; }
+
+// ============================================================================
+// RESPONSIVE CONTAINERS
+// ============================================================================
+
+// Narrow container for forms/content
+.container-narrow {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Extra narrow for auth forms
+.container-xs {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Small container
+.container-sm {
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// ============================================================================
+// ASPECT RATIO UTILITIES
+// ============================================================================
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+// ============================================================================
+// OVERFLOW UTILITIES
+// ============================================================================
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+// ============================================================================
+// MIN/MAX WIDTH/HEIGHT
+// ============================================================================
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+

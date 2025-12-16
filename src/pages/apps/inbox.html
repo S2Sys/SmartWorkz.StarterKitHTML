@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Email Inbox - Smart Workz Admin">
+    <title>Inbox | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --primary-light: #EEF2FF;
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --sidebar-width: 260px;
+            --header-height: 65px;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        a { color: var(--primary); text-decoration: none; }
+
+        /* Layout */
+        .app-wrapper { display: flex; min-height: 100vh; }
+        .app-content { flex: 1; margin-left: var(--sidebar-width); display: flex; flex-direction: column; }
+
+        /* Sidebar */
+        .sidebar { width: var(--sidebar-width); background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%); color: #fff; position: fixed; top: 0; left: 0; bottom: 0; z-index: 1000; display: flex; flex-direction: column; }
+        .sidebar__header { padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .sidebar__brand { display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .sidebar__brand i { font-size: 1.5rem; color: var(--primary); }
+        .sidebar__nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
+        .sidebar__section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B; padding: 0.75rem 1.5rem 0.5rem; font-weight: 600; }
+        .sidebar__nav-list { list-style: none; padding: 0; margin: 0; }
+        .sidebar__nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.5rem; color: #94A3B8; text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; }
+        .sidebar__nav-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .sidebar__nav-link--active { background: rgba(79,70,229,0.15); color: #fff; border-left-color: var(--primary); }
+        .sidebar__nav-icon { font-size: 1.125rem; width: 20px; text-align: center; }
+
+        /* Header */
+        .header { height: var(--header-height); background: #fff; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; position: sticky; top: 0; z-index: 100; }
+        .header__left { display: flex; align-items: center; gap: 1rem; }
+        .header__toggle { background: none; border: none; font-size: 1.25rem; color: #64748B; cursor: pointer; padding: 0.5rem; border-radius: 0.375rem; display: none; }
+        .header__toggle:hover { background: #F1F5F9; color: #1E293B; }
+        .header__breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: #64748B; font-size: 0.875rem; }
+        .header__breadcrumb a { color: var(--primary); }
+        .header__right { display: flex; align-items: center; gap: 0.75rem; }
+        .header__action { background: none; border: none; width: 40px; height: 40px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: #64748B; cursor: pointer; transition: all 0.2s; }
+        .header__action:hover { background: #F1F5F9; color: var(--primary); }
+
+        /* Email App Layout */
+        .email-app { display: grid; grid-template-columns: 240px 1fr; flex: 1; background: #fff; margin: 1.5rem; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+
+        /* Email Sidebar */
+        .email-sidebar { background: #F8FAFC; border-right: 1px solid #E2E8F0; padding: 1.5rem; display: flex; flex-direction: column; }
+        .email-sidebar .btn-compose { width: 100%; padding: 0.75rem 1rem; background: var(--primary); color: #fff; border: none; border-radius: 0.5rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; margin-bottom: 1.5rem; transition: background 0.2s; }
+        .email-sidebar .btn-compose:hover { background: var(--primary-dark); }
+        .email-nav { margin-bottom: 1.5rem; }
+        .email-nav__item { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: 0.5rem; color: #64748B; cursor: pointer; transition: all 0.2s; margin-bottom: 0.25rem; }
+        .email-nav__item:hover { background: #E2E8F0; color: #1E293B; }
+        .email-nav__item--active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .email-nav__item i { font-size: 1rem; width: 20px; text-align: center; }
+        .email-nav__badge { margin-left: auto; background: var(--primary); color: #fff; font-size: 0.7rem; padding: 0.125rem 0.5rem; border-radius: 1rem; font-weight: 600; }
+        .email-sidebar__title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94A3B8; font-weight: 600; margin: 1rem 0 0.75rem; }
+        .email-label { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 0.375rem; color: #64748B; cursor: pointer; transition: all 0.2s; }
+        .email-label:hover { background: #E2E8F0; color: #1E293B; }
+        .email-label__dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* Email Main */
+        .email-main { display: flex; flex-direction: column; overflow: hidden; }
+
+        /* Email Toolbar */
+        .email-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #E2E8F0; background: #fff; flex-shrink: 0; }
+        .email-toolbar__left { display: flex; align-items: center; gap: 0.5rem; }
+        .email-toolbar__left .form-check-input { width: 18px; height: 18px; margin: 0; cursor: pointer; }
+        .btn-icon { width: 36px; height: 36px; padding: 0; border: none; background: transparent; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; color: #64748B; cursor: pointer; transition: all 0.2s; }
+        .btn-icon:hover { background: #F1F5F9; color: #1E293B; }
+        .email-toolbar__right { display: flex; align-items: center; gap: 0.5rem; }
+        .email-toolbar__right .form-control { border-radius: 0.5rem; padding: 0.5rem 1rem 0.5rem 2.25rem; border: 1px solid #E2E8F0; font-size: 0.875rem; width: 250px; }
+        .search-wrapper { position: relative; }
+        .search-wrapper i { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #94A3B8; }
+
+        /* Email List */
+        .email-list { flex: 1; overflow-y: auto; }
+        .email-item { display: grid; grid-template-columns: auto auto auto 1fr auto auto auto; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border-bottom: 1px solid #F1F5F9; cursor: pointer; transition: background 0.15s; }
+        .email-item:hover { background: #F8FAFC; }
+        .email-item--unread { background: #FAFBFF; }
+        .email-item--unread .email-item__name, .email-item--unread .email-item__subject { font-weight: 600; }
+        .email-item__check .form-check-input { width: 16px; height: 16px; margin: 0; cursor: pointer; }
+        .email-item__star { background: none; border: none; color: #CBD5E1; cursor: pointer; padding: 0.25rem; font-size: 1rem; }
+        .email-item__star:hover { color: #F59E0B; }
+        .email-item__star--active { color: #F59E0B; }
+        .email-item__sender { display: flex; align-items: center; gap: 0.625rem; min-width: 180px; }
+        .email-item__avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+        .email-item__avatar--initial { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.75rem; font-weight: 600; }
+        .email-item__name { font-size: 0.875rem; color: #1E293B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+        .email-item__content { display: flex; gap: 0.5rem; overflow: hidden; min-width: 0; }
+        .email-item__subject { color: #1E293B; font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .email-item__preview { color: #94A3B8; font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .email-item__preview::before { content: " — "; }
+        .email-item__attachment { color: #94A3B8; font-size: 0.875rem; }
+        .email-item__time { color: #94A3B8; font-size: 0.75rem; white-space: nowrap; min-width: 60px; text-align: right; }
+        .badge { padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 500; }
+        .badge-primary { background: var(--primary-light); color: var(--primary); }
+        .badge-success { background: #DCFCE7; color: #16A34A; }
+        .badge-warning { background: #FEF3C7; color: #D97706; }
+        .badge-secondary { background: #F1F5F9; color: #64748B; }
+
+        /* Email Pagination */
+        .email-pagination { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-top: 1px solid #E2E8F0; background: #fff; flex-shrink: 0; }
+        .email-pagination__info { color: #64748B; font-size: 0.875rem; }
+        .email-pagination__actions { display: flex; gap: 0.25rem; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .email-app { grid-template-columns: 1fr; margin: 1rem; }
+            .email-sidebar { display: none; }
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .app-content { margin-left: 0; }
+            .header__toggle { display: flex; }
+            .email-item { grid-template-columns: auto auto 1fr auto; gap: 0.5rem; padding: 0.75rem; }
+            .email-item__sender { min-width: auto; }
+            .email-item__name { max-width: 80px; }
+            .email-item__preview { display: none; }
+            .email-toolbar__right .form-control { width: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill"></i>
+                    <span>Smart Workz</span>
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Menu</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../dashboard/index.html" class="sidebar__nav-link"><i class="bi bi-speedometer2 sidebar__nav-icon"></i> Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Apps</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="inbox.html" class="sidebar__nav-link sidebar__nav-link--active"><i class="bi bi-envelope sidebar__nav-icon"></i> Email</a></li>
+                        <li><a href="calendar.html" class="sidebar__nav-link"><i class="bi bi-calendar3 sidebar__nav-icon"></i> Calendar</a></li>
+                        <li><a href="kanban.html" class="sidebar__nav-link"><i class="bi bi-kanban sidebar__nav-icon"></i> Kanban</a></li>
+                        <li><a href="file-manager.html" class="sidebar__nav-link"><i class="bi bi-folder sidebar__nav-icon"></i> File Manager</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Pages</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../index.html" class="sidebar__nav-link"><i class="bi bi-grid sidebar__nav-icon"></i> All Pages</a></li>
+                        <li><a href="../landing.html" class="sidebar__nav-link"><i class="bi bi-house sidebar__nav-icon"></i> Landing</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="app-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+                    <nav class="header__breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Inbox</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action" title="Notifications"><i class="bi bi-bell"></i></button>
+                    <button class="header__action" title="Settings"><i class="bi bi-gear"></i></button>
+                </div>
+            </header>
+
+            <!-- Email App -->
+            <div class="email-app">
+                <!-- Email Sidebar -->
+                <aside class="email-sidebar">
+                    <a href="compose.html" class="btn-compose"><i class="bi bi-plus-lg"></i> Compose</a>
+                    
+                    <nav class="email-nav">
+                        <div class="email-nav__item email-nav__item--active">
+                            <i class="bi bi-inbox"></i><span>Inbox</span><span class="email-nav__badge">5</span>
+                        </div>
+                        <div class="email-nav__item"><i class="bi bi-star"></i><span>Starred</span></div>
+                        <div class="email-nav__item"><i class="bi bi-send"></i><span>Sent</span></div>
+                        <div class="email-nav__item"><i class="bi bi-file-text"></i><span>Drafts</span><span class="email-nav__badge">2</span></div>
+                        <div class="email-nav__item"><i class="bi bi-trash"></i><span>Trash</span></div>
+                        <div class="email-nav__item"><i class="bi bi-exclamation-octagon"></i><span>Spam</span></div>
+                    </nav>
+
+                    <h4 class="email-sidebar__title">Labels</h4>
+                    <nav class="email-labels">
+                        <div class="email-label"><span class="email-label__dot" style="background:#DC2626;"></span><span>Work</span></div>
+                        <div class="email-label"><span class="email-label__dot" style="background:#059669;"></span><span>Personal</span></div>
+                        <div class="email-label"><span class="email-label__dot" style="background:#7C3AED;"></span><span>Important</span></div>
+                        <div class="email-label"><span class="email-label__dot" style="background:#D97706;"></span><span>Finance</span></div>
+                    </nav>
+                </aside>
+
+                <!-- Email Main -->
+                <div class="email-main">
+                    <!-- Toolbar -->
+                    <div class="email-toolbar">
+                        <div class="email-toolbar__left">
+                            <input type="checkbox" class="form-check-input" id="selectAll">
+                            <button class="btn-icon" title="Refresh"><i class="bi bi-arrow-clockwise"></i></button>
+                            <button class="btn-icon" title="Archive"><i class="bi bi-archive"></i></button>
+                            <button class="btn-icon" title="Delete"><i class="bi bi-trash"></i></button>
+                            <button class="btn-icon" title="Mark as spam"><i class="bi bi-exclamation-octagon"></i></button>
+                        </div>
+                        <div class="email-toolbar__right">
+                            <div class="search-wrapper">
+                                <i class="bi bi-search"></i>
+                                <input type="text" class="form-control" placeholder="Search emails...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email List -->
+                    <div class="email-list">
+                        <div class="email-item email-item--unread">
+                            <div class="email-item__check"><input type="checkbox" class="form-check-input"></div>
+                            <button class="email-item__star"><i class="bi bi-star"></i></button>
+                            <div class="email-item__sender">
+                                <img src="https://i.pravatar.cc/150?img=32" alt="" class="email-item__avatar">
+                                <span class="email-item__name">Sarah Wilson</span>
+                            </div>
+                            <div class="email-item__content">
+                                <span class="email-item__subject">Project Update - Q4 Goals</span>
+                                <span class="email-item__preview">Hi team, I wanted to share the latest progress on our Q4 objectives</span>
+                            </div>
+                            <span class="badge badge-primary">Work</span>
+                            <div class="email-item__attachment"><i class="bi bi-paperclip"></i></div>
+                            <span class="email-item__time">10:30 AM</span>
+                        </div>
+
+                        <div class="email-item email-item--unread">
+                            <div class="email-item__check"><input type="checkbox" class="form-check-input"></div>
+                            <button class="email-item__star email-item__star--active"><i class="bi bi-star-fill"></i></button>
+                            <div class="email-item__sender">
+                                <div class="email-item__avatar email-item__avatar--initial" style="background:#7C3AED;">JD</div>
+                                <span class="email-item__name">John Doe</span>
+                            </div>
+                            <div class="email-item__content">
+                                <span class="email-item__subject">Meeting Tomorrow at 2 PM</span>
+                                <span class="email-item__preview">Don't forget about our meeting tomorrow to discuss the new features</span>
+                            </div>
+                            <span class="badge badge-secondary">Important</span>
+                            <span class="email-item__time">9:15 AM</span>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-item__check"><input type="checkbox" class="form-check-input"></div>
+                            <button class="email-item__star"><i class="bi bi-star"></i></button>
+                            <div class="email-item__sender">
+                                <img src="https://i.pravatar.cc/150?img=68" alt="" class="email-item__avatar">
+                                <span class="email-item__name">Mike Johnson</span>
+                            </div>
+                            <div class="email-item__content">
+                                <span class="email-item__subject">Re: Invoice #12345</span>
+                                <span class="email-item__preview">Thanks for sending the invoice. I've processed the payment</span>
+                            </div>
+                            <span class="badge badge-warning">Finance</span>
+                            <span class="email-item__time">Yesterday</span>
+                        </div>
+
+                        <div class="email-item email-item--unread">
+                            <div class="email-item__check"><input type="checkbox" class="form-check-input"></div>
+                            <button class="email-item__star"><i class="bi bi-star"></i></button>
+                            <div class="email-item__sender">
+                                <img src="https://i.pravatar.cc/150?img=47" alt="" class="email-item__avatar">
+                                <span class="email-item__name">Emily Davis</span>
+                            </div>
+                            <div class="email-item__content">
+                                <span class="email-item__subject">Design Review Feedback</span>
+                                <span class="email-item__preview">I've reviewed the latest mockups and have some feedback</span>
+                            </div>
+                            <div class="email-item__attachment"><i class="bi bi-paperclip"></i></div>
+                            <span class="email-item__time">Yesterday</span>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-item__check"><input type="checkbox" class="form-check-input"></div>
+                            <button class="email-item__star"><i class="bi bi-star"></i></button>
+                            <div class="email-item__sender">
+                                <div class="email-item__avatar email-item__avatar--initial" style="background:#059669;">GH</div>
+                                <span class="email-item__name">GitHub</span>
+                            </div>
+                            <div class="email-item__content">
+                                <span class="email-item__subject">[smartworkz] Pull request merged #234</span>
+                                <span class="email-item__preview">Your pull request has been merged into main branch</span>
+                            </div>
+                            <span class="email-item__time">Dec 3</span>
+                        </div>
+
+                        <div class="email-item email-item--unread">
+                            <div class="email-item__check"><input type="checkbox" class="form-check-input"></div>
+                            <button class="email-item__star"><i class="bi bi-star"></i></button>
+                            <div class="email-item__sender">
+                                <img src="https://i.pravatar.cc/150?img=12" alt="" class="email-item__avatar">
+                                <span class="email-item__name">Alex Chen</span>
+                            </div>
+                            <div class="email-item__content">
+                                <span class="email-item__subject">Weekend Plans?</span>
+                                <span class="email-item__preview">Hey! Are you free this weekend? A few of us are planning to</span>
+                            </div>
+                            <span class="badge badge-success">Personal</span>
+                            <span class="email-item__time">Dec 2</span>
+                        </div>
+
+                        <div class="email-item">
+                            <div class="email-item__check"><input type="checkbox" class="form-check-input"></div>
+                            <button class="email-item__star email-item__star--active"><i class="bi bi-star-fill"></i></button>
+                            <div class="email-item__sender">
+                                <div class="email-item__avatar email-item__avatar--initial" style="background:#4F46E5;">SW</div>
+                                <span class="email-item__name">Smart Workz</span>
+                            </div>
+                            <div class="email-item__content">
+                                <span class="email-item__subject">Your subscription renewal</span>
+                                <span class="email-item__preview">Your annual subscription will renew on December 15th</span>
+                            </div>
+                            <span class="email-item__time">Dec 1</span>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="email-pagination">
+                        <span class="email-pagination__info">1-7 of 128</span>
+                        <div class="email-pagination__actions">
+                            <button class="btn-icon" disabled><i class="bi bi-chevron-left"></i></button>
+                            <button class="btn-icon"><i class="bi bi-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Toggle
+        document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+        // Star toggle
+        document.querySelectorAll('.email-item__star').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.classList.toggle('email-item__star--active');
+                const icon = btn.querySelector('i');
+                icon.classList.toggle('bi-star');
+                icon.classList.toggle('bi-star-fill');
+            });
+        });
+    </script>
+</body>
+</html>

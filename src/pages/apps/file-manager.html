@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="File Manager - Smart Workz Admin">
+    <title>File Manager | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --primary-light: #EEF2FF;
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --sidebar-width: 260px;
+            --header-height: 65px;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        a { color: var(--primary); text-decoration: none; }
+
+        /* Layout */
+        .app-wrapper { display: flex; min-height: 100vh; }
+        .app-content { flex: 1; margin-left: var(--sidebar-width); display: flex; flex-direction: column; }
+
+        /* Sidebar */
+        .sidebar { width: var(--sidebar-width); background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%); color: #fff; position: fixed; top: 0; left: 0; bottom: 0; z-index: 1000; display: flex; flex-direction: column; }
+        .sidebar__header { padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .sidebar__brand { display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .sidebar__brand i { font-size: 1.5rem; color: var(--primary); }
+        .sidebar__nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
+        .sidebar__section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B; padding: 0.75rem 1.5rem 0.5rem; font-weight: 600; }
+        .sidebar__nav-list { list-style: none; padding: 0; margin: 0; }
+        .sidebar__nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.5rem; color: #94A3B8; text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; }
+        .sidebar__nav-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .sidebar__nav-link--active { background: rgba(79,70,229,0.15); color: #fff; border-left-color: var(--primary); }
+        .sidebar__nav-icon { font-size: 1.125rem; width: 20px; text-align: center; }
+
+        /* Header */
+        .header { height: var(--header-height); background: #fff; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; position: sticky; top: 0; z-index: 100; }
+        .header__left { display: flex; align-items: center; gap: 1rem; }
+        .header__toggle { background: none; border: none; font-size: 1.25rem; color: #64748B; cursor: pointer; padding: 0.5rem; border-radius: 0.375rem; display: none; }
+        .header__toggle:hover { background: #F1F5F9; color: #1E293B; }
+        .header__breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: #64748B; font-size: 0.875rem; }
+        .header__breadcrumb a { color: var(--primary); }
+        .header__right { display: flex; align-items: center; gap: 0.75rem; }
+        .header__action { background: none; border: none; width: 40px; height: 40px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: #64748B; cursor: pointer; transition: all 0.2s; }
+        .header__action:hover { background: #F1F5F9; color: var(--primary); }
+
+        /* File Manager Layout */
+        .file-app { display: grid; grid-template-columns: 240px 1fr; flex: 1; background: #fff; margin: 1.5rem; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+
+        /* File Sidebar */
+        .file-sidebar { background: #F8FAFC; border-right: 1px solid #E2E8F0; padding: 1.5rem; display: flex; flex-direction: column; }
+        .file-sidebar .btn-upload { width: 100%; padding: 0.75rem 1rem; background: var(--primary); color: #fff; border: none; border-radius: 0.5rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; margin-bottom: 1.5rem; transition: background 0.2s; }
+        .file-sidebar .btn-upload:hover { background: var(--primary-dark); }
+        .file-nav__item { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: 0.5rem; color: #64748B; cursor: pointer; transition: all 0.2s; margin-bottom: 0.25rem; }
+        .file-nav__item:hover { background: #E2E8F0; color: #1E293B; }
+        .file-nav__item--active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .file-nav__item i { font-size: 1rem; width: 20px; text-align: center; }
+        .file-sidebar__title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94A3B8; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .file-folder { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 0.375rem; color: #64748B; cursor: pointer; transition: all 0.2s; }
+        .file-folder:hover { background: #E2E8F0; color: #1E293B; }
+        .storage-box { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.5rem; padding: 1rem; margin-top: auto; }
+        .storage-box__title { font-size: 0.75rem; font-weight: 600; color: #64748B; margin-bottom: 0.5rem; }
+        .storage-bar { height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden; margin-bottom: 0.5rem; }
+        .storage-bar__fill { height: 100%; background: linear-gradient(90deg, var(--primary), #818CF8); border-radius: 3px; }
+        .storage-box__text { font-size: 0.75rem; color: #94A3B8; }
+        .storage-box__text strong { color: #1E293B; }
+
+        /* File Main */
+        .file-main { display: flex; flex-direction: column; overflow: hidden; }
+
+        /* File Toolbar */
+        .file-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #E2E8F0; background: #fff; flex-shrink: 0; gap: 1rem; flex-wrap: wrap; }
+        .file-path { display: flex; align-items: center; gap: 0.375rem; color: #64748B; font-size: 0.875rem; }
+        .file-path a { color: var(--primary); }
+        .file-path i { font-size: 0.75rem; }
+        .file-toolbar__right { display: flex; align-items: center; gap: 0.5rem; }
+        .file-toolbar__right .form-control { border-radius: 0.5rem; padding: 0.5rem 1rem 0.5rem 2.25rem; border: 1px solid #E2E8F0; font-size: 0.875rem; width: 200px; }
+        .search-wrapper { position: relative; }
+        .search-wrapper i { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #94A3B8; }
+        .btn-icon { width: 36px; height: 36px; padding: 0; border: 1px solid #E2E8F0; background: #fff; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; color: #64748B; cursor: pointer; transition: all 0.2s; }
+        .btn-icon:hover { background: #F1F5F9; color: #1E293B; border-color: #CBD5E1; }
+        .btn-icon.active { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+        .btn-group { display: flex; }
+        .btn-group .btn-icon { border-radius: 0; }
+        .btn-group .btn-icon:first-child { border-radius: 0.375rem 0 0 0.375rem; }
+        .btn-group .btn-icon:last-child { border-radius: 0 0.375rem 0.375rem 0; margin-left: -1px; }
+
+        /* File Content */
+        .file-content { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        .file-section { margin-bottom: 2rem; }
+        .file-section__title { font-size: 0.8rem; font-weight: 600; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+        .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        .file-grid--folders { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+        /* File Card */
+        .file-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.75rem; padding: 1rem; cursor: pointer; transition: all 0.2s; position: relative; }
+        .file-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(79,70,229,0.1); }
+        .file-card--folder { display: flex; align-items: center; gap: 1rem; }
+        .file-card--folder .file-card__icon { font-size: 2rem; color: #F59E0B; flex-shrink: 0; }
+        .file-card--folder .file-card__info { flex: 1; min-width: 0; }
+        .file-card__preview { height: 120px; background: #F8FAFC; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; overflow: hidden; }
+        .file-card__preview img { width: 100%; height: 100%; object-fit: cover; }
+        .file-card__preview i { font-size: 3rem; }
+        .file-card__preview--pdf i { color: #EF4444; }
+        .file-card__preview--doc i { color: #3B82F6; }
+        .file-card__preview--excel i { color: #22C55E; }
+        .file-card__preview--zip i { color: #F59E0B; }
+        .file-card__preview--video i { color: #8B5CF6; }
+        .file-card__name { font-size: 0.875rem; font-weight: 500; color: #1E293B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.25rem; }
+        .file-card__meta { font-size: 0.75rem; color: #94A3B8; }
+        .file-card__menu { position: absolute; top: 0.5rem; right: 0.5rem; width: 28px; height: 28px; border: none; background: transparent; border-radius: 0.25rem; color: #94A3B8; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; }
+        .file-card:hover .file-card__menu { opacity: 1; }
+        .file-card__menu:hover { background: #F1F5F9; color: #1E293B; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .file-app { grid-template-columns: 1fr; margin: 1rem; }
+            .file-sidebar { display: none; }
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .app-content { margin-left: 0; }
+            .header__toggle { display: flex; }
+            .file-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .file-toolbar { flex-direction: column; align-items: stretch; }
+            .file-toolbar__right { justify-content: space-between; }
+            .file-toolbar__right .form-control { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill"></i>
+                    <span>Smart Workz</span>
+                </a>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Menu</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../dashboard/index.html" class="sidebar__nav-link"><i class="bi bi-speedometer2 sidebar__nav-icon"></i> Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Apps</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="inbox.html" class="sidebar__nav-link"><i class="bi bi-envelope sidebar__nav-icon"></i> Email</a></li>
+                        <li><a href="calendar.html" class="sidebar__nav-link"><i class="bi bi-calendar3 sidebar__nav-icon"></i> Calendar</a></li>
+                        <li><a href="kanban.html" class="sidebar__nav-link"><i class="bi bi-kanban sidebar__nav-icon"></i> Kanban</a></li>
+                        <li><a href="file-manager.html" class="sidebar__nav-link sidebar__nav-link--active"><i class="bi bi-folder sidebar__nav-icon"></i> File Manager</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Pages</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../index.html" class="sidebar__nav-link"><i class="bi bi-grid sidebar__nav-icon"></i> All Pages</a></li>
+                        <li><a href="../landing.html" class="sidebar__nav-link"><i class="bi bi-house sidebar__nav-icon"></i> Landing</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="app-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+                    <nav class="header__breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>File Manager</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action" title="Notifications"><i class="bi bi-bell"></i></button>
+                    <button class="header__action" title="Settings"><i class="bi bi-gear"></i></button>
+                </div>
+            </header>
+
+            <!-- File App -->
+            <div class="file-app">
+                <!-- File Sidebar -->
+                <aside class="file-sidebar">
+                    <button class="btn-upload"><i class="bi bi-cloud-upload"></i> Upload Files</button>
+                    
+                    <nav class="file-nav">
+                        <div class="file-nav__item file-nav__item--active"><i class="bi bi-folder"></i><span>My Files</span></div>
+                        <div class="file-nav__item"><i class="bi bi-clock-history"></i><span>Recent</span></div>
+                        <div class="file-nav__item"><i class="bi bi-star"></i><span>Starred</span></div>
+                        <div class="file-nav__item"><i class="bi bi-people"></i><span>Shared</span></div>
+                        <div class="file-nav__item"><i class="bi bi-trash"></i><span>Trash</span></div>
+                    </nav>
+
+                    <h4 class="file-sidebar__title">Quick Access</h4>
+                    <nav class="file-folders">
+                        <div class="file-folder"><i class="bi bi-folder-fill" style="color:#4F46E5;"></i><span>Projects</span></div>
+                        <div class="file-folder"><i class="bi bi-folder-fill" style="color:#059669;"></i><span>Documents</span></div>
+                        <div class="file-folder"><i class="bi bi-folder-fill" style="color:#D97706;"></i><span>Images</span></div>
+                        <div class="file-folder"><i class="bi bi-folder-fill" style="color:#DC2626;"></i><span>Downloads</span></div>
+                    </nav>
+
+                    <div class="storage-box">
+                        <div class="storage-box__title">Storage</div>
+                        <div class="storage-bar"><div class="storage-bar__fill" style="width:68%;"></div></div>
+                        <div class="storage-box__text"><strong>6.8 GB</strong> of 10 GB used</div>
+                    </div>
+                </aside>
+
+                <!-- File Main -->
+                <div class="file-main">
+                    <!-- Toolbar -->
+                    <div class="file-toolbar">
+                        <div class="file-path">
+                            <a href="#">My Files</a>
+                            <i class="bi bi-chevron-right"></i>
+                            <a href="#">Projects</a>
+                            <i class="bi bi-chevron-right"></i>
+                            <span>Smart Workz</span>
+                        </div>
+                        <div class="file-toolbar__right">
+                            <div class="search-wrapper">
+                                <i class="bi bi-search"></i>
+                                <input type="text" class="form-control" placeholder="Search files...">
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn-icon active" title="Grid View"><i class="bi bi-grid-3x3-gap"></i></button>
+                                <button class="btn-icon" title="List View"><i class="bi bi-list-ul"></i></button>
+                            </div>
+                            <button class="btn-icon" title="Filter"><i class="bi bi-funnel"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- File Content -->
+                    <div class="file-content">
+                        <!-- Folders -->
+                        <div class="file-section">
+                            <h3 class="file-section__title">Folders</h3>
+                            <div class="file-grid file-grid--folders">
+                                <div class="file-card file-card--folder">
+                                    <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
+                                    <div class="file-card__info">
+                                        <div class="file-card__name">Source Code</div>
+                                        <div class="file-card__meta">24 files</div>
+                                    </div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card file-card--folder">
+                                    <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
+                                    <div class="file-card__info">
+                                        <div class="file-card__name">Design Assets</div>
+                                        <div class="file-card__meta">18 files</div>
+                                    </div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card file-card--folder">
+                                    <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
+                                    <div class="file-card__info">
+                                        <div class="file-card__name">Documentation</div>
+                                        <div class="file-card__meta">8 files</div>
+                                    </div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card file-card--folder">
+                                    <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
+                                    <div class="file-card__info">
+                                        <div class="file-card__name">Marketing</div>
+                                        <div class="file-card__meta">12 files</div>
+                                    </div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Files -->
+                        <div class="file-section">
+                            <h3 class="file-section__title">Files</h3>
+                            <div class="file-grid">
+                                <div class="file-card">
+                                    <div class="file-card__preview">
+                                        <img src="https://via.placeholder.com/200x150/4F46E5/FFFFFF?text=Preview" alt="">
+                                    </div>
+                                    <div class="file-card__name">dashboard-mockup.png</div>
+                                    <div class="file-card__meta">2.4 MB • Dec 5, 2025</div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card">
+                                    <div class="file-card__preview file-card__preview--pdf"><i class="bi bi-file-earmark-pdf"></i></div>
+                                    <div class="file-card__name">project-proposal.pdf</div>
+                                    <div class="file-card__meta">1.2 MB • Dec 4, 2025</div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card">
+                                    <div class="file-card__preview file-card__preview--doc"><i class="bi bi-file-earmark-word"></i></div>
+                                    <div class="file-card__name">requirements.docx</div>
+                                    <div class="file-card__meta">456 KB • Dec 3, 2025</div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card">
+                                    <div class="file-card__preview file-card__preview--excel"><i class="bi bi-file-earmark-excel"></i></div>
+                                    <div class="file-card__name">budget-2025.xlsx</div>
+                                    <div class="file-card__meta">890 KB • Dec 2, 2025</div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card">
+                                    <div class="file-card__preview file-card__preview--zip"><i class="bi bi-file-earmark-zip"></i></div>
+                                    <div class="file-card__name">source-code.zip</div>
+                                    <div class="file-card__meta">15.6 MB • Dec 1, 2025</div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                                <div class="file-card">
+                                    <div class="file-card__preview file-card__preview--video"><i class="bi bi-file-earmark-play"></i></div>
+                                    <div class="file-card__name">demo-video.mp4</div>
+                                    <div class="file-card__meta">45.2 MB • Nov 30, 2025</div>
+                                    <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar Toggle
+        document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+        // View Toggle
+        document.querySelectorAll('.btn-group .btn-icon').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.btn-group .btn-icon').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

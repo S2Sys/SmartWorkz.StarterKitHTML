@@ -27,12 +27,13 @@
 
 // ============================================================================
 // LAYOUT
-// Major layout components (to be created)
+// Major layout components
 // ============================================================================
-// @import 'layout/grid';
-// @import 'layout/header';
-// @import 'layout/sidebar';
-// @import 'layout/footer';
+@import 'layout/grid';
+@import 'layout/header';
+@import 'layout/sidebar';
+@import 'layout/footer';
+@import 'layout/footer-landing';
 
 // ============================================================================
 // COMPONENTS
@@ -46,30 +47,37 @@
 @import 'components/alerts';
 @import 'components/badges';
 @import 'components/avatars';
-// @import 'components/toasts';
-// @import 'components/navbar';
-// @import 'components/tabs';
-// @import 'components/accordions';
-// @import 'components/breadcrumbs';
-// @import 'components/pagination';
-// @import 'components/progress';
-// @import 'components/spinners';
-// @import 'components/skeleton-loaders';
-// @import 'components/search';
-// @import 'components/dropdowns';
+@import 'components/tabs';
+@import 'components/accordions';
+@import 'components/breadcrumbs';
+@import 'components/pagination';
+@import 'components/toasts';
+@import 'components/progress';
+@import 'components/spinners';
+@import 'components/skeleton-loaders';
+@import 'components/navbar';
+@import 'components/search';
+@import 'components/dropdowns';
 
 // ============================================================================
 // PAGES
-// Page-specific styles (to be created)
+// Page-specific styles
 // ============================================================================
-// @import 'pages/auth';
-// @import 'pages/dashboard';
-// @import 'pages/errors';
-// @import 'pages/landing';
-// @import 'pages/profile';
+@import 'pages/auth';
+@import 'pages/dashboard';
+@import 'pages/errors';
+@import 'pages/profile';
+@import 'pages/landing';
+@import 'pages/ecommerce';
+@import 'pages/apps';
+@import 'pages/invoices';
 
 // ============================================================================
 // THEMES
-// Color theme configurations (imported separately in theme files)
+// Color theme configurations
 // ============================================================================
-// Theme files are compiled separately (theme-blue.scss, theme-purple.scss, etc.)
+@import 'themes/theme-blue';
+@import 'themes/theme-purple';
+@import 'themes/theme-green';
+@import 'themes/theme-orange';
+@import 'themes/theme-dark';

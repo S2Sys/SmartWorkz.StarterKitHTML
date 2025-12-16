@@ -1,0 +1,443 @@
+// File: src/scss/pages/_dashboard.scss
+// Smart Workz Premium Admin Template - Dashboard Specific Styles
+
+// ============================================================================
+// APP BODY
+// ============================================================================
+
+.app-body {
+  min-height: 100vh;
+  background-color: $color-bg-overlay;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-body-dark;
+  }
+}
+
+// ============================================================================
+// STAT CARD ICONS
+// ============================================================================
+
+.card-stat-icon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-lg;
+  font-size: 1.5rem;
+}
+
+.card-stat-icon--primary {
+  background-color: $color-primary-100;
+  color: $color-primary;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-primary, 0.2);
+    color: $color-primary-light;
+  }
+}
+
+.card-stat-icon--success {
+  background-color: $color-success-100;
+  color: $color-success;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-success, 0.2);
+    color: $color-success-light;
+  }
+}
+
+.card-stat-icon--warning {
+  background-color: $color-warning-100;
+  color: $color-warning-dark;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-warning, 0.2);
+    color: $color-warning-light;
+  }
+}
+
+.card-stat-icon--info {
+  background-color: $color-info-100;
+  color: $color-info;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-info, 0.2);
+    color: $color-info-light;
+  }
+}
+
+// ============================================================================
+// TREND INDICATORS
+// ============================================================================
+
+.trend-up {
+  color: $color-success;
+}
+
+.trend-down {
+  color: $color-danger;
+}
+
+// ============================================================================
+// CHART CONTAINER
+// ============================================================================
+
+.chart-container {
+  position: relative;
+  width: 100%;
+}
+
+// ============================================================================
+// ACTIVITY FEED
+// ============================================================================
+
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-item {
+  display: flex;
+  gap: $spacing-3;
+  padding: $spacing-3 0;
+  border-bottom: 1px solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.activity-icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  font-size: 0.875rem;
+}
+
+.activity-icon--primary {
+  background-color: $color-primary-100;
+  color: $color-primary;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-primary, 0.2);
+    color: $color-primary-light;
+  }
+}
+
+.activity-icon--success {
+  background-color: $color-success-100;
+  color: $color-success;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-success, 0.2);
+    color: $color-success-light;
+  }
+}
+
+.activity-icon--warning {
+  background-color: $color-warning-100;
+  color: $color-warning-dark;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-warning, 0.2);
+    color: $color-warning-light;
+  }
+}
+
+.activity-icon--info {
+  background-color: $color-info-100;
+  color: $color-info;
+
+  [data-theme="dark"] & {
+    background-color: rgba($color-info, 0.2);
+    color: $color-info-light;
+  }
+}
+
+.activity-icon--secondary {
+  background-color: $color-bg-muted;
+  color: $color-text-secondary;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+    color: $color-text-secondary-dark;
+  }
+}
+
+.activity-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-text {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  margin: 0 0 $spacing-0-5;
+  line-height: $line-height-snug;
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.activity-time {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// CARD HEADER WITH ACTIONS
+// ============================================================================
+
+.card-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  margin: 0;
+}
+
+// ============================================================================
+// WELCOME BANNER
+// ============================================================================
+
+.welcome-banner {
+  position: relative;
+  padding: $spacing-6;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  border-radius: $radius-xl;
+  color: $color-white;
+  overflow: hidden;
+  margin-bottom: $spacing-6;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 50%;
+    height: 200%;
+    background: rgba($color-white, 0.1);
+    transform: rotate(15deg);
+    pointer-events: none;
+  }
+}
+
+.welcome-banner__content {
+  position: relative;
+  z-index: 1;
+  max-width: 60%;
+
+  @media (max-width: $breakpoint-md - 1) {
+    max-width: 100%;
+  }
+}
+
+.welcome-banner__title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-2;
+}
+
+.welcome-banner__text {
+  font-size: $font-size-base;
+  opacity: 0.9;
+  margin: 0 0 $spacing-4;
+}
+
+.welcome-banner__actions {
+  display: flex;
+  gap: $spacing-2;
+}
+
+// ============================================================================
+// QUICK STATS ROW
+// ============================================================================
+
+.quick-stats {
+  display: flex;
+  gap: $spacing-6;
+  padding: $spacing-4;
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-surface-dark;
+  }
+
+  @media (max-width: $breakpoint-md - 1) {
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+}
+
+.quick-stat {
+  flex: 1;
+  text-align: center;
+  padding: $spacing-2 $spacing-4;
+  border-right: 1px solid $color-border-light;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  [data-theme="dark"] & {
+    border-right-color: $color-border-dark-mode;
+  }
+
+  @media (max-width: $breakpoint-md - 1) {
+    border-right: none;
+    border-bottom: 1px solid $color-border-light;
+    padding: $spacing-2 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    [data-theme="dark"] & {
+      border-bottom-color: $color-border-dark-mode;
+    }
+  }
+}
+
+.quick-stat__value {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.quick-stat__label {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// TOP PERFORMERS TABLE
+// ============================================================================
+
+.performer-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3 0;
+  border-bottom: 1px solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.performer-rank {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-bg-subtle;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: $color-text-muted;
+
+  &--gold {
+    background-color: #FEF3C7;
+    color: #D97706;
+  }
+
+  &--silver {
+    background-color: #F3F4F6;
+    color: #6B7280;
+  }
+
+  &--bronze {
+    background-color: #FED7AA;
+    color: #C2410C;
+  }
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+    color: $color-text-muted-dark;
+  }
+}
+
+.performer-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.performer-name {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  margin: 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.performer-role {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.performer-value {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+

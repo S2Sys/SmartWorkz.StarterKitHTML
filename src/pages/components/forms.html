@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms | Components Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-light: #EEF2FF; --success: #22C55E; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        .docs-sidebar { width: 260px; background: #fff; border-right: 1px solid #E2E8F0; position: fixed; top: 0; left: 0; bottom: 0; padding: 1.5rem; overflow-y: auto; }
+        .docs-sidebar__brand { font-weight: 700; font-size: 1.125rem; color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .docs-sidebar__nav { list-style: none; padding: 0; margin: 0; }
+        .docs-sidebar__link { display: block; padding: 0.5rem 0.75rem; color: #64748B; text-decoration: none; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.25rem; }
+        .docs-sidebar__link:hover { background: #F1F5F9; color: #1E293B; }
+        .docs-sidebar__link.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .docs-main { margin-left: 260px; padding: 2rem; }
+        .docs-header { margin-bottom: 2rem; }
+        .docs-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .docs-header p { color: #64748B; margin: 0; }
+        .component-section { margin-bottom: 3rem; }
+        .component-section__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .component-preview { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.75rem; overflow: hidden; }
+        .component-preview__demo { padding: 1.5rem; }
+        .component-preview__code { background: #1E293B; color: #E2E8F0; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; overflow-x: auto; display: none; max-height: 400px; white-space: pre-wrap; }
+        .component-preview__code.show { display: block; }
+        .component-preview__actions { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid #E2E8F0; background: #F8FAFC; }
+        .btn-action { padding: 0.375rem 0.75rem; border: 1px solid #E2E8F0; background: #fff; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; }
+        .btn-action:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-action.copied { background: var(--success); color: #fff; border-color: var(--success); }
+        @media (max-width: 768px) { .docs-sidebar { display: none; } .docs-main { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <aside class="docs-sidebar">
+        <a href="index.html" class="docs-sidebar__brand"><i class="bi bi-book"></i> Components</a>
+        <nav>
+            <ul class="docs-sidebar__nav">
+                <li><a href="headers.html" class="docs-sidebar__link">Headers</a></li>
+                <li><a href="heroes.html" class="docs-sidebar__link">Heroes</a></li>
+                <li><a href="footers.html" class="docs-sidebar__link">Footers</a></li>
+                <li><a href="buttons.html" class="docs-sidebar__link">Buttons</a></li>
+                <li><a href="forms.html" class="docs-sidebar__link active">Forms</a></li>
+                <li><a href="cards.html" class="docs-sidebar__link">Cards</a></li>
+                <li><a href="tables.html" class="docs-sidebar__link">Tables</a></li>
+                <li><a href="alerts.html" class="docs-sidebar__link">Alerts</a></li>
+                <li><a href="modals.html" class="docs-sidebar__link">Modals</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="docs-main">
+        <div class="docs-header">
+            <h1>Forms</h1>
+            <p>Form controls, inputs, and validation states</p>
+        </div>
+
+        <!-- Text Inputs -->
+        <section class="component-section">
+            <h2 class="component-section__title">1. Text Inputs</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="mb-3">
+                        <label class="form-label">Default Input</label>
+                        <input type="text" class="form-control" placeholder="Enter text...">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">With Icon</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" placeholder="Email address">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Disabled</label>
+                        <input type="text" class="form-control" placeholder="Disabled input" disabled>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code1">&lt;div class="mb-3"&gt;
+    &lt;label class="form-label"&gt;Default Input&lt;/label&gt;
+    &lt;input type="text" class="form-control" placeholder="Enter text..."&gt;
+&lt;/div&gt;
+
+&lt;div class="mb-3"&gt;
+    &lt;label class="form-label"&gt;With Icon&lt;/label&gt;
+    &lt;div class="input-group"&gt;
+        &lt;span class="input-group-text"&gt;&lt;i class="bi bi-envelope"&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;input type="email" class="form-control" placeholder="Email address"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;input type="text" class="form-control" placeholder="Disabled" disabled&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code1')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code1', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Select -->
+        <section class="component-section">
+            <h2 class="component-section__title">2. Select Dropdowns</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="mb-3">
+                        <label class="form-label">Default Select</label>
+                        <select class="form-select">
+                            <option selected>Choose an option...</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Multiple Select</label>
+                        <select class="form-select" multiple style="height: 100px;">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                            <option>Option 4</option>
+                        </select>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code2">&lt;select class="form-select"&gt;
+    &lt;option selected&gt;Choose an option...&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;select class="form-select" multiple&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;option&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code2')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code2', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkboxes & Radios -->
+        <section class="component-section">
+            <h2 class="component-section__title">3. Checkboxes & Radio Buttons</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="mb-3">Checkboxes</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check1" checked>
+                                <label class="form-check-label" for="check1">Checked</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check2">
+                                <label class="form-check-label" for="check2">Unchecked</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check3" disabled>
+                                <label class="form-check-label" for="check3">Disabled</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="mb-3">Radio Buttons</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radio" id="radio1" checked>
+                                <label class="form-check-label" for="radio1">Option 1</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radio" id="radio2">
+                                <label class="form-check-label" for="radio2">Option 2</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code3">&lt;div class="form-check"&gt;
+    &lt;input class="form-check-input" type="checkbox" id="check1" checked&gt;
+    &lt;label class="form-check-label" for="check1"&gt;Checked&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class="form-check"&gt;
+    &lt;input class="form-check-input" type="radio" name="radio" id="radio1" checked&gt;
+    &lt;label class="form-check-label" for="radio1"&gt;Option 1&lt;/label&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code3')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code3', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Switches -->
+        <section class="component-section">
+            <h2 class="component-section__title">4. Toggle Switches</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch1" checked>
+                        <label class="form-check-label" for="switch1">Enabled</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch2">
+                        <label class="form-check-label" for="switch2">Disabled feature</label>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code4">&lt;div class="form-check form-switch"&gt;
+    &lt;input class="form-check-input" type="checkbox" id="switch1" checked&gt;
+    &lt;label class="form-check-label" for="switch1"&gt;Enabled&lt;/label&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code4')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code4', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Textarea -->
+        <section class="component-section">
+            <h2 class="component-section__title">5. Textarea</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control" rows="4" placeholder="Enter your message..."></textarea>
+                </div>
+                <pre class="component-preview__code" id="code5">&lt;label class="form-label"&gt;Message&lt;/label&gt;
+&lt;textarea class="form-control" rows="4" placeholder="Enter your message..."&gt;&lt;/textarea&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code5')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code5', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Validation -->
+        <section class="component-section">
+            <h2 class="component-section__title">6. Validation States</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="mb-3">
+                        <label class="form-label">Valid Input</label>
+                        <input type="text" class="form-control is-valid" value="Correct value">
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Invalid Input</label>
+                        <input type="text" class="form-control is-invalid" value="Wrong value">
+                        <div class="invalid-feedback">Please provide a valid value.</div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code6">&lt;input type="text" class="form-control is-valid" value="Correct"&gt;
+&lt;div class="valid-feedback"&gt;Looks good!&lt;/div&gt;
+
+&lt;input type="text" class="form-control is-invalid" value="Wrong"&gt;
+&lt;div class="invalid-feedback"&gt;Please provide a valid value.&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code6')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code6', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Input Sizes -->
+        <section class="component-section">
+            <h2 class="component-section__title">7. Input Sizes</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <input type="text" class="form-control form-control-sm mb-2" placeholder="Small input">
+                    <input type="text" class="form-control mb-2" placeholder="Default input">
+                    <input type="text" class="form-control form-control-lg" placeholder="Large input">
+                </div>
+                <pre class="component-preview__code" id="code7">&lt;input type="text" class="form-control form-control-sm" placeholder="Small"&gt;
+&lt;input type="text" class="form-control" placeholder="Default"&gt;
+&lt;input type="text" class="form-control form-control-lg" placeholder="Large"&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code7')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code7', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Floating Labels -->
+        <section class="component-section">
+            <h2 class="component-section__title">8. Floating Labels</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code8">&lt;div class="form-floating"&gt;
+    &lt;input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"&gt;
+    &lt;label for="floatingInput"&gt;Email address&lt;/label&gt;
+&lt;/div&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code8')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code8', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleCode(id) { document.getElementById(id).classList.toggle('show'); }
+        function copyCode(id, btn) {
+            navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

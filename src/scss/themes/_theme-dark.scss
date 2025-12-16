@@ -1,0 +1,191 @@
+// File: src/scss/themes/_theme-dark.scss
+// Smart Workz Premium Admin Template - Dark Theme
+// Dark mode with blue accent
+
+// ============================================================================
+// THEME: DARK
+// ============================================================================
+
+[data-theme="dark"] {
+  // Primary Colors (Blue accent for dark mode)
+  --color-primary: #60A5FA;
+  --color-primary-dark: #3B82F6;
+  --color-primary-light: #93C5FD;
+  --color-primary-50: rgba(96, 165, 250, 0.1);
+  --color-primary-100: rgba(96, 165, 250, 0.15);
+  --color-primary-200: rgba(96, 165, 250, 0.2);
+  --color-primary-300: rgba(96, 165, 250, 0.3);
+  --color-primary-400: #93C5FD;
+  --color-primary-500: #60A5FA;
+  --color-primary-600: #3B82F6;
+  --color-primary-700: #2563EB;
+  --color-primary-800: #1D4ED8;
+  --color-primary-900: #1E40AF;
+
+  // Secondary Colors (Cyan)
+  --color-secondary: #22D3EE;
+  --color-secondary-dark: #06B6D4;
+  --color-secondary-light: #67E8F9;
+  --color-secondary-50: rgba(34, 211, 238, 0.1);
+  --color-secondary-100: rgba(34, 211, 238, 0.15);
+  --color-secondary-200: rgba(34, 211, 238, 0.2);
+  --color-secondary-300: rgba(34, 211, 238, 0.3);
+  --color-secondary-400: #67E8F9;
+  --color-secondary-500: #22D3EE;
+  --color-secondary-600: #06B6D4;
+  --color-secondary-700: #0891B2;
+  --color-secondary-800: #0E7490;
+  --color-secondary-900: #155E75;
+
+  // Accent Colors (Purple)
+  --color-accent: #A78BFA;
+  --color-accent-dark: #8B5CF6;
+  --color-accent-light: #C4B5FD;
+
+  // Semantic Colors (adjusted for dark mode)
+  --color-success: #34D399;
+  --color-success-light: #6EE7B7;
+  --color-success-dark: #10B981;
+  --color-success-50: rgba(52, 211, 153, 0.15);
+
+  --color-warning: #FBBF24;
+  --color-warning-light: #FCD34D;
+  --color-warning-dark: #F59E0B;
+  --color-warning-50: rgba(251, 191, 36, 0.15);
+
+  --color-error: #F87171;
+  --color-error-light: #FCA5A5;
+  --color-error-dark: #EF4444;
+  --color-error-50: rgba(248, 113, 113, 0.15);
+
+  --color-info: #60A5FA;
+  --color-info-light: #93C5FD;
+  --color-info-dark: #3B82F6;
+  --color-info-50: rgba(96, 165, 250, 0.15);
+
+  // Neutral Colors (Dark palette)
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-gray-50: #18181B;
+  --color-gray-100: #27272A;
+  --color-gray-200: #3F3F46;
+  --color-gray-300: #52525B;
+  --color-gray-400: #71717A;
+  --color-gray-500: #A1A1AA;
+  --color-gray-600: #D4D4D8;
+  --color-gray-700: #E4E4E7;
+  --color-gray-800: #F4F4F5;
+  --color-gray-900: #FAFAFA;
+
+  // Backgrounds (Dark)
+  --color-bg-body: #0F172A;
+  --color-bg-surface: #1E293B;
+  --color-bg-overlay: #334155;
+  --color-bg-subtle: #475569;
+  --color-bg-muted: #64748B;
+
+  // Text Colors (Inverted for dark mode)
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+  --color-text-disabled: #64748B;
+  --color-text-inverse: #0F172A;
+
+  // Border Colors (Dark)
+  --color-border: #475569;
+  --color-border-light: #334155;
+  --color-border-dark: #64748B;
+  --color-border-focus: var(--color-primary);
+
+  // Shadows (adjusted for dark mode)
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-focus: 0 0 0 3px rgba(96, 165, 250, 0.25);
+
+  // Layout (Dark)
+  --sidebar-bg: #1E293B;
+  --navbar-bg: #1E293B;
+  --footer-bg: #1E293B;
+
+  // Code/Syntax highlighting
+  --color-code-bg: #1E293B;
+  --color-code-text: #E2E8F0;
+  --color-code-comment: #64748B;
+  --color-code-keyword: #F472B6;
+  --color-code-string: #34D399;
+  --color-code-number: #FBBF24;
+  --color-code-function: #60A5FA;
+}
+
+// ============================================================================
+// DARK MODE SPECIFIC ADJUSTMENTS
+// ============================================================================
+
+[data-theme="dark"] {
+  // Color scheme for native elements
+  color-scheme: dark;
+
+  // Scrollbar styling
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gray-300);
+
+    &:hover {
+      background: var(--color-gray-400);
+    }
+  }
+
+  // Selection
+  ::selection {
+    background-color: rgba(96, 165, 250, 0.3);
+    color: var(--color-text-primary);
+  }
+
+  // Images - slightly reduce brightness
+  img:not([src*=".svg"]) {
+    filter: brightness(0.95);
+  }
+
+  // Form placeholders
+  ::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+
+  // Focus outlines
+  :focus-visible {
+    outline-color: var(--color-primary);
+  }
+
+  // HR elements
+  hr {
+    border-color: var(--color-border-light);
+  }
+}
+
+// ============================================================================
+// DARK MODE TRANSITION
+// ============================================================================
+
+// Smooth transition when switching themes
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html[data-theme="dark"] *,
+html[data-theme="dark"] *::before,
+html[data-theme="dark"] *::after {
+  // Prevent flashing on theme change
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              color 0.15s ease;
+}
+

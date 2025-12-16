@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Workz - Premium Admin Dashboard Template for SaaS, CRM, and Enterprise Applications">
+    <title>Smart Workz - Premium Admin Dashboard Template</title>
+    <link rel="icon" type="image/png" href="../../dist/img/favicon.png">
+    <!-- CDN Fallback (remove when dist/css is built) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS (uncomment when built) -->
+    <!-- <link rel="stylesheet" href="../../dist/css/vendor.min.css"> -->
+    <!-- <link rel="stylesheet" href="../../dist/css/app.min.css"> -->
+    
+    <!-- Inline styles for landing page custom components -->
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary: #64748B;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --white: #FFFFFF;
+        }
+        
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--dark); overflow-x: hidden; }
+        
+        /* Navbar */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .navbar--transparent { background: transparent; box-shadow: none; }
+        .navbar__container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .navbar__brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .navbar__nav { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        .navbar__link { color: var(--secondary); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .navbar__link:hover { color: var(--primary); }
+        .navbar__actions { display: flex; gap: 1rem; }
+        .navbar__toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+        
+        /* Buttons */
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; text-decoration: none; transition: all 0.2s; border: 2px solid transparent; cursor: pointer; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-dark); color: var(--white); }
+        .btn-outline-primary { border-color: var(--primary); color: var(--primary); background: transparent; }
+        .btn-outline-primary:hover { background: var(--primary); color: var(--white); }
+        .btn-outline-secondary { border-color: var(--secondary); color: var(--secondary); background: transparent; }
+        .btn-ghost-primary { color: var(--primary); background: transparent; }
+        .btn-ghost-primary:hover { background: rgba(79,70,229,0.1); }
+        .btn-white { background: var(--white); color: var(--primary); }
+        .btn-white:hover { background: var(--light); }
+        .btn-lg { padding: 1rem 2rem; font-size: 1.1rem; }
+        .btn-block { width: 100%; justify-content: center; }
+        
+        /* Hero */
+        .hero { padding: 8rem 1.5rem 4rem; background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); }
+        .hero__container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .hero__badge { display: inline-block; padding: 0.5rem 1rem; background: var(--white); border-radius: 2rem; font-size: 0.875rem; font-weight: 600; color: var(--primary); margin-bottom: 1.5rem; }
+        .hero__title { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero__title span { color: var(--primary); }
+        .hero__subtitle { font-size: 1.25rem; color: var(--secondary); margin-bottom: 2rem; line-height: 1.6; }
+        .hero__actions { display: flex; gap: 1rem; margin-bottom: 3rem; }
+        .hero__stats { display: flex; gap: 3rem; }
+        .hero__stat { text-align: center; }
+        .hero__stat-value { display: block; font-size: 2rem; font-weight: 800; color: var(--primary); }
+        .hero__stat-label { font-size: 0.875rem; color: var(--secondary); }
+        .hero__image-wrapper { position: relative; }
+        .hero__browser-frame { background: var(--white); border-radius: 0.75rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow: hidden; }
+        .hero__browser-dots { padding: 0.75rem 1rem; background: #F1F5F9; display: flex; gap: 0.5rem; }
+        .hero__browser-dots span { width: 12px; height: 12px; border-radius: 50%; background: #CBD5E1; }
+        .hero__browser-dots span:first-child { background: #EF4444; }
+        .hero__browser-dots span:nth-child(2) { background: #F59E0B; }
+        .hero__browser-dots span:nth-child(3) { background: #22C55E; }
+        .hero__browser-frame img { width: 100%; display: block; }
+        
+        /* Sections */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .section-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+        .section-badge { display: inline-block; padding: 0.5rem 1rem; background: #EEF2FF; color: var(--primary); border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; }
+        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .section-subtitle { font-size: 1.125rem; color: var(--secondary); }
+        
+        /* Logos */
+        .logos-section { padding: 4rem 0; background: var(--white); }
+        .logos-section__title { text-align: center; color: var(--secondary); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; }
+        .logos-section__grid { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
+        .logos-section__item { font-size: 1.25rem; font-weight: 700; color: #CBD5E1; }
+        
+        /* Features */
+        .features-section { padding: 6rem 0; background: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .feature-card { padding: 2rem; border-radius: 1rem; background: var(--light); transition: all 0.3s; }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .feature-card__icon { width: 60px; height: 60px; border-radius: 0.75rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .feature-card__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .feature-card__text { color: var(--secondary); line-height: 1.6; }
+        
+        /* Pricing */
+        .pricing-section { padding: 6rem 0; background: var(--light); }
+        .pricing-toggle { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+        .pricing-toggle__badge { background: #22C55E; color: var(--white); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; }
+        .toggle { position: relative; width: 50px; height: 26px; }
+        .toggle input { opacity: 0; width: 0; height: 0; }
+        .toggle__slider { position: absolute; inset: 0; background: #CBD5E1; border-radius: 26px; cursor: pointer; transition: 0.3s; }
+        .toggle__slider:before { content: ''; position: absolute; width: 20px; height: 20px; left: 3px; bottom: 3px; background: var(--white); border-radius: 50%; transition: 0.3s; }
+        .toggle input:checked + .toggle__slider { background: var(--primary); }
+        .toggle input:checked + .toggle__slider:before { transform: translateX(24px); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .pricing-card { background: var(--white); border-radius: 1rem; padding: 2rem; position: relative; }
+        .pricing-card--featured { border: 2px solid var(--primary); transform: scale(1.05); }
+        .pricing-card__badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: var(--white); padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600; }
+        .pricing-card__header { margin-bottom: 1.5rem; }
+        .pricing-card__name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .pricing-card__description { color: var(--secondary); font-size: 0.875rem; }
+        .pricing-card__price { margin-bottom: 2rem; }
+        .pricing-card__currency { font-size: 1.5rem; font-weight: 700; vertical-align: top; }
+        .pricing-card__amount { font-size: 4rem; font-weight: 800; line-height: 1; }
+        .pricing-card__period { color: var(--secondary); }
+        .pricing-card__features { list-style: none; padding: 0; margin: 0 0 2rem; }
+        .pricing-card__features li { padding: 0.75rem 0; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid #E2E8F0; }
+        .pricing-card__features li i { color: #22C55E; }
+        .pricing-card__feature--disabled { color: var(--secondary); }
+        .pricing-card__feature--disabled i { color: #CBD5E1 !important; }
+        
+        /* Testimonials */
+        .testimonials-section { padding: 6rem 0; background: var(--white); }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .testimonial-card { padding: 2rem; background: var(--light); border-radius: 1rem; }
+        .testimonial-card__rating { color: #F59E0B; margin-bottom: 1rem; }
+        .testimonial-card__text { font-size: 1.125rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .testimonial-card__author { display: flex; align-items: center; gap: 1rem; }
+        .testimonial-card__author img { width: 48px; height: 48px; border-radius: 50%; }
+        .testimonial-card__author strong { display: block; }
+        .testimonial-card__author span { font-size: 0.875rem; color: var(--secondary); }
+        
+        /* FAQ */
+        .faq-section { padding: 6rem 0; background: var(--light); }
+        .accordion-faq { max-width: 800px; margin: 0 auto; }
+        .accordion__item { background: var(--white); border-radius: 0.75rem; margin-bottom: 1rem; overflow: hidden; }
+        .accordion__header { width: 100%; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; font-size: 1.125rem; font-weight: 600; text-align: left; }
+        .accordion__icon { transition: transform 0.3s; }
+        .accordion__item.active .accordion__icon { transform: rotate(180deg); }
+        .accordion__collapse { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+        .accordion__item.active .accordion__collapse { max-height: 200px; }
+        .accordion__body { padding: 0 1.5rem 1.5rem; color: var(--secondary); line-height: 1.6; }
+        
+        /* CTA */
+        .cta-section { padding: 6rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); text-align: center; }
+        .cta-title { font-size: 2.5rem; font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+        .cta-text { font-size: 1.25rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
+        
+        /* Footer */
+        .footer-landing { background: var(--dark); color: rgba(255,255,255,0.7); padding: 4rem 0 2rem; }
+        .footer-landing__container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .footer-landing__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-landing__logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; margin-bottom: 1rem; }
+        .footer-landing__description { margin-bottom: 1.5rem; line-height: 1.6; }
+        .footer-landing__social { display: flex; gap: 1rem; }
+        .footer-landing__social-link { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--white); text-decoration: none; transition: background 0.2s; }
+        .footer-landing__social-link:hover { background: var(--primary); }
+        .footer-landing__title { color: var(--white); font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .footer-landing__list { list-style: none; padding: 0; margin: 0; }
+        .footer-landing__list li { margin-bottom: 0.75rem; }
+        .footer-landing__list-link { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+        .footer-landing__list-link:hover { color: var(--white); }
+        .footer-landing__bottom { padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .footer-landing__bottom-links { display: flex; gap: 2rem; }
+        .footer-landing__bottom-link { color: rgba(255,255,255,0.7); text-decoration: none; }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero__container { grid-template-columns: 1fr; text-align: center; }
+            .hero__actions { justify-content: center; }
+            .hero__stats { justify-content: center; }
+            .hero__image { order: -1; }
+            .features-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            .pricing-card--featured { transform: none; }
+            .navbar__nav, .navbar__actions { display: none; }
+            .navbar__toggle { display: block; }
+            .footer-landing__grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 576px) {
+            .hero__title { font-size: 2.5rem; }
+            .hero__actions { flex-direction: column; }
+            .footer-landing__grid { grid-template-columns: 1fr; }
+            .footer-landing__bottom { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar--fixed navbar--transparent">
+        <div class="navbar__container">
+            <a href="landing.html" class="navbar__brand">
+                <i class="bi bi-hexagon-fill"></i>
+                <span>Smart Workz</span>
+            </a>
+            <ul class="navbar__nav">
+                <li class="navbar__item"><a href="#features" class="navbar__link">Features</a></li>
+                <li class="navbar__item"><a href="public/about.html" class="navbar__link">About</a></li>
+                <li class="navbar__item"><a href="public/services.html" class="navbar__link">Services</a></li>
+                <li class="navbar__item"><a href="public/blog.html" class="navbar__link">Blog</a></li>
+                <li class="navbar__item"><a href="public/shop.html" class="navbar__link">Shop</a></li>
+                <li class="navbar__item"><a href="public/contact.html" class="navbar__link">Contact</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <a href="auth/login.html" class="btn btn-ghost-primary">Sign In</a>
+                <a href="auth/register.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__container">
+            <div class="hero__content">
+                <span class="hero__badge" data-aos="fade-down" data-aos-duration="600">🚀 New Release v1.0</span>
+                <h1 class="hero__title" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">Build Beautiful Admin Dashboards <span>Faster</span></h1>
+                <p class="hero__subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    Premium, production-ready admin template with 50+ components, 
+                    5 color themes, and complete design system. Perfect for SaaS, CRM, and enterprise apps.
+                </p>
+                <div class="hero__actions" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <a href="auth/register.html" class="btn btn-primary btn-lg">
+                        Start Free Trial
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a href="#features" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-play-circle"></i>
+                        View Demo
+                    </a>
+                </div>
+                <div class="hero__stats" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                    <div class="hero__stat">
+                        <span class="hero__stat-value">50+</span>
+                        <span class="hero__stat-label">Components</span>
+                    </div>
+                    <div class="hero__stat">
+                        <span class="hero__stat-value">25+</span>
+                        <span class="hero__stat-label">Pages</span>
+                    </div>
+                    <div class="hero__stat">
+                        <span class="hero__stat-value">5</span>
+                        <span class="hero__stat-label">Themes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <div class="hero__image-wrapper">
+                    <div class="hero__browser-frame">
+                        <div class="hero__browser-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <img src="https://via.placeholder.com/800x500/4F46E5/FFFFFF?text=Dashboard+Preview" alt="Dashboard Preview">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Pages Section -->
+    <section class="demo-pages-section" style="padding: 4rem 1.5rem; background: #fff;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 3rem;" data-aos="fade-up">
+                <span class="section-badge" style="display: inline-block; padding: 0.5rem 1rem; background: #EEF2FF; color: var(--primary); border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;">Demo Pages</span>
+                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">Explore All Pages</h2>
+                <p style="color: #64748B;">Click any card to view the demo page</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <!-- Public Pages -->
+                <a href="public/about.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #EEF2FF, #E0E7FF); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="0">
+                    <i class="bi bi-info-circle" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #1E293B;">About Us</strong>
+                </a>
+                <a href="public/services.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #DCFCE7, #BBF7D0); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="50">
+                    <i class="bi bi-gear" style="font-size: 2rem; color: #22C55E; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #1E293B;">Services</strong>
+                </a>
+                <a href="public/blog.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="bi bi-newspaper" style="font-size: 2rem; color: #F59E0B; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #1E293B;">Blog</strong>
+                </a>
+                <a href="public/shop.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #FCE7F3, #FBCFE8); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="150">
+                    <i class="bi bi-shop" style="font-size: 2rem; color: #EC4899; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #1E293B;">Shop</strong>
+                </a>
+                <a href="public/contact.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #DBEAFE, #BFDBFE); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="bi bi-envelope" style="font-size: 2rem; color: #3B82F6; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #1E293B;">Contact</strong>
+                </a>
+                <!-- Admin Pages -->
+                <a href="dashboard/index.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #1E293B, #334155); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="250">
+                    <i class="bi bi-speedometer2" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Dashboard</strong>
+                </a>
+                <a href="ecommerce/products.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #7C3AED, #8B5CF6); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="bi bi-box-seam" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">E-commerce</strong>
+                </a>
+                <a href="apps/kanban.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #0891B2, #06B6D4); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="350">
+                    <i class="bi bi-kanban" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Kanban</strong>
+                </a>
+                <a href="apps/inbox.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #DC2626, #EF4444); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="bi bi-inbox" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Inbox</strong>
+                </a>
+                <a href="apps/calendar.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #059669, #10B981); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="450">
+                    <i class="bi bi-calendar3" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Calendar</strong>
+                </a>
+                <a href="charts.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #4F46E5, #6366F1); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="500">
+                    <i class="bi bi-bar-chart" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Charts</strong>
+                </a>
+                <a href="auth/login.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #F97316, #FB923C); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="550">
+                    <i class="bi bi-box-arrow-in-right" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Login</strong>
+                </a>
+                <!-- New Dashboard Variants -->
+                <a href="dashboard/crm.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #6366F1, #A855F7); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="600">
+                    <i class="bi bi-briefcase" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">CRM</strong>
+                </a>
+                <a href="dashboard/social.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #EC4899, #F472B6); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="650">
+                    <i class="bi bi-share" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Social</strong>
+                </a>
+                <a href="dashboard/dark-analytics.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #0A0A0F, #1A1A24); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="700">
+                    <i class="bi bi-activity" style="font-size: 2rem; color: #22D3EE; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">Dark Analytics</strong>
+                </a>
+                <a href="dashboard/minimal.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #F5F5F5, #E5E5E5); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="750">
+                    <i class="bi bi-grid-1x2" style="font-size: 2rem; color: #171717; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #171717;">Minimal</strong>
+                </a>
+                <a href="apps/file-manager.html" style="display: block; padding: 1.5rem; background: linear-gradient(135deg, #3B82F6, #60A5FA); border-radius: 0.75rem; text-decoration: none; text-align: center; transition: transform 0.2s;" data-aos="zoom-in" data-aos-delay="800">
+                    <i class="bi bi-folder" style="font-size: 2rem; color: #fff; margin-bottom: 0.5rem; display: block;"></i>
+                    <strong style="color: #fff;">File Manager</strong>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logos Section -->
+    <section class="logos-section">
+        <div class="container">
+            <p class="logos-section__title" data-aos="fade-up">Trusted by teams at</p>
+            <div class="logos-section__grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="logos-section__item">Acme Corp</div>
+                <div class="logos-section__item">TechStart</div>
+                <div class="logos-section__item">CloudBase</div>
+                <div class="logos-section__item">DataFlow</div>
+                <div class="logos-section__item">AppForge</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Features</span>
+                <h2 class="section-title">Everything You Need to Build Amazing Admin Panels</h2>
+                <p class="section-subtitle">
+                    A comprehensive toolkit with premium components, responsive layouts, and modern design.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="feature-card__icon">
+                        <i class="bi bi-palette"></i>
+                    </div>
+                    <h3 class="feature-card__title">5 Color Themes</h3>
+                    <p class="feature-card__text">Switch between Blue, Purple, Green, Orange, and Dark themes with one click.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card__icon">
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <h3 class="feature-card__title">Fully Responsive</h3>
+                    <p class="feature-card__text">Works perfectly on all devices from mobile phones to large desktop screens.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card__icon">
+                        <i class="bi bi-universal-access"></i>
+                    </div>
+                    <h3 class="feature-card__title">WCAG Accessible</h3>
+                    <p class="feature-card__text">Built with accessibility in mind. WCAG 2.1 AA compliant out of the box.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="feature-card__icon">
+                        <i class="bi bi-code-slash"></i>
+                    </div>
+                    <h3 class="feature-card__title">Clean Code</h3>
+                    <p class="feature-card__text">Well-organized SCSS with BEM methodology. Easy to customize and extend.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card__icon">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <h3 class="feature-card__title">High Performance</h3>
+                    <p class="feature-card__text">Optimized for speed with Lighthouse scores above 90 across the board.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card__icon">
+                        <i class="bi bi-layers"></i>
+                    </div>
+                    <h3 class="feature-card__title">50+ Components</h3>
+                    <p class="feature-card__text">Buttons, forms, cards, tables, charts, and many more ready to use.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Pricing</span>
+                <h2 class="section-title">Simple, Transparent Pricing</h2>
+                <p class="section-subtitle">Choose the plan that fits your needs. No hidden fees.</p>
+            </div>
+            <div class="pricing-toggle" data-aos="fade-up" data-aos-delay="100">
+                <span>Monthly</span>
+                <label class="toggle">
+                    <input type="checkbox" id="billingToggle">
+                    <span class="toggle__slider"></span>
+                </label>
+                <span>Annual <span class="pricing-toggle__badge">Save 20%</span></span>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="pricing-card__header">
+                        <h3 class="pricing-card__name">Starter</h3>
+                        <p class="pricing-card__description">For individuals and small projects</p>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__currency">$</span>
+                        <span class="pricing-card__amount">29</span>
+                        <span class="pricing-card__period">/month</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li><i class="bi bi-check-circle-fill"></i> Single project license</li>
+                        <li><i class="bi bi-check-circle-fill"></i> All 50+ components</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Lifetime updates</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 6 months support</li>
+                        <li class="pricing-card__feature--disabled"><i class="bi bi-x-circle"></i> Multiple projects</li>
+                    </ul>
+                    <a href="auth/register.html" class="btn btn-outline-primary btn-block">Get Started</a>
+                </div>
+                <div class="pricing-card pricing-card--featured" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pricing-card__badge">Most Popular</div>
+                    <div class="pricing-card__header">
+                        <h3 class="pricing-card__name">Professional</h3>
+                        <p class="pricing-card__description">For teams and growing businesses</p>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__currency">$</span>
+                        <span class="pricing-card__amount">79</span>
+                        <span class="pricing-card__period">/month</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li><i class="bi bi-check-circle-fill"></i> Unlimited projects</li>
+                        <li><i class="bi bi-check-circle-fill"></i> All 50+ components</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Lifetime updates</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 12 months support</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Priority support</li>
+                    </ul>
+                    <a href="auth/register.html" class="btn btn-primary btn-block">Get Started</a>
+                </div>
+                <div class="pricing-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-card__header">
+                        <h3 class="pricing-card__name">Enterprise</h3>
+                        <p class="pricing-card__description">For large organizations</p>
+                    </div>
+                    <div class="pricing-card__price">
+                        <span class="pricing-card__currency">$</span>
+                        <span class="pricing-card__amount">199</span>
+                        <span class="pricing-card__period">/month</span>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li><i class="bi bi-check-circle-fill"></i> Unlimited projects</li>
+                        <li><i class="bi bi-check-circle-fill"></i> White-label rights</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Custom development</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Dedicated support</li>
+                        <li><i class="bi bi-check-circle-fill"></i> SLA guarantee</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline-primary btn-block">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">Testimonials</span>
+                <h2 class="section-title">Loved by Developers Worldwide</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="testimonial-card__rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-card__text">"This template saved us weeks of development time. The code quality is excellent and the design is stunning."</p>
+                    <div class="testimonial-card__author">
+                        <img src="https://i.pravatar.cc/150?img=32" alt="Sarah Johnson">
+                        <div>
+                            <strong>Sarah Johnson</strong>
+                            <span>CTO, TechStart Inc</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card__rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-card__text">"Best admin template I've ever used. Clean code, great documentation, and fantastic support."</p>
+                    <div class="testimonial-card__author">
+                        <img src="https://i.pravatar.cc/150?img=68" alt="Mike Chen">
+                        <div>
+                            <strong>Mike Chen</strong>
+                            <span>Lead Developer, CloudBase</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card__rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-card__text">"The accessibility features and dark mode support made this perfect for our enterprise clients."</p>
+                    <div class="testimonial-card__author">
+                        <img src="https://i.pravatar.cc/150?img=47" alt="Emily Davis">
+                        <div>
+                            <strong>Emily Davis</strong>
+                            <span>Product Manager, DataFlow</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">FAQ</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+            <div class="accordion accordion-faq">
+                <div class="accordion__item" data-aos="fade-up" data-aos-delay="0">
+                    <button class="accordion__header">
+                        <span class="accordion__title">What frameworks does this template support?</span>
+                        <i class="bi bi-chevron-down accordion__icon"></i>
+                    </button>
+                    <div class="accordion__collapse">
+                        <div class="accordion__body-wrapper">
+                            <div class="accordion__body">
+                                This template is framework-agnostic and works with any backend or frontend framework including React, Vue, Angular, .NET, Blazor, Laravel, Django, and more. We provide integration guides for all major frameworks.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion__item">
+                    <button class="accordion__header">
+                        <span class="accordion__title">Do I get free updates?</span>
+                        <i class="bi bi-chevron-down accordion__icon"></i>
+                    </button>
+                    <div class="accordion__collapse">
+                        <div class="accordion__body-wrapper">
+                            <div class="accordion__body">
+                                Yes! All purchases include lifetime free updates. We regularly add new components, pages, and features based on customer feedback.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion__item">
+                    <button class="accordion__header">
+                        <span class="accordion__title">Can I use this for commercial projects?</span>
+                        <i class="bi bi-chevron-down accordion__icon"></i>
+                    </button>
+                    <div class="accordion__collapse">
+                        <div class="accordion__body-wrapper">
+                            <div class="accordion__body">
+                                Absolutely! Our license allows you to use this template for commercial projects. The Professional and Enterprise plans allow unlimited commercial projects.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion__item">
+                    <button class="accordion__header">
+                        <span class="accordion__title">What kind of support do you offer?</span>
+                        <i class="bi bi-chevron-down accordion__icon"></i>
+                    </button>
+                    <div class="accordion__collapse">
+                        <div class="accordion__body-wrapper">
+                            <div class="accordion__body">
+                                We offer email support, a community forum, and extensive documentation. Professional and Enterprise customers get priority support with faster response times.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in" data-aos-duration="800">
+                <h2 class="cta-title">Ready to Get Started?</h2>
+                <p class="cta-text">Join thousands of developers building amazing admin dashboards with Smart Workz.</p>
+                <div class="cta-actions">
+                    <a href="auth/register.html" class="btn btn-white btn-lg">
+                        Start Free Trial
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-landing">
+        <div class="footer-landing__container">
+            <div class="footer-landing__grid">
+                <div class="footer-landing__brand">
+                    <a href="landing.html" class="footer-landing__logo">
+                        <i class="bi bi-hexagon-fill"></i>
+                        Smart Workz
+                    </a>
+                    <p class="footer-landing__description">
+                        Premium admin dashboard template for modern web applications. 
+                        Built with Bootstrap 5, designed for developers.
+                    </p>
+                    <div class="footer-landing__social">
+                        <a href="#" class="footer-landing__social-link"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="footer-landing__social-link"><i class="bi bi-github"></i></a>
+                        <a href="#" class="footer-landing__social-link"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-landing__column">
+                    <h4 class="footer-landing__title">Pages</h4>
+                    <ul class="footer-landing__list">
+                        <li><a href="public/about.html" class="footer-landing__list-link">About Us</a></li>
+                        <li><a href="public/services.html" class="footer-landing__list-link">Services</a></li>
+                        <li><a href="public/blog.html" class="footer-landing__list-link">Blog</a></li>
+                        <li><a href="public/shop.html" class="footer-landing__list-link">Shop</a></li>
+                        <li><a href="public/contact.html" class="footer-landing__list-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-landing__column">
+                    <h4 class="footer-landing__title">Admin</h4>
+                    <ul class="footer-landing__list">
+                        <li><a href="dashboard/index.html" class="footer-landing__list-link">Dashboard</a></li>
+                        <li><a href="ecommerce/products.html" class="footer-landing__list-link">E-commerce</a></li>
+                        <li><a href="apps/kanban.html" class="footer-landing__list-link">Kanban Board</a></li>
+                        <li><a href="apps/inbox.html" class="footer-landing__list-link">Email Inbox</a></li>
+                        <li><a href="charts.html" class="footer-landing__list-link">Charts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-landing__column">
+                    <h4 class="footer-landing__title">Auth & More</h4>
+                    <ul class="footer-landing__list">
+                        <li><a href="auth/login.html" class="footer-landing__list-link">Login</a></li>
+                        <li><a href="auth/register.html" class="footer-landing__list-link">Register</a></li>
+                        <li><a href="errors/404.html" class="footer-landing__list-link">404 Page</a></li>
+                        <li><a href="components-showcase.html" class="footer-landing__list-link">Components</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-landing__bottom">
+                <p class="footer-landing__copyright">&copy; 2025 Smart Workz. All rights reserved.</p>
+                <div class="footer-landing__bottom-links">
+                    <a href="#" class="footer-landing__bottom-link">Privacy</a>
+                    <a href="#" class="footer-landing__bottom-link">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CDN Fallback -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS (uncomment when built) -->
+    <!-- <script src="../../dist/js/vendor.min.js"></script> -->
+    <!-- <script src="../../dist/js/app.min.js"></script> -->
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50,
+            delay: 0
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion__header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.closest('.accordion__item');
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.remove('navbar--transparent');
+            } else {
+                navbar.classList.add('navbar--transparent');
+            }
+        });
+    </script>
+</body>
+</html>
+

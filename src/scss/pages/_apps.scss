@@ -1,0 +1,1699 @@
+// File: src/scss/pages/_apps.scss
+// Smart Workz Premium Admin Template - Apps Page Styles (Email, Calendar, Kanban, File Manager)
+
+// ============================================================================
+// EMAIL APP
+// ============================================================================
+
+.email-app {
+  display: flex;
+  height: calc(100vh - #{$navbar-height} - #{$footer-height} - #{$spacing-8});
+  background: $color-white;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+  }
+}
+
+.email-sidebar {
+  width: 240px;
+  padding: $spacing-4;
+  border-right: 1px solid $color-border-light;
+  overflow-y: auto;
+  flex-shrink: 0;
+
+  @media (max-width: $breakpoint-md - 1) {
+    display: none;
+  }
+
+  [data-theme="dark"] & {
+    border-right-color: $color-border-dark-mode;
+  }
+}
+
+.email-nav__item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-radius: $radius-md;
+  transition: $transition-button;
+
+  &:hover {
+    background: $color-bg-subtle;
+    color: $color-text-primary;
+  }
+
+  &--active {
+    background: $color-primary-50;
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+
+  i {
+    font-size: 1.125rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      background: $color-bg-overlay-dark;
+      color: $color-text-primary-dark;
+    }
+
+    &--active {
+      background: rgba($color-primary, 0.15);
+      color: $color-primary-light;
+    }
+  }
+}
+
+.email-nav__badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  background: $color-primary;
+  color: $color-white;
+  font-size: $font-size-xs;
+  border-radius: $radius-full;
+}
+
+.email-sidebar__title {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  color: $color-text-muted;
+  margin: $spacing-4 0 $spacing-2;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.email-label {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-1 $spacing-2;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-radius: $radius-md;
+
+  &:hover {
+    background: $color-bg-subtle;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      background: $color-bg-overlay-dark;
+    }
+  }
+}
+
+.email-label__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-full;
+}
+
+.email-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.email-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-3 $spacing-4;
+  border-bottom: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.email-toolbar__left {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.email-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.email-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  border-bottom: 1px solid $color-border-light;
+  cursor: pointer;
+  transition: $transition-button;
+
+  &:hover {
+    background: $color-bg-subtle;
+  }
+
+  &--unread {
+    background: $color-primary-50;
+
+    .email-item__name,
+    .email-item__subject {
+      font-weight: $font-weight-semibold;
+    }
+
+    [data-theme="dark"] & {
+      background: rgba($color-primary, 0.1);
+    }
+  }
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+
+    &:hover {
+      background: $color-bg-overlay-dark;
+    }
+  }
+}
+
+.email-item__star {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $color-gray-400;
+  cursor: pointer;
+
+  &:hover,
+  &--active {
+    color: $color-warning;
+  }
+}
+
+.email-item__sender {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.email-item__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-full;
+  object-fit: cover;
+
+  &--initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.email-item__name {
+  font-size: $font-size-sm;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.email-item__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.email-item__subject {
+  font-size: $font-size-sm;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.email-item__preview {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.email-item__attachment {
+  color: $color-text-muted;
+}
+
+.email-item__time {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  white-space: nowrap;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.email-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-3 $spacing-4;
+  border-top: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-top-color: $color-border-dark-mode;
+  }
+}
+
+.email-pagination__info {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// COMPOSE EMAIL
+// ============================================================================
+
+.compose-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.compose-field {
+  display: flex;
+  align-items: center;
+  padding: $spacing-3 0;
+  border-bottom: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.compose-field__label {
+  width: 80px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-muted;
+  flex-shrink: 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.compose-field__input {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.compose-recipients {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.compose-recipient {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-2;
+  background: $color-primary-100;
+  color: $color-primary;
+  font-size: $font-size-sm;
+  border-radius: $radius-full;
+
+  [data-theme="dark"] & {
+    background: rgba($color-primary, 0.2);
+    color: $color-primary-light;
+  }
+}
+
+.compose-recipient__remove {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.compose-recipients__input {
+  flex: 1;
+  min-width: 150px;
+  border: none;
+  outline: none;
+  font-size: $font-size-sm;
+  background: transparent;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.form-control--borderless {
+  border: none;
+  box-shadow: none;
+  padding-left: 0;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.compose-body {
+  margin-top: $spacing-4;
+}
+
+.compose-toolbar {
+  display: flex;
+  gap: $spacing-4;
+  padding: $spacing-2;
+  border: 1px solid $color-border-light;
+  border-bottom: none;
+  border-radius: $radius-lg $radius-lg 0 0;
+  background: $color-bg-subtle;
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+    border-color: $color-border-dark-mode;
+  }
+}
+
+.compose-toolbar__group {
+  display: flex;
+  gap: $spacing-1;
+}
+
+.compose-toolbar__btn {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: $radius-md;
+  color: $color-text-secondary;
+  cursor: pointer;
+  transition: $transition-button;
+
+  &:hover {
+    background: $color-white;
+    color: $color-text-primary;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      background: $color-bg-surface-dark;
+      color: $color-text-primary-dark;
+    }
+  }
+}
+
+.compose-textarea {
+  width: 100%;
+  min-height: 300px;
+  padding: $spacing-4;
+  border: 1px solid $color-border-light;
+  border-top: none;
+  border-radius: 0 0 $radius-lg $radius-lg;
+  resize: vertical;
+  font-family: inherit;
+  font-size: $font-size-base;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+    border-color: $color-border-dark-mode;
+    color: $color-text-primary-dark;
+  }
+}
+
+.compose-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+}
+
+.compose-attachment {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-3;
+  background: $color-bg-subtle;
+  border-radius: $radius-md;
+
+  i {
+    font-size: 1.25rem;
+    color: $color-error;
+  }
+
+  &--add {
+    border: 1px dashed $color-border;
+    background: transparent;
+    cursor: pointer;
+    color: $color-text-muted;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    i {
+      color: inherit;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+  }
+}
+
+.compose-attachment__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.compose-attachment__name {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.compose-attachment__size {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.compose-attachment__remove {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $color-text-muted;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-error;
+  }
+}
+
+.compose-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $spacing-4;
+}
+
+.compose-actions__left,
+.compose-actions__right {
+  display: flex;
+  gap: $spacing-2;
+}
+
+// ============================================================================
+// CALENDAR APP
+// ============================================================================
+
+.calendar-app {
+  display: flex;
+  height: calc(100vh - #{$navbar-height} - #{$header-spacer});
+  gap: $spacing-4;
+}
+
+.calendar-sidebar {
+  width: 280px;
+  padding: $spacing-4;
+  background: $color-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-sm;
+  flex-shrink: 0;
+
+  @media (max-width: $breakpoint-lg - 1) {
+    display: none;
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+  }
+}
+
+.calendar-sidebar__title {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  color: $color-text-muted;
+  margin-bottom: $spacing-2;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.mini-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-2;
+}
+
+.mini-calendar__title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.mini-calendar__nav {
+  background: none;
+  border: none;
+  padding: $spacing-1;
+  color: $color-text-muted;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.mini-calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-bottom: $spacing-1;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.mini-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+
+  span {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xs;
+    border-radius: $radius-full;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-bg-subtle;
+    }
+
+    &.other {
+      color: $color-text-disabled;
+    }
+
+    &.today {
+      background: $color-primary;
+      color: $color-white;
+    }
+
+    &.has-event {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        width: 4px;
+        height: 4px;
+        background: $color-primary;
+        border-radius: $radius-full;
+      }
+    }
+
+    [data-theme="dark"] & {
+      color: $color-text-secondary-dark;
+
+      &:hover {
+        background: $color-bg-overlay-dark;
+      }
+    }
+  }
+}
+
+.calendar-category {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-1 0;
+  font-size: $font-size-sm;
+  cursor: pointer;
+
+  input {
+    margin: 0;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+  }
+}
+
+.calendar-category__color {
+  width: 12px;
+  height: 12px;
+  border-radius: $radius-sm;
+}
+
+.upcoming-events {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.upcoming-event {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.upcoming-event__time {
+  width: 70px;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  flex-shrink: 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.upcoming-event__content {
+  flex: 1;
+  padding: $spacing-2;
+  background: $color-bg-subtle;
+  border-left: 3px solid;
+  border-radius: 0 $radius-md $radius-md 0;
+
+  strong {
+    display: block;
+    font-size: $font-size-sm;
+    margin-bottom: 2px;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+
+  span {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+  }
+}
+
+.calendar-main {
+  flex: 1;
+  background: $color-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+  }
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-4;
+  border-bottom: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.calendar-header__left {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.calendar-header__title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  margin: 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.calendar-week {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.calendar-week__times {
+  width: 60px;
+  flex-shrink: 0;
+  border-right: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-right-color: $color-border-dark-mode;
+  }
+}
+
+.calendar-week__time-slot {
+  height: 60px;
+  padding: $spacing-1;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  text-align: right;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.calendar-week__days {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-week__header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.calendar-week__day-header {
+  padding: $spacing-2;
+  text-align: center;
+  border-right: 1px solid $color-border-light;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  &--today {
+    .calendar-week__day-num {
+      background: $color-primary;
+      color: $color-white;
+      border-radius: $radius-full;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  [data-theme="dark"] & {
+    border-right-color: $color-border-dark-mode;
+  }
+}
+
+.calendar-week__day-name {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  text-transform: uppercase;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.calendar-week__day-num {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.calendar-week__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(12, 60px);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, $color-border-light 1px, transparent 1px),
+      linear-gradient(to bottom, $color-border-light 1px, transparent 1px);
+    background-size: calc(100% / 7) 60px;
+
+    [data-theme="dark"] & {
+      background-image:
+        linear-gradient(to right, $color-border-dark-mode 1px, transparent 1px),
+        linear-gradient(to bottom, $color-border-dark-mode 1px, transparent 1px);
+    }
+  }
+}
+
+.calendar-event {
+  position: relative;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-md;
+  color: $color-white;
+  font-size: $font-size-xs;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 2px;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+.calendar-event__time {
+  display: block;
+  opacity: 0.9;
+}
+
+.calendar-event__title {
+  font-weight: $font-weight-medium;
+}
+
+// ============================================================================
+// KANBAN BOARD
+// ============================================================================
+
+.app-main--kanban {
+  overflow-x: auto;
+  padding-bottom: $spacing-4;
+}
+
+.kanban-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-4;
+}
+
+.kanban-header__title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  margin: 0;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.kanban-header__meta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-top: $spacing-1;
+}
+
+.kanban-header__members {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 28px;
+    height: 28px;
+    border-radius: $radius-full;
+    border: 2px solid $color-white;
+    margin-left: -8px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.kanban-header__more {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-gray-200;
+  border-radius: $radius-full;
+  border: 2px solid $color-white;
+  margin-left: -8px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+
+  [data-theme="dark"] & {
+    background: $color-gray-700;
+    border-color: $color-bg-surface-dark;
+  }
+}
+
+.kanban-header__actions {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.kanban-board {
+  display: flex;
+  gap: $spacing-4;
+  min-height: 600px;
+}
+
+.kanban-column {
+  width: 320px;
+  flex-shrink: 0;
+  background: $color-bg-subtle;
+  border-radius: $radius-xl;
+  display: flex;
+  flex-direction: column;
+
+  &--add {
+    background: transparent;
+    border: 2px dashed $color-border;
+    justify-content: center;
+    align-items: center;
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+
+    &--add {
+      background: transparent;
+      border-color: $color-border-dark-mode;
+    }
+  }
+}
+
+.kanban-column__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-4;
+}
+
+.kanban-column__title {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  h3 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin: 0;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+}
+
+.kanban-column__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-full;
+}
+
+.kanban-column__count {
+  padding: 2px 8px;
+  background: $color-white;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+    color: $color-text-secondary-dark;
+  }
+}
+
+.kanban-column__body {
+  flex: 1;
+  padding: 0 $spacing-4;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.kanban-column__add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-1;
+  padding: $spacing-3;
+  background: none;
+  border: none;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  transition: $transition-button;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.kanban-column__add-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-2;
+  background: none;
+  border: none;
+  color: $color-text-muted;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.kanban-card {
+  background: $color-white;
+  border-radius: $radius-lg;
+  padding: $spacing-3;
+  box-shadow: $shadow-sm;
+  cursor: grab;
+  transition: $transition-all;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  &--completed {
+    opacity: 0.7;
+
+    .kanban-card__title {
+      text-decoration: line-through;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+  }
+}
+
+.kanban-card__image {
+  width: calc(100% + #{$spacing-6});
+  margin: -$spacing-3 (-$spacing-3) $spacing-3;
+  border-radius: $radius-lg $radius-lg 0 0;
+  object-fit: cover;
+}
+
+.kanban-card__labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-1;
+  margin-bottom: $spacing-2;
+}
+
+.kanban-label {
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: $font-weight-medium;
+  color: $color-white;
+  border-radius: $radius-sm;
+}
+
+.kanban-card__title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  margin: 0 0 $spacing-1;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.kanban-card__desc {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin: 0 0 $spacing-2;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.kanban-card__checklist,
+.kanban-card__progress {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-bottom: $spacing-2;
+
+  .progress {
+    flex: 1;
+    height: 4px;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.kanban-card__due {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: 2px 8px;
+  font-size: $font-size-xs;
+  border-radius: $radius-sm;
+  background: $color-bg-subtle;
+  margin-bottom: $spacing-2;
+
+  &--warning {
+    background: $color-warning-100;
+    color: $color-warning-dark;
+  }
+
+  &--danger {
+    background: $color-error-100;
+    color: $color-error;
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+  }
+}
+
+.kanban-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $spacing-2;
+}
+
+.kanban-card__meta {
+  display: flex;
+  gap: $spacing-3;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.kanban-card__avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.kanban-card__avatars {
+  display: flex;
+
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: $radius-full;
+    border: 2px solid $color-white;
+    margin-left: -8px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    [data-theme="dark"] & {
+      border-color: $color-bg-surface-dark;
+    }
+  }
+}
+
+// ============================================================================
+// FILE MANAGER
+// ============================================================================
+
+.file-manager {
+  display: flex;
+  height: calc(100vh - #{$navbar-height} - #{$footer-height} - #{$spacing-8});
+  background: $color-white;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+  }
+}
+
+.file-sidebar {
+  width: 240px;
+  padding: $spacing-4;
+  border-right: 1px solid $color-border-light;
+  overflow-y: auto;
+  flex-shrink: 0;
+
+  @media (max-width: $breakpoint-md - 1) {
+    display: none;
+  }
+
+  [data-theme="dark"] & {
+    border-right-color: $color-border-dark-mode;
+  }
+}
+
+.file-nav__item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-radius: $radius-md;
+  transition: $transition-button;
+
+  &:hover {
+    background: $color-bg-subtle;
+  }
+
+  &--active {
+    background: $color-primary-50;
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+
+  i {
+    font-size: 1.125rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      background: $color-bg-overlay-dark;
+    }
+
+    &--active {
+      background: rgba($color-primary, 0.15);
+      color: $color-primary-light;
+    }
+  }
+}
+
+.storage-info {
+  padding: $spacing-4;
+  background: $color-bg-subtle;
+  border-radius: $radius-lg;
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+  }
+}
+
+.storage-info__title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  margin: 0 0 $spacing-2;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.storage-info__bar .progress {
+  height: 6px;
+  margin-bottom: $spacing-2;
+}
+
+.storage-info__text {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin: 0 0 $spacing-3;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.file-sidebar__title {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  color: $color-text-muted;
+  margin: $spacing-4 0 $spacing-2;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.file-folder {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-radius: $radius-md;
+
+  &:hover {
+    background: $color-bg-subtle;
+  }
+
+  i {
+    font-size: 1.25rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      background: $color-bg-overlay-dark;
+    }
+  }
+}
+
+.file-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.file-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-3 $spacing-4;
+  border-bottom: 1px solid $color-border-light;
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+.file-path {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-size-sm;
+
+  a {
+    color: $color-text-muted;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  span {
+    font-weight: $font-weight-medium;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+
+  i {
+    color: $color-text-muted;
+    font-size: 0.75rem;
+  }
+
+  [data-theme="dark"] & a {
+    color: $color-text-muted-dark;
+  }
+}
+
+.file-toolbar__right {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.file-section {
+  padding: $spacing-4;
+
+  &:last-child {
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+
+.file-section__title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  margin: 0 0 $spacing-3;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.file-grid {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+
+  &--folders {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+.file-card {
+  background: $color-bg-subtle;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: $transition-all;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  &--folder {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-3;
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+  }
+}
+
+.file-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-warning-100;
+  border-radius: $radius-lg;
+
+  i {
+    font-size: 1.5rem;
+    color: $color-warning;
+  }
+
+  [data-theme="dark"] & {
+    background: rgba($color-warning, 0.15);
+  }
+}
+
+.file-card__preview {
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-bg-muted;
+
+  &--image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  i {
+    font-size: 3rem;
+  }
+
+  &--pdf i { color: $color-error; }
+  &--doc i { color: $color-primary; }
+  &--excel i { color: $color-success; }
+  &--zip i { color: $color-warning; }
+  &--video i { color: $color-secondary; }
+
+  [data-theme="dark"] & {
+    background: $color-bg-subtle-dark;
+  }
+}
+
+.file-card__info {
+  flex: 1;
+  min-width: 0;
+  padding: $spacing-3;
+
+  .file-card--folder & {
+    padding: 0;
+  }
+}
+
+.file-card__name {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  margin: 0 0 $spacing-0-5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.file-card__meta {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.file-card__menu {
+  background: none;
+  border: none;
+  padding: $spacing-1;
+  color: $color-text-muted;
+  cursor: pointer;
+  opacity: 0;
+  transition: $transition-opacity;
+
+  .file-card:hover & {
+    opacity: 1;
+  }
+
+  &:hover {
+    color: $color-text-primary;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+// ============================================================================
+// CHART CONTAINERS
+// ============================================================================
+
+.chart-container {
+  position: relative;
+  height: 300px;
+
+  &--square {
+    height: 250px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+.apex-chart {
+  height: 350px;
+}
+

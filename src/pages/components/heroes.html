@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Sections | Components Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-light: #EEF2FF; --success: #22C55E; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F1F5F9; margin: 0; color: #1E293B; }
+        .docs-sidebar { width: 260px; background: #fff; border-right: 1px solid #E2E8F0; position: fixed; top: 0; left: 0; bottom: 0; padding: 1.5rem; overflow-y: auto; }
+        .docs-sidebar__brand { font-weight: 700; font-size: 1.125rem; color: var(--primary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .docs-sidebar__nav { list-style: none; padding: 0; margin: 0; }
+        .docs-sidebar__link { display: block; padding: 0.5rem 0.75rem; color: #64748B; text-decoration: none; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.25rem; }
+        .docs-sidebar__link:hover { background: #F1F5F9; color: #1E293B; }
+        .docs-sidebar__link.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+        .docs-main { margin-left: 260px; padding: 2rem; }
+        .docs-header { margin-bottom: 2rem; }
+        .docs-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .docs-header p { color: #64748B; margin: 0; }
+        .component-section { margin-bottom: 3rem; }
+        .component-section__title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .component-preview { background: #fff; border: 1px solid #E2E8F0; border-radius: 0.75rem; overflow: hidden; }
+        .component-preview__demo { padding: 0; }
+        .component-preview__code { background: #1E293B; color: #E2E8F0; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; overflow-x: auto; display: none; max-height: 400px; white-space: pre-wrap; }
+        .component-preview__code.show { display: block; }
+        .component-preview__actions { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid #E2E8F0; background: #F8FAFC; }
+        .btn-action { padding: 0.375rem 0.75rem; border: 1px solid #E2E8F0; background: #fff; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; }
+        .btn-action:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-action.copied { background: var(--success); color: #fff; border-color: var(--success); }
+        /* Hero Styles */
+        .hero-1 { padding: 5rem 2rem; text-align: center; background: linear-gradient(135deg, #4F46E5, #7C3AED); color: #fff; }
+        .hero-1 h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero-1 p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 0 auto 2rem; }
+        .hero-1__actions { display: flex; justify-content: center; gap: 1rem; }
+        .hero-2 { padding: 5rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; background: #fff; }
+        .hero-2__content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: #1E293B; }
+        .hero-2__content p { font-size: 1.125rem; color: #64748B; margin-bottom: 2rem; }
+        .hero-2__image { background: linear-gradient(135deg, #E0E7FF, #C7D2FE); border-radius: 1rem; height: 300px; display: flex; align-items: center; justify-content: center; }
+        .hero-3 { padding: 5rem 2rem; text-align: center; background: #0F172A; color: #fff; position: relative; overflow: hidden; }
+        .hero-3::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 50%); }
+        .hero-3 h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; position: relative; }
+        .hero-3 p { font-size: 1.125rem; color: #94A3B8; max-width: 600px; margin: 0 auto 2rem; position: relative; }
+        .hero-4 { padding: 4rem 2rem; background: linear-gradient(to right, #FAFAFA, #F1F5F9); }
+        .hero-4__inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 3rem; }
+        .hero-4__badge { display: inline-block; padding: 0.5rem 1rem; background: var(--primary-light); color: var(--primary); border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; }
+        .hero-4 h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero-4 p { color: #64748B; font-size: 1.125rem; margin-bottom: 1.5rem; }
+        .hero-4__stats { display: flex; gap: 2rem; margin-top: 2rem; }
+        .hero-4__stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); }
+        .hero-4__stat-label { font-size: 0.875rem; color: #64748B; }
+        .hero-5 { min-height: 500px; display: flex; align-items: center; justify-content: center; background: url('https://images.unsplash.com/photo-1557683316-973673baf926?w=1200') center/cover; position: relative; }
+        .hero-5::before { content: ''; position: absolute; inset: 0; background: rgba(15,23,42,0.8); }
+        .hero-5__content { position: relative; text-align: center; color: #fff; padding: 2rem; }
+        .hero-5 h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero-5 p { font-size: 1.25rem; opacity: 0.9; margin-bottom: 2rem; }
+        @media (max-width: 768px) { .docs-sidebar { display: none; } .docs-main { margin-left: 0; } .hero-2 { grid-template-columns: 1fr; } .hero-4__inner { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <aside class="docs-sidebar">
+        <a href="index.html" class="docs-sidebar__brand"><i class="bi bi-book"></i> Components</a>
+        <nav>
+            <ul class="docs-sidebar__nav">
+                <li><a href="headers.html" class="docs-sidebar__link">Headers</a></li>
+                <li><a href="heroes.html" class="docs-sidebar__link active">Heroes</a></li>
+                <li><a href="footers.html" class="docs-sidebar__link">Footers</a></li>
+                <li><a href="sidebars.html" class="docs-sidebar__link">Sidebars</a></li>
+                <li><a href="navbars.html" class="docs-sidebar__link">Navbars</a></li>
+                <li><a href="buttons.html" class="docs-sidebar__link">Buttons</a></li>
+                <li><a href="cards.html" class="docs-sidebar__link">Cards</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="docs-main">
+        <div class="docs-header">
+            <h1>Hero Sections</h1>
+            <p>Full-width hero sections for landing pages and marketing sites</p>
+        </div>
+
+        <!-- Hero 1: Gradient Center -->
+        <section class="component-section">
+            <h2 class="component-section__title">1. Gradient Centered Hero</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="hero-1">
+                        <h1>Build Something Amazing</h1>
+                        <p>Create beautiful, responsive web applications with our premium component library.</p>
+                        <div class="hero-1__actions">
+                            <button class="btn btn-light btn-lg">Get Started</button>
+                            <button class="btn btn-outline-light btn-lg">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code1">&lt;section style="padding:5rem 2rem;text-align:center;background:linear-gradient(135deg,#4F46E5,#7C3AED);color:#fff;"&gt;
+    &lt;h1 style="font-size:3rem;font-weight:800;margin-bottom:1rem;"&gt;Build Something Amazing&lt;/h1&gt;
+    &lt;p style="font-size:1.25rem;opacity:0.9;max-width:600px;margin:0 auto 2rem;"&gt;Create beautiful, responsive web applications with our premium component library.&lt;/p&gt;
+    &lt;div style="display:flex;justify-content:center;gap:1rem;"&gt;
+        &lt;button class="btn btn-light btn-lg"&gt;Get Started&lt;/button&gt;
+        &lt;button class="btn btn-outline-light btn-lg"&gt;Learn More&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code1')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code1', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero 2: Split Layout -->
+        <section class="component-section">
+            <h2 class="component-section__title">2. Split Layout Hero</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="hero-2">
+                        <div class="hero-2__content">
+                            <h1>Transform Your Business</h1>
+                            <p>Streamline your workflow with powerful tools designed to help teams collaborate and ship faster than ever.</p>
+                            <button class="btn btn-primary btn-lg">Start Free Trial</button>
+                            <button class="btn btn-link">Watch Demo →</button>
+                        </div>
+                        <div class="hero-2__image">
+                            <i class="bi bi-laptop" style="font-size:6rem;color:#4F46E5;"></i>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code2">&lt;section style="padding:5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;background:#fff;"&gt;
+    &lt;div&gt;
+        &lt;h1 style="font-size:2.5rem;font-weight:800;margin-bottom:1rem;color:#1E293B;"&gt;Transform Your Business&lt;/h1&gt;
+        &lt;p style="font-size:1.125rem;color:#64748B;margin-bottom:2rem;"&gt;Streamline your workflow with powerful tools designed to help teams collaborate and ship faster.&lt;/p&gt;
+        &lt;button class="btn btn-primary btn-lg"&gt;Start Free Trial&lt;/button&gt;
+        &lt;button class="btn btn-link"&gt;Watch Demo →&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div style="background:linear-gradient(135deg,#E0E7FF,#C7D2FE);border-radius:1rem;height:300px;display:flex;align-items:center;justify-content:center;"&gt;
+        &lt;!-- Your image or illustration here --&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code2')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code2', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero 3: Dark with Glow -->
+        <section class="component-section">
+            <h2 class="component-section__title">3. Dark Hero with Glow Effect</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="hero-3">
+                        <h1>Next-Gen Platform</h1>
+                        <p>Experience the future of web development with cutting-edge tools and seamless integrations.</p>
+                        <div style="display:flex;justify-content:center;gap:1rem;position:relative;">
+                            <button class="btn btn-primary btn-lg">Explore Features</button>
+                            <button class="btn btn-outline-light btn-lg">View Docs</button>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code3">&lt;section style="padding:5rem 2rem;text-align:center;background:#0F172A;color:#fff;position:relative;overflow:hidden;"&gt;
+    &lt;!-- Glow effect --&gt;
+    &lt;div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(99,102,241,0.15) 0%,transparent 50%);"&gt;&lt;/div&gt;
+    &lt;h1 style="font-size:3rem;font-weight:800;margin-bottom:1rem;position:relative;"&gt;Next-Gen Platform&lt;/h1&gt;
+    &lt;p style="font-size:1.125rem;color:#94A3B8;max-width:600px;margin:0 auto 2rem;position:relative;"&gt;Experience the future of web development.&lt;/p&gt;
+    &lt;div style="display:flex;justify-content:center;gap:1rem;position:relative;"&gt;
+        &lt;button class="btn btn-primary btn-lg"&gt;Explore Features&lt;/button&gt;
+        &lt;button class="btn btn-outline-light btn-lg"&gt;View Docs&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code3')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code3', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero 4: With Stats -->
+        <section class="component-section">
+            <h2 class="component-section__title">4. Hero with Stats</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="hero-4">
+                        <div class="hero-4__inner">
+                            <div style="flex:1;">
+                                <span class="hero-4__badge">🚀 Now in Beta</span>
+                                <h1>The Modern Way to Build</h1>
+                                <p>Join thousands of developers building the next generation of web applications.</p>
+                                <button class="btn btn-primary">Get Early Access</button>
+                                <div class="hero-4__stats">
+                                    <div><div class="hero-4__stat-value">10K+</div><div class="hero-4__stat-label">Developers</div></div>
+                                    <div><div class="hero-4__stat-value">50+</div><div class="hero-4__stat-label">Components</div></div>
+                                    <div><div class="hero-4__stat-value">99%</div><div class="hero-4__stat-label">Satisfaction</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code4">&lt;section style="padding:4rem 2rem;background:linear-gradient(to right,#FAFAFA,#F1F5F9);"&gt;
+    &lt;div style="max-width:1000px;margin:0 auto;"&gt;
+        &lt;span style="display:inline-block;padding:0.5rem 1rem;background:#EEF2FF;color:#4F46E5;border-radius:2rem;font-size:0.875rem;font-weight:600;margin-bottom:1rem;"&gt;🚀 Now in Beta&lt;/span&gt;
+        &lt;h1 style="font-size:2.5rem;font-weight:800;margin-bottom:1rem;"&gt;The Modern Way to Build&lt;/h1&gt;
+        &lt;p style="color:#64748B;font-size:1.125rem;margin-bottom:1.5rem;"&gt;Join thousands of developers building the next generation of web applications.&lt;/p&gt;
+        &lt;button class="btn btn-primary"&gt;Get Early Access&lt;/button&gt;
+        &lt;div style="display:flex;gap:2rem;margin-top:2rem;"&gt;
+            &lt;div&gt;&lt;div style="font-size:2rem;font-weight:800;color:#4F46E5;"&gt;10K+&lt;/div&gt;&lt;div style="font-size:0.875rem;color:#64748B;"&gt;Developers&lt;/div&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;div style="font-size:2rem;font-weight:800;color:#4F46E5;"&gt;50+&lt;/div&gt;&lt;div style="font-size:0.875rem;color:#64748B;"&gt;Components&lt;/div&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;div style="font-size:2rem;font-weight:800;color:#4F46E5;"&gt;99%&lt;/div&gt;&lt;div style="font-size:0.875rem;color:#64748B;"&gt;Satisfaction&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code4')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code4', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero 5: Background Image -->
+        <section class="component-section">
+            <h2 class="component-section__title">5. Background Image Hero</h2>
+            <div class="component-preview">
+                <div class="component-preview__demo">
+                    <div class="hero-5">
+                        <div class="hero-5__content">
+                            <h1>Discover New Horizons</h1>
+                            <p>Embark on a journey of innovation and creativity with our platform.</p>
+                            <button class="btn btn-primary btn-lg">Start Exploring</button>
+                        </div>
+                    </div>
+                </div>
+                <pre class="component-preview__code" id="code5">&lt;section style="min-height:500px;display:flex;align-items:center;justify-content:center;background:url('your-image.jpg') center/cover;position:relative;"&gt;
+    &lt;!-- Overlay --&gt;
+    &lt;div style="position:absolute;inset:0;background:rgba(15,23,42,0.8);"&gt;&lt;/div&gt;
+    &lt;div style="position:relative;text-align:center;color:#fff;padding:2rem;"&gt;
+        &lt;h1 style="font-size:3rem;font-weight:800;margin-bottom:1rem;"&gt;Discover New Horizons&lt;/h1&gt;
+        &lt;p style="font-size:1.25rem;opacity:0.9;margin-bottom:2rem;"&gt;Embark on a journey of innovation and creativity.&lt;/p&gt;
+        &lt;button class="btn btn-primary btn-lg"&gt;Start Exploring&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+                <div class="component-preview__actions">
+                    <button class="btn-action" onclick="toggleCode('code5')"><i class="bi bi-code-slash"></i> View Code</button>
+                    <button class="btn-action" onclick="copyCode('code5', this)"><i class="bi bi-clipboard"></i> Copy</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleCode(id) { document.getElementById(id).classList.toggle('show'); }
+        function copyCode(id, btn) {
+            navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

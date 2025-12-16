@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blue">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calendar - Smart Workz Admin">
+    <title>Calendar | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-styles.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Calendar Specific */
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .calendar-nav { display: flex; align-items: center; gap: 1rem; }
+        .calendar-nav__btn { width: 40px; height: 40px; border: 1px solid #E2E8F0; border-radius: 0.5rem; background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #64748B; transition: all 0.2s; }
+        .calendar-nav__btn:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+        .calendar-title { font-size: 1.5rem; font-weight: 700; margin: 0; }
+        .calendar-views { display: flex; gap: 0.25rem; background: #F1F5F9; padding: 0.25rem; border-radius: 0.5rem; }
+        .calendar-view { padding: 0.5rem 1rem; border: none; background: transparent; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; color: #64748B; cursor: pointer; transition: all 0.2s; }
+        .calendar-view:hover { color: #1E293B; }
+        .calendar-view.active { background: #fff; color: #1E293B; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .calendar { background: #fff; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden; }
+        .calendar__header { display: grid; grid-template-columns: repeat(7, 1fr); background: #F8FAFC; }
+        .calendar__header-cell { padding: 1rem; text-align: center; font-weight: 600; color: #64748B; font-size: 0.875rem; }
+        .calendar__body { display: grid; grid-template-columns: repeat(7, 1fr); }
+        .calendar__cell { min-height: 120px; padding: 0.75rem; border: 1px solid #F1F5F9; cursor: pointer; transition: background 0.2s; }
+        .calendar__cell:hover { background: #F8FAFC; }
+        .calendar__cell--other-month { background: #FAFAFA; }
+        .calendar__cell--other-month .calendar__date { color: #CBD5E1; }
+        .calendar__date { font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem; color: #1E293B; }
+        .calendar__date--today { width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .calendar__event { font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-bottom: 0.25rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .calendar__event--primary { background: #EEF2FF; color: var(--primary); border-left: 2px solid var(--primary); }
+        .calendar__event--success { background: #DCFCE7; color: #16A34A; border-left: 2px solid #22C55E; }
+        .calendar__event--warning { background: #FEF3C7; color: #D97706; border-left: 2px solid #F59E0B; }
+        .calendar__event--danger { background: #FEE2E2; color: #DC2626; border-left: 2px solid #EF4444; }
+        .mini-calendar { background: #fff; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem; }
+        .mini-calendar__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+        .mini-calendar__title { font-weight: 600; font-size: 0.875rem; }
+        .mini-calendar__nav { display: flex; gap: 0.25rem; }
+        .mini-calendar__nav button { width: 24px; height: 24px; border: none; background: transparent; border-radius: 0.25rem; cursor: pointer; color: #64748B; }
+        .mini-calendar__nav button:hover { background: #F1F5F9; }
+        .mini-calendar__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.25rem; text-align: center; }
+        .mini-calendar__day { font-size: 0.7rem; color: #94A3B8; padding: 0.25rem; }
+        .mini-calendar__date { font-size: 0.75rem; padding: 0.25rem; border-radius: 0.25rem; cursor: pointer; }
+        .mini-calendar__date:hover { background: #F1F5F9; }
+        .mini-calendar__date--today { background: var(--primary); color: #fff; }
+        .upcoming-events { background: #fff; border-radius: 0.75rem; padding: 1rem; }
+        .upcoming-events__title { font-weight: 600; font-size: 0.875rem; margin-bottom: 0.75rem; }
+        .upcoming-event { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid #F1F5F9; }
+        .upcoming-event:last-child { border-bottom: none; }
+        .upcoming-event__dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 0.25rem; }
+        .upcoming-event__content { flex: 1; min-width: 0; }
+        .upcoming-event__name { font-weight: 500; font-size: 0.875rem; margin-bottom: 0.125rem; }
+        .upcoming-event__time { font-size: 0.75rem; color: #64748B; }
+        .calendar-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1.5rem; }
+        @media (max-width: 1024px) { .calendar-layout { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .calendar__cell { min-height: 80px; padding: 0.5rem; } .calendar__event { font-size: 0.6875rem; } }
+    </style>
+</head>
+<body class="app-body">
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__header">
+                <a href="../dashboard/index.html" class="sidebar__brand">
+                    <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
+                    <span>Smart Workz</span>
+                </a>
+                <button class="sidebar__close" id="sidebarClose"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Dashboards</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../dashboard/index.html" class="sidebar__nav-link"><i class="bi bi-speedometer2 sidebar__nav-icon"></i> Main</a></li>
+                        <li><a href="../dashboard/crm.html" class="sidebar__nav-link"><i class="bi bi-briefcase sidebar__nav-icon"></i> CRM</a></li>
+                        <li><a href="../dashboard/social.html" class="sidebar__nav-link"><i class="bi bi-share sidebar__nav-icon"></i> Social</a></li>
+                        <li><a href="../dashboard/dark-analytics.html" class="sidebar__nav-link"><i class="bi bi-activity sidebar__nav-icon"></i> Analytics</a></li>
+                        <li><a href="../dashboard/minimal.html" class="sidebar__nav-link"><i class="bi bi-grid-1x2 sidebar__nav-icon"></i> Minimal</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Apps</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="inbox.html" class="sidebar__nav-link"><i class="bi bi-envelope sidebar__nav-icon"></i> Email</a></li>
+                        <li><a href="calendar.html" class="sidebar__nav-link sidebar__nav-link--active"><i class="bi bi-calendar3 sidebar__nav-icon"></i> Calendar</a></li>
+                        <li><a href="kanban.html" class="sidebar__nav-link"><i class="bi bi-kanban sidebar__nav-icon"></i> Kanban</a></li>
+                        <li><a href="file-manager.html" class="sidebar__nav-link"><i class="bi bi-folder sidebar__nav-icon"></i> Files</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar__section">
+                    <h3 class="sidebar__section-title">Pages</h3>
+                    <ul class="sidebar__nav-list">
+                        <li><a href="../index.html" class="sidebar__nav-link"><i class="bi bi-grid sidebar__nav-icon"></i> All Pages</a></li>
+                        <li><a href="../landing.html" class="sidebar__nav-link"><i class="bi bi-house sidebar__nav-icon"></i> Landing</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header__left">
+                    <button class="header__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+                    <nav class="header__breadcrumb">
+                        <a href="../dashboard/index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span>Calendar</span>
+                    </nav>
+                </div>
+                <div class="header__right">
+                    <button class="header__action"><i class="bi bi-bell"></i></button>
+                    <button class="header__action"><i class="bi bi-gear"></i></button>
+                </div>
+            </header>
+
+            <main class="app-main">
+                <div class="calendar-header">
+                    <div class="calendar-nav">
+                        <button class="calendar-nav__btn"><i class="bi bi-chevron-left"></i></button>
+                        <h2 class="calendar-title">December 2025</h2>
+                        <button class="calendar-nav__btn"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-views">
+                        <button class="calendar-view">Day</button>
+                        <button class="calendar-view">Week</button>
+                        <button class="calendar-view active">Month</button>
+                    </div>
+                    <button class="btn btn-primary"><i class="bi bi-plus"></i> Add Event</button>
+                </div>
+
+                <div class="calendar-layout">
+                    <aside>
+                        <div class="mini-calendar">
+                            <div class="mini-calendar__header">
+                                <span class="mini-calendar__title">December 2025</span>
+                                <div class="mini-calendar__nav">
+                                    <button><i class="bi bi-chevron-left"></i></button>
+                                    <button><i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="mini-calendar__grid">
+                                <div class="mini-calendar__day">S</div><div class="mini-calendar__day">M</div><div class="mini-calendar__day">T</div><div class="mini-calendar__day">W</div><div class="mini-calendar__day">T</div><div class="mini-calendar__day">F</div><div class="mini-calendar__day">S</div>
+                                <div class="mini-calendar__date">30</div><div class="mini-calendar__date">1</div><div class="mini-calendar__date">2</div><div class="mini-calendar__date">3</div><div class="mini-calendar__date">4</div><div class="mini-calendar__date">5</div><div class="mini-calendar__date">6</div>
+                                <div class="mini-calendar__date mini-calendar__date--today">7</div><div class="mini-calendar__date">8</div><div class="mini-calendar__date">9</div><div class="mini-calendar__date">10</div><div class="mini-calendar__date">11</div><div class="mini-calendar__date">12</div><div class="mini-calendar__date">13</div>
+                            </div>
+                        </div>
+                        <div class="upcoming-events">
+                            <h3 class="upcoming-events__title">Upcoming Events</h3>
+                            <div class="upcoming-event">
+                                <div class="upcoming-event__dot" style="background: var(--primary);"></div>
+                                <div class="upcoming-event__content">
+                                    <div class="upcoming-event__name">Team Meeting</div>
+                                    <div class="upcoming-event__time">Today, 10:00 AM</div>
+                                </div>
+                            </div>
+                            <div class="upcoming-event">
+                                <div class="upcoming-event__dot" style="background: #22C55E;"></div>
+                                <div class="upcoming-event__content">
+                                    <div class="upcoming-event__name">Product Launch</div>
+                                    <div class="upcoming-event__time">Dec 10, 2:00 PM</div>
+                                </div>
+                            </div>
+                            <div class="upcoming-event">
+                                <div class="upcoming-event__dot" style="background: #F59E0B;"></div>
+                                <div class="upcoming-event__content">
+                                    <div class="upcoming-event__name">Design Review</div>
+                                    <div class="upcoming-event__time">Dec 12, 11:00 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <div class="calendar">
+                        <div class="calendar__header">
+                            <div class="calendar__header-cell">Sun</div>
+                            <div class="calendar__header-cell">Mon</div>
+                            <div class="calendar__header-cell">Tue</div>
+                            <div class="calendar__header-cell">Wed</div>
+                            <div class="calendar__header-cell">Thu</div>
+                            <div class="calendar__header-cell">Fri</div>
+                            <div class="calendar__header-cell">Sat</div>
+                        </div>
+                        <div class="calendar__body">
+                            <div class="calendar__cell calendar__cell--other-month"><span class="calendar__date">30</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">1</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">2</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">3</span><div class="calendar__event calendar__event--primary">Sprint Planning</div></div>
+                            <div class="calendar__cell"><span class="calendar__date">4</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">5</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">6</span></div>
+                            <div class="calendar__cell"><span class="calendar__date calendar__date--today">7</span><div class="calendar__event calendar__event--primary">Team Meeting</div></div>
+                            <div class="calendar__cell"><span class="calendar__date">8</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">9</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">10</span><div class="calendar__event calendar__event--success">Product Launch</div></div>
+                            <div class="calendar__cell"><span class="calendar__date">11</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">12</span><div class="calendar__event calendar__event--warning">Design Review</div></div>
+                            <div class="calendar__cell"><span class="calendar__date">13</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">14</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">15</span><div class="calendar__event calendar__event--danger">Deadline</div></div>
+                            <div class="calendar__cell"><span class="calendar__date">16</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">17</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">18</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">19</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">20</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">21</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">22</span><div class="calendar__event calendar__event--primary">Year-End Review</div></div>
+                            <div class="calendar__cell"><span class="calendar__date">23</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">24</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">25</span><div class="calendar__event calendar__event--success">Christmas</div></div>
+                            <div class="calendar__cell"><span class="calendar__date">26</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">27</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">28</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">29</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">30</span></div>
+                            <div class="calendar__cell"><span class="calendar__date">31</span><div class="calendar__event calendar__event--warning">New Year's Eve</div></div>
+                            <div class="calendar__cell calendar__cell--other-month"><span class="calendar__date">1</span></div>
+                            <div class="calendar__cell calendar__cell--other-month"><span class="calendar__date">2</span></div>
+                            <div class="calendar__cell calendar__cell--other-month"><span class="calendar__date">3</span></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        });
+        document.getElementById('sidebarClose')?.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+        });
+        document.getElementById('sidebarOverlay')?.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+        });
+    </script>
+</body>
+</html>

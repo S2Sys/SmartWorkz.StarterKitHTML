@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Workz Shop - Premium digital products and templates">
+    <title>Shop | Smart Workz</title>
+    <link rel="icon" type="image/png" href="../../dist/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-dark: #4338CA; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; color: #1E293B; margin: 0; background: #F8FAFC; overflow-x: hidden; }
+        a { color: var(--primary); text-decoration: none; }
+        
+        /* Navbar */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .navbar__container { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .navbar__brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .navbar__nav { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        .navbar__link { color: #64748B; font-weight: 500; }
+        .navbar__link:hover, .navbar__link.active { color: var(--primary); }
+        .navbar__cart { position: relative; width: 40px; height: 40px; border-radius: 50%; background: #F1F5F9; display: flex; align-items: center; justify-content: center; color: #64748B; }
+        .navbar__cart-badge { position: absolute; top: -4px; right: -4px; width: 18px; height: 18px; background: var(--primary); color: #fff; border-radius: 50%; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        
+        /* Hero */
+        .hero { padding: 10rem 1.5rem 5rem; background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); text-align: center; }
+        .hero__title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+        .hero__subtitle { font-size: 1.25rem; color: #64748B; max-width: 600px; margin: 0 auto; }
+        
+        /* Shop Section */
+        .shop-section { padding: 4rem 1.5rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .shop-layout { display: grid; grid-template-columns: 260px 1fr; gap: 2rem; }
+        
+        /* Filters Sidebar */
+        .filters { background: #fff; border-radius: 0.75rem; padding: 1.5rem; height: fit-content; position: sticky; top: 100px; }
+        .filters__title { font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .filter-group { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #E2E8F0; }
+        .filter-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .filter-group__title { font-weight: 600; margin-bottom: 1rem; font-size: 0.875rem; }
+        .filter-checkbox { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; cursor: pointer; }
+        .filter-checkbox input { width: 18px; height: 18px; accent-color: var(--primary); }
+        .filter-checkbox span { color: #64748B; }
+        .price-range { display: flex; gap: 0.5rem; align-items: center; }
+        .price-range input { width: 80px; padding: 0.5rem; border: 1px solid #E2E8F0; border-radius: 0.375rem; }
+        .price-range span { color: #94A3B8; }
+        
+        /* Products Grid */
+        .products-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .products-count { color: #64748B; }
+        .products-sort select { padding: 0.5rem 1rem; border: 1px solid #E2E8F0; border-radius: 0.5rem; background: #fff; }
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        
+        .product-card { background: #fff; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+        .product-card__image { height: 200px; background: #F8FAFC; position: relative; overflow: hidden; }
+        .product-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .product-card:hover .product-card__image img { transform: scale(1.05); }
+        .product-card__badge { position: absolute; top: 1rem; left: 1rem; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 600; }
+        .product-card__badge--sale { background: #EF4444; color: #fff; }
+        .product-card__badge--new { background: #22C55E; color: #fff; }
+        .product-card__wishlist { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: all 0.2s; }
+        .product-card:hover .product-card__wishlist { opacity: 1; }
+        .product-card__wishlist:hover { background: #FEE2E2; color: #EF4444; }
+        .product-card__content { padding: 1.25rem; }
+        .product-card__category { font-size: 0.75rem; color: var(--primary); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .product-card__title { font-weight: 600; margin-bottom: 0.5rem; }
+        .product-card__title a { color: #1E293B; }
+        .product-card__title a:hover { color: var(--primary); }
+        .product-card__rating { color: #F59E0B; font-size: 0.875rem; margin-bottom: 0.75rem; }
+        .product-card__rating span { color: #94A3B8; margin-left: 0.5rem; }
+        .product-card__price { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .product-card__price-current { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+        .product-card__price-original { color: #94A3B8; text-decoration: line-through; }
+        .product-card__actions { display: flex; gap: 0.5rem; }
+        .product-card__actions .btn { flex: 1; justify-content: center; padding: 0.625rem; }
+        .btn-cart { background: var(--primary); color: #fff; }
+        .btn-cart:hover { background: var(--primary-dark); }
+        .btn-quick { background: #F1F5F9; color: #64748B; }
+        .btn-quick:hover { background: #E2E8F0; }
+        
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem; }
+        .pagination__btn { width: 40px; height: 40px; border-radius: 0.5rem; border: 1px solid #E2E8F0; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .pagination__btn:hover, .pagination__btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        
+        /* Footer */
+        .footer { background: #0F172A; color: rgba(255,255,255,0.7); padding: 4rem 1.5rem 2rem; margin-top: 4rem; }
+        .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto 3rem; }
+        .footer__brand { font-size: 1.5rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .footer__title { color: #fff; font-weight: 600; margin-bottom: 1.5rem; }
+        .footer__list { list-style: none; padding: 0; margin: 0; }
+        .footer__list li { margin-bottom: 0.75rem; }
+        .footer__list a { color: rgba(255,255,255,0.7); }
+        .footer__list a:hover { color: #fff; }
+        .footer__bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; max-width: 1200px; margin: 0 auto; text-align: center; }
+        
+        @media (max-width: 1200px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 992px) {
+            .shop-layout { grid-template-columns: 1fr; }
+            .filters { display: none; }
+            .navbar__nav { display: none; }
+            .footer__grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 576px) {
+            .hero__title { font-size: 2rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .footer__grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="../landing.html" class="navbar__brand">
+                <i class="bi bi-hexagon-fill"></i>
+                Smart Workz
+            </a>
+            <ul class="navbar__nav">
+                <li><a href="../landing.html" class="navbar__link">Home</a></li>
+                <li><a href="about.html" class="navbar__link">About</a></li>
+                <li><a href="services.html" class="navbar__link">Services</a></li>
+                <li><a href="blog.html" class="navbar__link">Blog</a></li>
+                <li><a href="shop.html" class="navbar__link active">Shop</a></li>
+                <li><a href="contact.html" class="navbar__link">Contact</a></li>
+            </ul>
+            <div class="navbar__actions" style="display: flex; align-items: center; gap: 1rem;">
+                <a href="#" class="navbar__cart">
+                    <i class="bi bi-cart2"></i>
+                    <span class="navbar__cart-badge">3</span>
+                </a>
+                <a href="../auth/login.html" class="btn btn-outline">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 class="hero__title">Shop</h1>
+        <p class="hero__subtitle">Premium digital products, templates, and tools to accelerate your projects.</p>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="shop-section">
+        <div class="container">
+            <div class="shop-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters">
+                    <h3 class="filters__title">Filters</h3>
+                    
+                    <div class="filter-group">
+                        <h4 class="filter-group__title">Categories</h4>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" checked>
+                            <span>All Products</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>Admin Templates</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>UI Kits</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>Landing Pages</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>E-commerce</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>Mobile Apps</span>
+                        </label>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4 class="filter-group__title">Price Range</h4>
+                        <div class="price-range">
+                            <input type="number" placeholder="$0">
+                            <span>to</span>
+                            <input type="number" placeholder="$500">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4 class="filter-group__title">Rating</h4>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>⭐⭐⭐⭐⭐ (5)</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>⭐⭐⭐⭐ & Up</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox">
+                            <span>⭐⭐⭐ & Up</span>
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width: 100%;">Apply Filters</button>
+                </aside>
+
+                <!-- Products -->
+                <div class="products">
+                    <div class="products-header">
+                        <span class="products-count">Showing 1-12 of 48 products</span>
+                        <div class="products-sort">
+                            <select>
+                                <option>Sort by: Featured</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Newest First</option>
+                                <option>Best Selling</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" alt="Product">
+                                <span class="product-card__badge product-card__badge--sale">-20%</span>
+                                <div class="product-card__wishlist"><i class="bi bi-heart"></i></div>
+                            </div>
+                            <div class="product-card__content">
+                                <span class="product-card__category">Admin Template</span>
+                                <h3 class="product-card__title"><a href="product-detail.html">Smart Dashboard Pro</a></h3>
+                                <div class="product-card__rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>(128 reviews)</span>
+                                </div>
+                                <div class="product-card__price">
+                                    <span class="product-card__price-current">$79</span>
+                                    <span class="product-card__price-original">$99</span>
+                                </div>
+                                <div class="product-card__actions">
+                                    <button class="btn btn-cart"><i class="bi bi-cart-plus"></i></button>
+                                    <button class="btn btn-quick"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" alt="Product">
+                                <span class="product-card__badge product-card__badge--new">New</span>
+                                <div class="product-card__wishlist"><i class="bi bi-heart"></i></div>
+                            </div>
+                            <div class="product-card__content">
+                                <span class="product-card__category">UI Kit</span>
+                                <h3 class="product-card__title"><a href="#">Starter UI Kit</a></h3>
+                                <div class="product-card__rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <span>(86 reviews)</span>
+                                </div>
+                                <div class="product-card__price">
+                                    <span class="product-card__price-current">$49</span>
+                                </div>
+                                <div class="product-card__actions">
+                                    <button class="btn btn-cart"><i class="bi bi-cart-plus"></i></button>
+                                    <button class="btn btn-quick"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop" alt="Product">
+                                <div class="product-card__wishlist"><i class="bi bi-heart"></i></div>
+                            </div>
+                            <div class="product-card__content">
+                                <span class="product-card__category">Landing Page</span>
+                                <h3 class="product-card__title"><a href="#">SaaS Landing Template</a></h3>
+                                <div class="product-card__rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>(245 reviews)</span>
+                                </div>
+                                <div class="product-card__price">
+                                    <span class="product-card__price-current">$39</span>
+                                </div>
+                                <div class="product-card__actions">
+                                    <button class="btn btn-cart"><i class="bi bi-cart-plus"></i></button>
+                                    <button class="btn btn-quick"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://images.unsplash.com/photo-1557821552-17105176677c?w=400&h=300&fit=crop" alt="Product">
+                                <span class="product-card__badge product-card__badge--sale">-30%</span>
+                                <div class="product-card__wishlist"><i class="bi bi-heart"></i></div>
+                            </div>
+                            <div class="product-card__content">
+                                <span class="product-card__category">E-commerce</span>
+                                <h3 class="product-card__title"><a href="#">E-Shop Complete</a></h3>
+                                <div class="product-card__rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                    <span>(92 reviews)</span>
+                                </div>
+                                <div class="product-card__price">
+                                    <span class="product-card__price-current">$69</span>
+                                    <span class="product-card__price-original">$99</span>
+                                </div>
+                                <div class="product-card__actions">
+                                    <button class="btn btn-cart"><i class="bi bi-cart-plus"></i></button>
+                                    <button class="btn btn-quick"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop" alt="Product">
+                                <div class="product-card__wishlist"><i class="bi bi-heart"></i></div>
+                            </div>
+                            <div class="product-card__content">
+                                <span class="product-card__category">Mobile App</span>
+                                <h3 class="product-card__title"><a href="#">React Native Starter</a></h3>
+                                <div class="product-card__rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>(156 reviews)</span>
+                                </div>
+                                <div class="product-card__price">
+                                    <span class="product-card__price-current">$129</span>
+                                </div>
+                                <div class="product-card__actions">
+                                    <button class="btn btn-cart"><i class="bi bi-cart-plus"></i></button>
+                                    <button class="btn btn-quick"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=300&fit=crop" alt="Product">
+                                <span class="product-card__badge product-card__badge--new">New</span>
+                                <div class="product-card__wishlist"><i class="bi bi-heart"></i></div>
+                            </div>
+                            <div class="product-card__content">
+                                <span class="product-card__category">Admin Template</span>
+                                <h3 class="product-card__title"><a href="#">Analytics Dashboard</a></h3>
+                                <div class="product-card__rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <span>(67 reviews)</span>
+                                </div>
+                                <div class="product-card__price">
+                                    <span class="product-card__price-current">$59</span>
+                                </div>
+                                <div class="product-card__actions">
+                                    <button class="btn btn-cart"><i class="bi bi-cart-plus"></i></button>
+                                    <button class="btn btn-quick"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="pagination__btn"><i class="bi bi-chevron-left"></i></button>
+                        <button class="pagination__btn active">1</button>
+                        <button class="pagination__btn">2</button>
+                        <button class="pagination__btn">3</button>
+                        <button class="pagination__btn">4</button>
+                        <button class="pagination__btn"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div>
+                <div class="footer__brand">
+                    <i class="bi bi-hexagon-fill"></i>
+                    Smart Workz
+                </div>
+                <p style="line-height: 1.6;">Premium digital products and templates for modern businesses.</p>
+            </div>
+            <div>
+                <h4 class="footer__title">Shop</h4>
+                <ul class="footer__list">
+                    <li><a href="#">All Products</a></li>
+                    <li><a href="#">Admin Templates</a></li>
+                    <li><a href="#">UI Kits</a></li>
+                    <li><a href="#">Landing Pages</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer__title">Support</h4>
+                <ul class="footer__list">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer__title">Legal</h4>
+                <ul class="footer__list">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">License</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2025 Smart Workz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
+

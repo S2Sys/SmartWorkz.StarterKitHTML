@@ -1,0 +1,433 @@
+// File: src/scss/pages/_profile.scss
+// Smart Workz Premium Admin Template - Profile & Settings Page Styles
+
+// ============================================================================
+// PROFILE HEADER
+// ============================================================================
+
+.profile-header {
+  background-color: $color-white;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-surface-dark;
+  }
+}
+
+.profile-header__cover {
+  height: 150px;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+
+  @media (min-width: $breakpoint-md) {
+    height: 200px;
+  }
+}
+
+.profile-header__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-4;
+  margin-top: -50px;
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: $spacing-4;
+    margin-top: -60px;
+  }
+}
+
+.profile-header__avatar {
+  position: relative;
+  flex-shrink: 0;
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: $radius-full;
+    border: 4px solid $color-white;
+    object-fit: cover;
+
+    @media (min-width: $breakpoint-md) {
+      width: 120px;
+      height: 120px;
+    }
+
+    [data-theme="dark"] & {
+      border-color: $color-bg-surface-dark;
+    }
+  }
+}
+
+.profile-header__status {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  background-color: $color-success;
+  border: 3px solid $color-white;
+  border-radius: $radius-full;
+
+  [data-theme="dark"] & {
+    border-color: $color-bg-surface-dark;
+  }
+}
+
+.profile-header__info {
+  flex: 1;
+  text-align: center;
+  margin: $spacing-3 0;
+
+  @media (min-width: $breakpoint-md) {
+    text-align: left;
+    margin: 0;
+  }
+}
+
+.profile-header__name {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-1;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.profile-header__role {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin: 0 0 $spacing-1;
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+  }
+}
+
+.profile-header__location {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin: 0;
+
+  i {
+    margin-right: $spacing-1;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.profile-header__actions {
+  display: flex;
+  gap: $spacing-2;
+}
+
+// ============================================================================
+// PROFILE INFO LIST
+// ============================================================================
+
+.profile-info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-3;
+    padding: $spacing-2 0;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+
+    i {
+      color: $color-text-muted;
+      margin-top: 2px;
+    }
+
+    [data-theme="dark"] & {
+      color: $color-text-secondary-dark;
+
+      i {
+        color: $color-text-muted-dark;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// PROFILE SOCIAL LIST
+// ============================================================================
+
+.profile-social-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: $spacing-2;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.profile-social-link {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-radius: $radius-md;
+  transition: $transition-button;
+
+  &:hover {
+    background-color: $color-bg-subtle;
+    color: $color-primary;
+  }
+
+  i {
+    font-size: 1.25rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      background-color: $color-bg-overlay-dark;
+      color: $color-primary-light;
+    }
+  }
+}
+
+// ============================================================================
+// SETTINGS NAVIGATION
+// ============================================================================
+
+.settings-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-nav__link {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-radius: $radius-md;
+  transition: $transition-button;
+
+  &:hover {
+    background-color: $color-bg-subtle;
+    color: $color-text-primary;
+  }
+
+  &--active {
+    background-color: $color-primary-50;
+    color: $color-primary;
+
+    &:hover {
+      background-color: $color-primary-100;
+    }
+  }
+
+  &--danger {
+    color: $color-danger;
+
+    &:hover {
+      background-color: $color-error-50;
+    }
+  }
+
+  i {
+    font-size: 1.125rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      background-color: $color-bg-overlay-dark;
+      color: $color-text-primary-dark;
+    }
+
+    &--active {
+      background-color: rgba($color-primary, 0.15);
+      color: $color-primary-light;
+    }
+  }
+}
+
+// ============================================================================
+// SETTINGS ITEM
+// ============================================================================
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-4;
+  padding: $spacing-2 0;
+}
+
+.settings-item__info {
+  flex: 1;
+
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin: 0 0 $spacing-0-5;
+    color: $color-text-primary;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin: 0;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+}
+
+// ============================================================================
+// THEME SELECTOR
+// ============================================================================
+
+.theme-selector {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.theme-option {
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+
+  span {
+    display: block;
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  input:checked + .theme-option__preview {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px $color-primary-100;
+  }
+
+  input:checked ~ span {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.theme-option__preview {
+  width: 80px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $color-border;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-2;
+  transition: $transition-all;
+
+  i {
+    font-size: 1.5rem;
+  }
+}
+
+.theme-option__preview--light {
+  background-color: $color-white;
+  color: $color-warning;
+}
+
+.theme-option__preview--dark {
+  background-color: $color-gray-800;
+  color: $color-info-light;
+}
+
+.theme-option__preview--system {
+  background: linear-gradient(135deg, $color-white 50%, $color-gray-800 50%);
+  color: $color-text-primary;
+}
+
+// ============================================================================
+// COLOR SELECTOR
+// ============================================================================
+
+.color-selector {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.color-option {
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+
+  span {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: $radius-full;
+    border: 2px solid transparent;
+    transition: $transition-all;
+  }
+
+  input:checked + span {
+    border-color: $color-gray-900;
+    box-shadow: 0 0 0 2px $color-white, 0 0 0 4px currentColor;
+  }
+
+  &:hover span {
+    transform: scale(1.1);
+  }
+}
+
+// ============================================================================
+// DANGER CARD
+// ============================================================================
+
+.card-danger {
+  border-color: $color-error-200;
+
+  .card-header {
+    background-color: $color-error-50;
+    border-bottom-color: $color-error-200;
+
+    .card-title {
+      color: $color-error;
+    }
+  }
+
+  [data-theme="dark"] & {
+    border-color: rgba($color-error, 0.3);
+
+    .card-header {
+      background-color: rgba($color-error, 0.1);
+      border-bottom-color: rgba($color-error, 0.3);
+    }
+  }
+}
+

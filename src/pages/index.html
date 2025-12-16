@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Workz - All Pages Index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            min-height: 100vh;
+            color: #1E293B;
+        }
+        .header {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            color: #fff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            color: #94A3B8;
+            margin: 0;
+        }
+        .header a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .page-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: #1E293B;
+            transition: all 0.2s;
+            border: 1px solid #E2E8F0;
+        }
+        .page-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79,70,229,0.15);
+            border-color: var(--primary);
+            color: #1E293B;
+        }
+        .page-card i {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            flex-shrink: 0;
+        }
+        .page-card span {
+            font-weight: 500;
+        }
+        .page-card--primary i { background: #EEF2FF; color: var(--primary); }
+        .page-card--success i { background: #DCFCE7; color: var(--success); }
+        .page-card--warning i { background: #FEF3C7; color: var(--warning); }
+        .page-card--danger i { background: #FEE2E2; color: var(--danger); }
+        .page-card--info i { background: #DBEAFE; color: var(--info); }
+        .page-card--dark i { background: #1E293B; color: #fff; }
+        .badge-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            margin-left: 0.5rem;
+        }
+        .landing-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .landing-banner h2 { margin: 0; font-weight: 700; }
+        .landing-banner p { margin: 0.25rem 0 0; opacity: 0.9; }
+        .landing-banner .btn-white {
+            background: #fff;
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .landing-banner .btn-white:hover { background: #F1F5F9; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1><i class="bi bi-hexagon-fill"></i> Smart Workz</h1>
+        <p>Premium Admin Dashboard Template - All Pages Index</p>
+    </header>
+
+    <div class="container">
+        <!-- Landing Page Banner -->
+        <div class="landing-banner">
+            <div>
+                <h2>Start Here</h2>
+                <p>View the main landing page with full demo and navigation</p>
+            </div>
+            <a href="landing.html" class="btn-white">
+                <i class="bi bi-rocket-takeoff"></i>
+                View Landing Page
+            </a>
+        </div>
+
+        <!-- Public Pages -->
+        <h2 class="section-title"><i class="bi bi-globe"></i> Public Pages <span class="badge-count">6</span></h2>
+        <div class="page-grid">
+            <a href="landing.html" class="page-card page-card--primary">
+                <i class="bi bi-house"></i>
+                <span>Landing Page</span>
+            </a>
+            <a href="public/about.html" class="page-card page-card--info">
+                <i class="bi bi-info-circle"></i>
+                <span>About Us</span>
+            </a>
+            <a href="public/services.html" class="page-card page-card--success">
+                <i class="bi bi-gear"></i>
+                <span>Services</span>
+            </a>
+            <a href="public/blog.html" class="page-card page-card--warning">
+                <i class="bi bi-newspaper"></i>
+                <span>Blog</span>
+            </a>
+            <a href="public/blog-post.html" class="page-card page-card--warning">
+                <i class="bi bi-file-text"></i>
+                <span>Blog Post</span>
+            </a>
+            <a href="public/shop.html" class="page-card page-card--danger">
+                <i class="bi bi-shop"></i>
+                <span>Shop</span>
+            </a>
+            <a href="public/contact.html" class="page-card page-card--info">
+                <i class="bi bi-envelope"></i>
+                <span>Contact Us</span>
+            </a>
+        </div>
+
+        <!-- Authentication -->
+        <h2 class="section-title"><i class="bi bi-shield-lock"></i> Authentication <span class="badge-count">6</span></h2>
+        <div class="page-grid">
+            <a href="auth/login.html" class="page-card page-card--primary">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Login</span>
+            </a>
+            <a href="auth/register.html" class="page-card page-card--success">
+                <i class="bi bi-person-plus"></i>
+                <span>Register</span>
+            </a>
+            <a href="auth/forgot-password.html" class="page-card page-card--warning">
+                <i class="bi bi-key"></i>
+                <span>Forgot Password</span>
+            </a>
+            <a href="auth/reset-password.html" class="page-card page-card--info">
+                <i class="bi bi-arrow-clockwise"></i>
+                <span>Reset Password</span>
+            </a>
+            <a href="auth/verify-email.html" class="page-card page-card--success">
+                <i class="bi bi-envelope-check"></i>
+                <span>Verify Email</span>
+            </a>
+            <a href="auth/two-factor.html" class="page-card page-card--danger">
+                <i class="bi bi-shield-check"></i>
+                <span>Two-Factor Auth</span>
+            </a>
+        </div>
+
+        <!-- Dashboard -->
+        <h2 class="section-title"><i class="bi bi-speedometer2"></i> Dashboard <span class="badge-count">6</span></h2>
+        <div class="page-grid">
+            <a href="dashboard/index.html" class="page-card page-card--primary">
+                <i class="bi bi-speedometer2"></i>
+                <span>Main Dashboard</span>
+            </a>
+            <a href="dashboard/analytics.html" class="page-card page-card--info">
+                <i class="bi bi-graph-up"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="dashboard/crm.html" class="page-card page-card--success">
+                <i class="bi bi-briefcase"></i>
+                <span>CRM Dashboard</span>
+            </a>
+            <a href="dashboard/social.html" class="page-card page-card--danger">
+                <i class="bi bi-share"></i>
+                <span>Social Dashboard</span>
+            </a>
+            <a href="dashboard/dark-analytics.html" class="page-card page-card--dark">
+                <i class="bi bi-activity"></i>
+                <span>Dark Analytics</span>
+            </a>
+            <a href="dashboard/minimal.html" class="page-card page-card--warning">
+                <i class="bi bi-grid-1x2"></i>
+                <span>Minimal Dashboard</span>
+            </a>
+        </div>
+
+        <!-- Users -->
+        <h2 class="section-title"><i class="bi bi-people"></i> User Management <span class="badge-count">4</span></h2>
+        <div class="page-grid">
+            <a href="users/user-list.html" class="page-card page-card--primary">
+                <i class="bi bi-people"></i>
+                <span>User List</span>
+            </a>
+            <a href="users/user-form.html" class="page-card page-card--success">
+                <i class="bi bi-person-plus"></i>
+                <span>Add/Edit User</span>
+            </a>
+            <a href="users/profile.html" class="page-card page-card--info">
+                <i class="bi bi-person-circle"></i>
+                <span>Profile</span>
+            </a>
+            <a href="users/settings.html" class="page-card page-card--warning">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+
+        <!-- E-commerce -->
+        <h2 class="section-title"><i class="bi bi-cart"></i> E-commerce <span class="badge-count">4</span></h2>
+        <div class="page-grid">
+            <a href="ecommerce/products.html" class="page-card page-card--primary">
+                <i class="bi bi-box-seam"></i>
+                <span>Products</span>
+            </a>
+            <a href="ecommerce/product-detail.html" class="page-card page-card--info">
+                <i class="bi bi-eye"></i>
+                <span>Product Detail</span>
+            </a>
+            <a href="ecommerce/cart.html" class="page-card page-card--warning">
+                <i class="bi bi-cart"></i>
+                <span>Shopping Cart</span>
+            </a>
+            <a href="ecommerce/checkout.html" class="page-card page-card--success">
+                <i class="bi bi-credit-card"></i>
+                <span>Checkout</span>
+            </a>
+        </div>
+
+        <!-- Apps -->
+        <h2 class="section-title"><i class="bi bi-grid"></i> Applications <span class="badge-count">5</span></h2>
+        <div class="page-grid">
+            <a href="apps/inbox.html" class="page-card page-card--danger">
+                <i class="bi bi-inbox"></i>
+                <span>Inbox</span>
+            </a>
+            <a href="apps/compose.html" class="page-card page-card--info">
+                <i class="bi bi-pencil-square"></i>
+                <span>Compose Email</span>
+            </a>
+            <a href="apps/calendar.html" class="page-card page-card--success">
+                <i class="bi bi-calendar3"></i>
+                <span>Calendar</span>
+            </a>
+            <a href="apps/kanban.html" class="page-card page-card--primary">
+                <i class="bi bi-kanban"></i>
+                <span>Kanban Board</span>
+            </a>
+            <a href="apps/file-manager.html" class="page-card page-card--warning">
+                <i class="bi bi-folder2-open"></i>
+                <span>File Manager</span>
+            </a>
+        </div>
+
+        <!-- Invoices -->
+        <h2 class="section-title"><i class="bi bi-receipt"></i> Invoices <span class="badge-count">2</span></h2>
+        <div class="page-grid">
+            <a href="invoices/invoice-list.html" class="page-card page-card--primary">
+                <i class="bi bi-receipt"></i>
+                <span>Invoice List</span>
+            </a>
+            <a href="invoices/invoice-preview.html" class="page-card page-card--info">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>Invoice Preview</span>
+            </a>
+        </div>
+
+        <!-- Charts & Components -->
+        <h2 class="section-title"><i class="bi bi-bar-chart"></i> Charts & Components <span class="badge-count">6</span></h2>
+        <div class="page-grid">
+            <a href="charts.html" class="page-card page-card--primary">
+                <i class="bi bi-bar-chart"></i>
+                <span>Charts</span>
+            </a>
+            <a href="components/index.html" class="page-card page-card--info">
+                <i class="bi bi-book"></i>
+                <span>Components Library</span>
+            </a>
+            <a href="components/headers.html" class="page-card page-card--success">
+                <i class="bi bi-window"></i>
+                <span>Headers</span>
+            </a>
+            <a href="components/heroes.html" class="page-card page-card--warning">
+                <i class="bi bi-image"></i>
+                <span>Hero Sections</span>
+            </a>
+            <a href="components/footers.html" class="page-card page-card--danger">
+                <i class="bi bi-layout-text-window-reverse"></i>
+                <span>Footers</span>
+            </a>
+            <a href="components/buttons.html" class="page-card page-card--primary">
+                <i class="bi bi-hand-index"></i>
+                <span>Buttons</span>
+            </a>
+        </div>
+
+        <!-- Error Pages -->
+        <h2 class="section-title"><i class="bi bi-exclamation-triangle"></i> Error Pages <span class="badge-count">5</span></h2>
+        <div class="page-grid">
+            <a href="errors/404.html" class="page-card page-card--warning">
+                <i class="bi bi-question-circle"></i>
+                <span>404 Not Found</span>
+            </a>
+            <a href="errors/403.html" class="page-card page-card--danger">
+                <i class="bi bi-ban"></i>
+                <span>403 Forbidden</span>
+            </a>
+            <a href="errors/500.html" class="page-card page-card--danger">
+                <i class="bi bi-bug"></i>
+                <span>500 Server Error</span>
+            </a>
+            <a href="errors/maintenance.html" class="page-card page-card--info">
+                <i class="bi bi-wrench"></i>
+                <span>Maintenance</span>
+            </a>
+            <a href="errors/session-expired.html" class="page-card page-card--warning">
+                <i class="bi bi-clock-history"></i>
+                <span>Session Expired</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
+

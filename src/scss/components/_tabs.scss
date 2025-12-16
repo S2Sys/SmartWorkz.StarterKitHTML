@@ -1,0 +1,425 @@
+// File: src/scss/components/_tabs.scss
+// Smart Workz Premium Admin Template - Tab Components
+// Horizontal, vertical, pills, and underline tab variants
+
+// ============================================================================
+// TAB CONTAINER
+// ============================================================================
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs--horizontal {
+  flex-direction: column;
+}
+
+.tabs--vertical {
+  flex-direction: row;
+  gap: $spacing-4;
+
+  @media (max-width: $breakpoint-md - 1) {
+    flex-direction: column;
+  }
+}
+
+// ============================================================================
+// TAB LIST (NAV)
+// ============================================================================
+
+.tabs__nav {
+  display: flex;
+  gap: $spacing-1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid $color-border-light;
+
+  // Scrollable on mobile
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  @include hide-scrollbar;
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+  }
+}
+
+// Vertical tabs nav
+.tabs--vertical .tabs__nav {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 1px solid $color-border-light;
+  padding-right: $spacing-4;
+  min-width: 200px;
+
+  @media (max-width: $breakpoint-md - 1) {
+    flex-direction: row;
+    border-right: none;
+    border-bottom: 1px solid $color-border-light;
+    padding-right: 0;
+    padding-bottom: $spacing-2;
+    min-width: 0;
+  }
+
+  [data-theme="dark"] & {
+    border-right-color: $color-border-dark-mode;
+
+    @media (max-width: $breakpoint-md - 1) {
+      border-bottom-color: $color-border-dark-mode;
+    }
+  }
+}
+
+// ============================================================================
+// TAB ITEM (BUTTON/LINK)
+// ============================================================================
+
+.tabs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: $transition-button;
+
+  &:hover {
+    color: $color-text-primary;
+    background-color: $color-bg-subtle;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: $shadow-focus;
+    border-radius: $radius-md;
+  }
+
+  // Active state
+  &.active,
+  &[aria-selected="true"] {
+    color: $color-primary;
+    border-bottom-color: $color-primary;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  // Disabled state
+  &:disabled,
+  &.disabled {
+    color: $color-text-disabled;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // Icon
+  i {
+    font-size: 1rem;
+  }
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+
+    &:hover {
+      color: $color-text-primary-dark;
+      background-color: $color-bg-overlay-dark;
+    }
+
+    &.active,
+    &[aria-selected="true"] {
+      color: $color-primary-light;
+      border-bottom-color: $color-primary-light;
+    }
+  }
+}
+
+// Vertical tab items
+.tabs--vertical .tabs__item {
+  border-bottom: none;
+  border-left: 2px solid transparent;
+  margin-bottom: 0;
+  margin-left: -1px;
+  border-radius: 0 $radius-md $radius-md 0;
+
+  &.active,
+  &[aria-selected="true"] {
+    border-left-color: $color-primary;
+    background-color: $color-primary-50;
+
+    [data-theme="dark"] & {
+      background-color: rgba($color-primary, 0.15);
+      border-left-color: $color-primary-light;
+    }
+  }
+
+  @media (max-width: $breakpoint-md - 1) {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    margin-left: 0;
+    margin-bottom: -1px;
+    border-radius: $radius-md $radius-md 0 0;
+
+    &.active,
+    &[aria-selected="true"] {
+      border-bottom-color: $color-primary;
+      border-left-color: transparent;
+    }
+  }
+}
+
+// ============================================================================
+// TAB BADGE
+// ============================================================================
+
+.tabs__badge {
+  padding: $spacing-0-5 $spacing-2;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  background-color: $color-bg-subtle;
+  border-radius: $radius-full;
+  line-height: 1;
+
+  [data-theme="dark"] & {
+    background-color: $color-bg-overlay-dark;
+  }
+
+  .tabs__item.active & {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+}
+
+// ============================================================================
+// TAB CONTENT
+// ============================================================================
+
+.tabs__content {
+  flex: 1;
+  padding-top: $spacing-4;
+}
+
+.tabs--vertical .tabs__content {
+  padding-top: 0;
+
+  @media (max-width: $breakpoint-md - 1) {
+    padding-top: $spacing-4;
+  }
+}
+
+.tabs__panel {
+  display: none;
+
+  &.active,
+  &[aria-hidden="false"] {
+    display: block;
+    animation: tabFadeIn $duration-fast $ease-out;
+  }
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================================================
+// PILLS VARIANT
+// ============================================================================
+
+.tabs--pills {
+  .tabs__nav {
+    border-bottom: none;
+    gap: $spacing-2;
+    background-color: $color-bg-subtle;
+    padding: $spacing-1;
+    border-radius: $radius-lg;
+
+    [data-theme="dark"] & {
+      background-color: $color-bg-overlay-dark;
+    }
+  }
+
+  .tabs__item {
+    border-bottom: none;
+    margin-bottom: 0;
+    border-radius: $radius-md;
+    padding: $spacing-2 $spacing-4;
+
+    &.active,
+    &[aria-selected="true"] {
+      background-color: $color-white;
+      color: $color-primary;
+      box-shadow: $shadow-sm;
+
+      [data-theme="dark"] & {
+        background-color: $color-bg-surface-dark;
+        color: $color-primary-light;
+      }
+    }
+  }
+
+  .tabs__content {
+    padding-top: $spacing-4;
+  }
+}
+
+// ============================================================================
+// UNDERLINE VARIANT
+// ============================================================================
+
+.tabs--underline {
+  .tabs__nav {
+    gap: $spacing-6;
+    border-bottom: 2px solid $color-border-light;
+
+    [data-theme="dark"] & {
+      border-bottom-color: $color-border-dark-mode;
+    }
+  }
+
+  .tabs__item {
+    padding: $spacing-3 0;
+    border-bottom-width: 2px;
+    margin-bottom: -2px;
+
+    &:hover {
+      background-color: transparent;
+      color: $color-primary;
+    }
+  }
+}
+
+// ============================================================================
+// BORDERED VARIANT
+// ============================================================================
+
+.tabs--bordered {
+  .tabs__nav {
+    border-bottom: 1px solid $color-border;
+    gap: 0;
+
+    [data-theme="dark"] & {
+      border-bottom-color: $color-border-dark-mode;
+    }
+  }
+
+  .tabs__item {
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-bottom: -1px;
+    border-radius: $radius-md $radius-md 0 0;
+
+    &.active,
+    &[aria-selected="true"] {
+      border-color: $color-border;
+      border-bottom-color: $color-white;
+      background-color: $color-white;
+
+      [data-theme="dark"] & {
+        border-color: $color-border-dark-mode;
+        border-bottom-color: $color-bg-surface-dark;
+        background-color: $color-bg-surface-dark;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// FULL WIDTH TABS
+// ============================================================================
+
+.tabs--full {
+  .tabs__nav {
+    width: 100%;
+  }
+
+  .tabs__item {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+// ============================================================================
+// CARD TABS (INSIDE CARD)
+// ============================================================================
+
+.card-tabs {
+  .tabs__nav {
+    padding: 0 $spacing-4;
+    margin: 0 (-$spacing-4);
+    background-color: $color-bg-subtle;
+
+    [data-theme="dark"] & {
+      background-color: $color-bg-overlay-dark;
+    }
+  }
+
+  .tabs__item {
+    padding: $spacing-3 $spacing-4;
+
+    &.active,
+    &[aria-selected="true"] {
+      background-color: $color-white;
+      border-bottom-color: transparent;
+
+      [data-theme="dark"] & {
+        background-color: $color-bg-surface-dark;
+      }
+    }
+  }
+
+  .tabs__content {
+    padding: $spacing-4;
+  }
+}
+
+// ============================================================================
+// ICON-ONLY TABS
+// ============================================================================
+
+.tabs--icons {
+  .tabs__item {
+    padding: $spacing-3;
+
+    i {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+// ============================================================================
+// SIZES
+// ============================================================================
+
+.tabs--sm {
+  .tabs__item {
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-xs;
+  }
+}
+
+.tabs--lg {
+  .tabs__item {
+    padding: $spacing-4 $spacing-6;
+    font-size: $font-size-base;
+  }
+}
+

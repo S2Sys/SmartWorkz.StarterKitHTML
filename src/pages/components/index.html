@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Components Library | Smart Workz Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root { --primary: #4F46E5; --primary-light: #EEF2FF; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; margin: 0; color: #1E293B; overflow-x: hidden; }
+        .docs-header { background: linear-gradient(135deg, #1E293B, #0F172A); color: #fff; padding: 3rem 2rem; text-align: center; }
+        .docs-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .docs-header p { color: #94A3B8; font-size: 1.125rem; margin: 0; }
+        .docs-nav { background: #fff; border-bottom: 1px solid #E2E8F0; padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; }
+        .docs-nav__inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .docs-nav__brand { font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .docs-nav__links { display: flex; gap: 1.5rem; }
+        .docs-nav__link { color: #64748B; text-decoration: none; font-weight: 500; font-size: 0.875rem; }
+        .docs-nav__link:hover { color: var(--primary); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .section-title i { color: var(--primary); }
+        .components-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .component-card { background: #fff; border-radius: 1rem; border: 1px solid #E2E8F0; overflow: hidden; transition: all 0.2s; text-decoration: none; color: inherit; }
+        .component-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .component-card__preview { height: 140px; background: linear-gradient(135deg, #F8FAFC, #E2E8F0); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #E2E8F0; }
+        .component-card__preview i { font-size: 3rem; color: var(--primary); opacity: 0.5; }
+        .component-card__body { padding: 1.25rem; }
+        .component-card__title { font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+        .component-card__desc { font-size: 0.875rem; color: #64748B; margin: 0; }
+        .component-card__count { font-size: 0.75rem; color: var(--primary); margin-top: 0.5rem; font-weight: 600; }
+        .quick-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 3rem; }
+        .quick-link { padding: 0.5rem 1rem; background: var(--primary-light); color: var(--primary); border-radius: 2rem; text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; }
+        .quick-link:hover { background: var(--primary); color: #fff; }
+    </style>
+</head>
+<body>
+    <header class="docs-header">
+        <h1>📚 Components Library</h1>
+        <p>Complete UI Component Documentation with Copy-to-Clipboard</p>
+    </header>
+
+    <nav class="docs-nav">
+        <div class="docs-nav__inner">
+            <a href="../index.html" class="docs-nav__brand"><i class="bi bi-hexagon-fill"></i> Smart Workz</a>
+            <div class="docs-nav__links">
+                <a href="../landing.html" class="docs-nav__link">Landing</a>
+                <a href="../dashboard/index.html" class="docs-nav__link">Dashboard</a>
+                <a href="../index.html" class="docs-nav__link">All Pages</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <a href="headers.html" class="quick-link">Headers</a>
+            <a href="heroes.html" class="quick-link">Hero Sections</a>
+            <a href="footers.html" class="quick-link">Footers</a>
+            <a href="navbars.html" class="quick-link">Navbars</a>
+            <a href="buttons.html" class="quick-link">Buttons</a>
+            <a href="forms.html" class="quick-link">Forms</a>
+            <a href="cards.html" class="quick-link">Cards</a>
+            <a href="tables.html" class="quick-link">Tables</a>
+            <a href="alerts.html" class="quick-link">Alerts</a>
+            <a href="modals.html" class="quick-link">Modals</a>
+            <a href="wizards.html" class="quick-link">Wizards</a>
+            <a href="carousel.html" class="quick-link">Carousel</a>
+            <a href="gallery.html" class="quick-link">Gallery</a>
+        </div>
+
+        <!-- Layout Components -->
+        <h2 class="section-title"><i class="bi bi-layout-text-window"></i> Layout Components</h2>
+        <div class="components-grid">
+            <a href="headers.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-window"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Headers</h3>
+                    <p class="component-card__desc">Admin headers, page headers, breadcrumbs</p>
+                    <span class="component-card__count">6 variants</span>
+                </div>
+            </a>
+            <a href="heroes.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-image"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Hero Sections</h3>
+                    <p class="component-card__desc">Full-width hero sections for landing pages</p>
+                    <span class="component-card__count">5 variants</span>
+                </div>
+            </a>
+            <a href="footers.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-layout-text-window-reverse"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Footers</h3>
+                    <p class="component-card__desc">Site footers for different page types</p>
+                    <span class="component-card__count">5 variants</span>
+                </div>
+            </a>
+            <a href="sidebars.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-layout-sidebar"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Sidebars</h3>
+                    <p class="component-card__desc">Navigation sidebars for admin dashboards</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Navigation Components -->
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="bi bi-signpost-2"></i> Navigation</h2>
+        <div class="components-grid">
+            <a href="navbars.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-list"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Navbars</h3>
+                    <p class="component-card__desc">Responsive navigation bars</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+            <a href="breadcrumbs.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-chevron-right"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Breadcrumbs</h3>
+                    <p class="component-card__desc">Navigation breadcrumb trails</p>
+                    <span class="component-card__count">3 variants</span>
+                </div>
+            </a>
+            <a href="tabs.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-folder2"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Tabs</h3>
+                    <p class="component-card__desc">Tabbed navigation and content</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+            <a href="pagination.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-three-dots"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Pagination</h3>
+                    <p class="component-card__desc">Page navigation controls</p>
+                    <span class="component-card__count">3 variants</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Form Components -->
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="bi bi-input-cursor-text"></i> Forms & Inputs</h2>
+        <div class="components-grid">
+            <a href="buttons.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-hand-index"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Buttons</h3>
+                    <p class="component-card__desc">All button variants and states</p>
+                    <span class="component-card__count">8 variants</span>
+                </div>
+            </a>
+            <a href="forms.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-ui-checks"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Form Controls</h3>
+                    <p class="component-card__desc">Inputs, selects, checkboxes, radios</p>
+                    <span class="component-card__count">10 variants</span>
+                </div>
+            </a>
+            <a href="dropdowns.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-caret-down-square"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Dropdowns</h3>
+                    <p class="component-card__desc">Dropdown menus and selects</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Data Display -->
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="bi bi-table"></i> Data Display</h2>
+        <div class="components-grid">
+            <a href="cards.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-card-heading"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Cards</h3>
+                    <p class="component-card__desc">Content cards and stat cards</p>
+                    <span class="component-card__count">8 variants</span>
+                </div>
+            </a>
+            <a href="tables.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-table"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Tables</h3>
+                    <p class="component-card__desc">Data tables with various styles</p>
+                    <span class="component-card__count">5 variants</span>
+                </div>
+            </a>
+            <a href="avatars.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-person-circle"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Avatars</h3>
+                    <p class="component-card__desc">User avatars and avatar groups</p>
+                    <span class="component-card__count">6 variants</span>
+                </div>
+            </a>
+            <a href="badges.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-bookmark"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Badges</h3>
+                    <p class="component-card__desc">Labels and status indicators</p>
+                    <span class="component-card__count">6 variants</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Feedback -->
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="bi bi-bell"></i> Feedback</h2>
+        <div class="components-grid">
+            <a href="alerts.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-exclamation-triangle"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Alerts</h3>
+                    <p class="component-card__desc">Notification alerts and banners</p>
+                    <span class="component-card__count">5 variants</span>
+                </div>
+            </a>
+            <a href="modals.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-window-stack"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Modals</h3>
+                    <p class="component-card__desc">Dialog boxes and popups</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+            <a href="toasts.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-chat-square"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Toasts</h3>
+                    <p class="component-card__desc">Toast notifications</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+            <a href="progress.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-hourglass-split"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Progress</h3>
+                    <p class="component-card__desc">Progress bars and loaders</p>
+                    <span class="component-card__count">5 variants</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Media Components -->
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="bi bi-collection-play"></i> Media</h2>
+        <div class="components-grid">
+            <a href="wizards.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-list-check"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Wizards</h3>
+                    <p class="component-card__desc">Multi-step forms and processes</p>
+                    <span class="component-card__count">3 variants</span>
+                </div>
+            </a>
+            <a href="carousel.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-images"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Carousel</h3>
+                    <p class="component-card__desc">Image slideshows and carousels</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+            <a href="video.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-play-circle"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Video</h3>
+                    <p class="component-card__desc">Video players and embeds</p>
+                    <span class="component-card__count">4 variants</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="component-card">
+                <div class="component-card__preview"><i class="bi bi-grid-3x3-gap"></i></div>
+                <div class="component-card__body">
+                    <h3 class="component-card__title">Gallery</h3>
+                    <p class="component-card__desc">Image galleries and management</p>
+                    <span class="component-card__count">5 variants</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,593 @@
+// File: src/scss/pages/_invoices.scss
+// Smart Workz Premium Admin Template - Invoice Page Styles
+
+// ============================================================================
+// INVOICE PREVIEW
+// ============================================================================
+
+.invoice {
+  max-width: 800px;
+  margin: 0 auto;
+  background: $color-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-lg;
+  padding: $spacing-8;
+
+  @media print {
+    box-shadow: none;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+  }
+}
+
+.invoice__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-8;
+  padding-bottom: $spacing-6;
+  border-bottom: 2px solid $color-primary;
+}
+
+.invoice__brand {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+
+  i {
+    font-size: 2rem;
+  }
+}
+
+.invoice__meta {
+  text-align: right;
+}
+
+.invoice__title {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-gray-400;
+  margin: 0;
+  letter-spacing: $letter-spacing-wider;
+
+  [data-theme="dark"] & {
+    color: $color-gray-600;
+  }
+}
+
+.invoice__number {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.invoice__info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-6;
+  margin-bottom: $spacing-8;
+
+  @media (max-width: $breakpoint-md - 1) {
+    grid-template-columns: 1fr;
+  }
+
+  h3 {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+    color: $color-text-muted;
+    margin: 0 0 $spacing-2;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+
+  p {
+    font-size: $font-size-sm;
+    line-height: $line-height-relaxed;
+    margin: 0;
+
+    [data-theme="dark"] & {
+      color: $color-text-secondary-dark;
+    }
+  }
+}
+
+.invoice__details table {
+  width: 100%;
+  font-size: $font-size-sm;
+
+  td {
+    padding: $spacing-1 0;
+
+    &:first-child {
+      color: $color-text-muted;
+
+      [data-theme="dark"] & {
+        color: $color-text-muted-dark;
+      }
+    }
+
+    &:last-child {
+      text-align: right;
+
+      [data-theme="dark"] & {
+        color: $color-text-primary-dark;
+      }
+    }
+  }
+}
+
+.invoice__items {
+  margin-bottom: $spacing-6;
+
+  .table {
+    margin: 0;
+
+    thead th {
+      background: $color-bg-subtle;
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+      letter-spacing: $letter-spacing-wider;
+
+      [data-theme="dark"] & {
+        background: $color-bg-overlay-dark;
+      }
+    }
+
+    tbody td {
+      vertical-align: top;
+      padding: $spacing-4 $spacing-3;
+
+      strong {
+        display: block;
+        margin-bottom: $spacing-0-5;
+
+        [data-theme="dark"] & {
+          color: $color-text-primary-dark;
+        }
+      }
+
+      p {
+        font-size: $font-size-sm;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.invoice__summary {
+  display: flex;
+  gap: $spacing-8;
+  margin-bottom: $spacing-8;
+
+  @media (max-width: $breakpoint-md - 1) {
+    flex-direction: column;
+  }
+}
+
+.invoice__notes {
+  flex: 1;
+
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin: 0 0 $spacing-2;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin: 0;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+}
+
+.invoice__totals {
+  min-width: 280px;
+
+  table {
+    width: 100%;
+
+    tr {
+      td {
+        padding: $spacing-2;
+        font-size: $font-size-sm;
+
+        &:first-child {
+          color: $color-text-muted;
+
+          [data-theme="dark"] & {
+            color: $color-text-muted-dark;
+          }
+        }
+
+        &:last-child {
+          text-align: right;
+
+          [data-theme="dark"] & {
+            color: $color-text-secondary-dark;
+          }
+        }
+      }
+    }
+  }
+}
+
+.invoice__total td {
+  padding-top: $spacing-3 !important;
+  border-top: 2px solid $color-border;
+  font-size: $font-size-lg !important;
+  font-weight: $font-weight-bold;
+
+  [data-theme="dark"] & {
+    border-top-color: $color-border-dark-mode;
+    color: $color-text-primary-dark !important;
+  }
+}
+
+.invoice__paid td {
+  color: $color-success !important;
+}
+
+.invoice__due td {
+  font-weight: $font-weight-bold;
+
+  &:last-child {
+    color: $color-text-primary !important;
+    font-size: $font-size-lg !important;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark !important;
+    }
+  }
+}
+
+.invoice__footer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-6;
+  padding-top: $spacing-6;
+  border-top: 1px solid $color-border-light;
+
+  @media (max-width: $breakpoint-md - 1) {
+    grid-template-columns: 1fr;
+  }
+
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin: 0 0 $spacing-2;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin: 0;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+
+  [data-theme="dark"] & {
+    border-top-color: $color-border-dark-mode;
+  }
+}
+
+// ============================================================================
+// ANALYTICS DASHBOARD
+// ============================================================================
+
+.stat-card {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-4;
+  padding: $spacing-4;
+  background: $color-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-sm;
+
+  [data-theme="dark"] & {
+    background: $color-bg-surface-dark;
+  }
+}
+
+.stat-card__icon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-lg;
+  flex-shrink: 0;
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  &--primary {
+    background: $color-primary-100;
+    color: $color-primary;
+
+    [data-theme="dark"] & {
+      background: rgba($color-primary, 0.15);
+    }
+  }
+
+  &--success {
+    background: $color-success-100;
+    color: $color-success;
+
+    [data-theme="dark"] & {
+      background: rgba($color-success, 0.15);
+    }
+  }
+
+  &--warning {
+    background: $color-warning-100;
+    color: $color-warning;
+
+    [data-theme="dark"] & {
+      background: rgba($color-warning, 0.15);
+    }
+  }
+
+  &--danger {
+    background: $color-error-100;
+    color: $color-error;
+
+    [data-theme="dark"] & {
+      background: rgba($color-error, 0.15);
+    }
+  }
+}
+
+.stat-card__value {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.stat-card__label {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $spacing-1;
+
+  [data-theme="dark"] & {
+    color: $color-text-muted-dark;
+  }
+}
+
+.stat-card__change {
+  font-size: $font-size-xs;
+
+  &--positive {
+    color: $color-success;
+  }
+
+  &--negative {
+    color: $color-error;
+  }
+}
+
+.traffic-sources {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.traffic-source {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+}
+
+.traffic-source__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-full;
+}
+
+.traffic-source__label {
+  flex: 1;
+  color: $color-text-secondary;
+
+  [data-theme="dark"] & {
+    color: $color-text-secondary-dark;
+  }
+}
+
+.traffic-source__value {
+  font-weight: $font-weight-semibold;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.device-stats {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.device-stat {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.device-stat__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-bg-subtle;
+  border-radius: $radius-md;
+  color: $color-text-secondary;
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+    color: $color-text-secondary-dark;
+  }
+}
+
+.device-stat__info {
+  flex: 1;
+}
+
+.device-stat__label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  margin-bottom: $spacing-1;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.device-stat__bar .progress {
+  height: 6px;
+}
+
+.device-stat__value {
+  font-weight: $font-weight-semibold;
+  min-width: 40px;
+  text-align: right;
+
+  [data-theme="dark"] & {
+    color: $color-text-primary-dark;
+  }
+}
+
+.browser-stat {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 0;
+  font-size: $font-size-sm;
+  border-bottom: 1px solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  i {
+    font-size: 1.25rem;
+    color: $color-text-muted;
+  }
+
+  [data-theme="dark"] & {
+    border-bottom-color: $color-border-dark-mode;
+    color: $color-text-secondary-dark;
+
+    i {
+      color: $color-text-muted-dark;
+    }
+  }
+}
+
+.country-stat {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3;
+  background: $color-bg-subtle;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-3;
+
+  [data-theme="dark"] & {
+    background: $color-bg-overlay-dark;
+  }
+}
+
+.country-stat__flag {
+  font-size: 1.5rem;
+}
+
+.country-stat__info {
+  flex: 1;
+
+  strong {
+    display: block;
+    font-size: $font-size-sm;
+
+    [data-theme="dark"] & {
+      color: $color-text-primary-dark;
+    }
+  }
+
+  span {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+
+    [data-theme="dark"] & {
+      color: $color-text-muted-dark;
+    }
+  }
+}
+
+.country-stat__percent {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+// Print Styles
+@media print {
+  .invoice {
+    box-shadow: none !important;
+
+    @page {
+      margin: 1cm;
+    }
+  }
+
+  .sidebar,
+  .header,
+  .footer,
+  .page-header__actions,
+  .btn {
+    display: none !important;
+  }
+
+  .app-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .app-main {
+    padding: 0 !important;
+  }
+}
+
