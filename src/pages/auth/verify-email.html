@@ -5,111 +5,230 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Verify your email address">
     <title>Verify Email | Smart Workz</title>
-
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
-
-    <!-- CSS - CDN Fallback -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <!-- AOS Animation Library -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        :root { --primary: #4F46E5; --primary-dark: #4338CA; --primary-light: #EEF2FF; --success: #22C55E; }
+        * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        :root { --primary: #4F46E5; --primary-dark: #4338CA; --success: #22C55E; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; }
-        .auth-page { min-height: 100vh; background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); display: flex; align-items: center; justify-content: center; padding: 2rem; }
-        .auth-card { background: #fff; border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1); padding: 3rem; max-width: 450px; width: 100%; text-align: center; }
-        .auth-form__icon { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--success), #16A34A); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 1.5rem; }
-        .auth-form__title { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .auth-form__subtitle { color: #64748B; margin-bottom: 2rem; }
-        .btn-primary { background: var(--primary); border-color: var(--primary); padding: 0.75rem 1.5rem; font-weight: 600; }
-        .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
-        .resend-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            margin: 0; 
+            min-height: 100vh;
+            background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .auth-card {
+            background: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            padding: 3rem;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+        
+        .auth-card__icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #DCFCE7 0%, #BBF7D0 100%);
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .auth-card__title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1E293B;
+            margin: 0 0 0.75rem;
+        }
+        
+        .auth-card__subtitle {
+            color: #64748B;
+            margin: 0 0 0.5rem;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+        
+        .auth-card__email {
+            color: #1E293B;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .otp-input {
+            width: 56px;
+            height: 64px;
+            border: 2px solid #E2E8F0;
+            border-radius: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-primary:hover { background: var(--primary-dark); }
+        
+        .resend-text {
+            color: #64748B;
+            font-size: 0.9375rem;
+            margin: 0;
+        }
+        
+        .resend-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .resend-text a:hover { text-decoration: underline; }
+        
+        .auth-card__footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #E2E8F0;
+        }
+        
+        .auth-card__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748B;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        
+        .auth-card__link:hover { color: var(--primary); }
+        
+        .footer-minimal {
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-minimal__copyright {
+            margin: 0;
+            color: #64748B;
+            font-size: 0.8125rem;
+        }
+        
+        @media (max-width: 576px) {
+            .auth-card { padding: 2rem 1.5rem; border-radius: 1rem; }
+            .otp-input { width: 48px; height: 56px; font-size: 1.25rem; }
+            .otp-inputs { gap: 0.5rem; }
+        }
     </style>
 </head>
-<body class="auth-page">
-    <!-- Skip to main content (accessibility) -->
-    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
-
-    <div class="page-centered">
-        <main id="main-content" class="auth-form auth-form--centered">
-            <!-- Logo -->
-            <div class="auth-form__logo">
-                <i class="bi bi-hexagon-fill"></i>
-                <span>Smart Workz</span>
-            </div>
-
-            <!-- Icon -->
-            <div class="auth-form__icon auth-form__icon--info">
+<body>
+    <div class="auth-container">
+        <div class="auth-card" data-aos="fade-up" data-aos-duration="600">
+            <div class="auth-card__icon">
                 <i class="bi bi-envelope-check"></i>
             </div>
-
-            <div class="auth-form__header">
-                <h2 class="auth-form__title">Check your email</h2>
-                <p class="auth-form__subtitle">
-                    We've sent a verification link to<br>
-                    <strong>john.doe@company.com</strong>
-                </p>
-            </div>
-
-            <div class="auth-form__body">
-                <!-- Instructions -->
-                <div class="auth-instructions">
-                    <p>Click the link in the email to verify your account. If you don't see the email, check your spam folder.</p>
+            <h1 class="auth-card__title">Check Your Email</h1>
+            <p class="auth-card__subtitle">We've sent a verification code to</p>
+            <p class="auth-card__email">john.doe@company.com</p>
+            
+            <form action="#" method="POST">
+                <div class="otp-inputs">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
                 </div>
-
-                <!-- Resend Email -->
-                <div class="auth-resend">
-                    <p class="auth-resend__text">
-                        Didn't receive the email?
-                    </p>
-                    <button type="button" class="btn btn-outline-primary btn-block" id="resendBtn">
-                        <i class="bi bi-arrow-repeat me-2"></i>
-                        Resend verification email
-                    </button>
-                    <p class="auth-resend__countdown" id="resendCountdown" style="display: none;">
-                        You can resend in <span id="countdown">60</span> seconds
-                    </p>
-                </div>
-
-                <!-- Email Tips -->
-                <div class="auth-tips">
-                    <h4 class="auth-tips__title">
-                        <i class="bi bi-lightbulb"></i>
-                        Tips
-                    </h4>
-                    <ul class="auth-tips__list">
-                        <li>Check your spam or junk folder</li>
-                        <li>Make sure your email address is correct</li>
-                        <li>Add noreply@smartworkz.com to your contacts</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Back to Login -->
-            <div class="auth-form__footer">
-                <a href="login.html" class="auth-form__back">
+                
+                <button type="submit" class="btn-primary">
+                    Verify Email
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </form>
+            
+            <p class="resend-text">
+                Didn't receive the code? <a href="#">Resend</a>
+            </p>
+            
+            <div class="auth-card__footer">
+                <a href="login.html" class="auth-card__link">
                     <i class="bi bi-arrow-left"></i>
-                    Back to sign in
+                    Back to Sign In
                 </a>
             </div>
-        </main>
+        </div>
     </div>
-
-    <!-- Footer -->
+    
     <footer class="footer-minimal">
-        <p class="footer-minimal__copyright">
-            &copy; 2025 Smart Workz. All rights reserved.
-        </p>
+        <p class="footer-minimal__copyright">&copy; 2025 Smart Workz. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="../../../dist/js/vendor.min.js"></script>
-    <script src="../../../dist/js/app.min.js"></script>
-    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+    <script>
+        AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true });
+        
+        // OTP input auto-focus
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-

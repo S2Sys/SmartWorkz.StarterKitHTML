@@ -14,18 +14,166 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        /* View Toggle */
+        .view-toggle { display: flex; gap: 0.25rem; }
+        .view-toggle__btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #E2E8F0;
+            background: #fff;
+            border-radius: 0.5rem;
+            color: #64748B;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .view-toggle__btn:hover { background: #F8FAFC; color: #1E293B; }
+        .view-toggle__btn.active { background: var(--primary, #4F46E5); border-color: var(--primary, #4F46E5); color: #fff; }
+        
+        /* Products Grid View */
+        .products-container { transition: all 0.3s ease; }
         .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-        .product-card { background: #fff; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.2s; }
+        
+        .product-card { 
+            background: #fff; 
+            border-radius: 0.75rem; 
+            overflow: hidden; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+            transition: all 0.3s ease;
+            position: relative;
+        }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0,0,0,0.12); }
-        .product-card__image { height: 200px; background: #F8FAFC; display: flex; align-items: center; justify-content: center; }
-        .product-card__image img { max-height: 100%; max-width: 100%; object-fit: contain; }
-        .product-card__body { padding: 1rem; }
-        .product-card__title { font-weight: 600; margin-bottom: 0.5rem; }
-        .product-card__price { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
-        .product-card__rating { color: #F59E0B; font-size: 0.875rem; }
+        
+        .product-card__image { 
+            height: 200px; 
+            background: #F8FAFC; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card__image img { max-height: 100%; max-width: 100%; object-fit: contain; transition: transform 0.3s; }
+        .product-card:hover .product-card__image img { transform: scale(1.05); }
+        
+        .product-card__badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        .product-card__badge--sale { background: #EF4444; color: #fff; }
+        .product-card__badge--new { background: #22C55E; color: #fff; }
+        .product-card__badge--hot { background: #F59E0B; color: #fff; }
+        .product-card__badge--sold-out { background: #64748B; color: #fff; }
+        
+        .product-card__actions {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s;
+        }
+        .product-card:hover .product-card__actions { opacity: 1; transform: translateX(0); }
+        .product-card__actions .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #fff;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .product-card__actions .btn-icon:hover { background: var(--primary, #4F46E5); color: #fff; }
+        
+        .product-card__body { padding: 1.25rem; }
+        .product-card__category { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            color: #64748B; 
+            margin-bottom: 0.5rem; 
+            display: block;
+        }
+        .product-card__title { 
+            font-size: 1rem;
+            font-weight: 600; 
+            margin-bottom: 0.5rem; 
+            line-height: 1.4;
+        }
+        .product-card__title a { color: #1E293B; text-decoration: none; }
+        .product-card__title a:hover { color: var(--primary, #4F46E5); }
+        
+        .product-card__rating { 
+            color: #F59E0B; 
+            font-size: 0.875rem; 
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .product-card__rating span { color: #64748B; font-size: 0.8125rem; }
+        
+        .product-card__price { margin-bottom: 1rem; }
+        .product-card__price-current { font-size: 1.25rem; font-weight: 700; color: var(--primary, #4F46E5); }
+        .product-card__price-original { font-size: 0.875rem; color: #94A3B8; text-decoration: line-through; margin-left: 0.5rem; }
+        
+        .product-card--out-of-stock { opacity: 0.7; }
+        
+        /* Products List View */
+        .products-list { display: flex; flex-direction: column; gap: 1rem; }
+        .products-list .product-card {
+            display: grid;
+            grid-template-columns: 200px 1fr auto;
+            align-items: center;
+        }
+        .products-list .product-card__image { height: 150px; }
+        .products-list .product-card__body { 
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 1.5rem;
+        }
+        .products-list .product-card__title { font-size: 1.125rem; }
+        .products-list .product-card__actions {
+            position: static;
+            flex-direction: row;
+            opacity: 1;
+            transform: none;
+            padding: 1rem;
+        }
+        .products-list .btn-primary { 
+            white-space: nowrap; 
+            margin: 1rem;
+            align-self: center;
+        }
+        
+        .btn-block { width: 100%; }
+        
         @media (max-width: 1200px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 992px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .products-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 992px) { 
+            .products-grid { grid-template-columns: repeat(2, 1fr); } 
+            .products-list .product-card { grid-template-columns: 150px 1fr; }
+            .products-list .btn-primary { margin: 0 1rem 1rem; grid-column: span 2; }
+        }
+        @media (max-width: 768px) { 
+            .products-grid { grid-template-columns: 1fr; } 
+            .products-list .product-card { grid-template-columns: 1fr; }
+            .products-list .product-card__image { height: 200px; }
+        }
     </style>
 </head>
 <body class="app-body">
@@ -172,11 +320,11 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <div class="btn-group w-100">
-                                    <button class="btn btn-outline-secondary" title="Grid View">
+                                <div class="view-toggle">
+                                    <button class="view-toggle__btn active" data-view="grid" title="Grid View">
                                         <i class="bi bi-grid-3x3-gap"></i>
                                     </button>
-                                    <button class="btn btn-outline-secondary active" title="List View">
+                                    <button class="view-toggle__btn" data-view="list" title="List View">
                                         <i class="bi bi-list-ul"></i>
                                     </button>
                                 </div>
@@ -185,8 +333,8 @@
                     </div>
                 </div>
 
-                <!-- Products Grid -->
-                <div class="products-grid">
+                <!-- Products Container -->
+                <div class="products-container products-grid" id="productsContainer">
                     <!-- Product Card 1 -->
                     <div class="product-card">
                         <div class="product-card__image">
@@ -436,7 +584,24 @@
     <script src="../../../dist/js/app.min.js"></script>
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+    <script>
+        AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });
+        
+        // View Toggle Functionality
+        const viewToggleBtns = document.querySelectorAll('.view-toggle__btn');
+        const productsContainer = document.getElementById('productsContainer');
+        
+        viewToggleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                viewToggleBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const view = btn.dataset.view;
+                productsContainer.classList.remove('products-grid', 'products-list');
+                productsContainer.classList.add(view === 'grid' ? 'products-grid' : 'products-list');
+            });
+        });
+    </script>
 </body>
 </html>
 

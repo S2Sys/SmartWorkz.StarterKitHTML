@@ -120,6 +120,30 @@
         .file-card:hover .file-card__menu { opacity: 1; }
         .file-card__menu:hover { background: #F1F5F9; color: #1E293B; }
 
+        /* Selection & Drag */
+        .file-card__checkbox { position: absolute; top: 0.75rem; left: 0.75rem; width: 20px; height: 20px; border: 2px solid #CBD5E1; border-radius: 0.25rem; background: #fff; cursor: pointer; opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; }
+        .file-card:hover .file-card__checkbox, .file-card--selected .file-card__checkbox { opacity: 1; }
+        .file-card--selected .file-card__checkbox { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .file-card--selected { background: var(--primary-light); border-color: var(--primary); }
+        .file-card.dragging { opacity: 0.5; transform: scale(0.95); }
+        .file-card.drag-over { border: 2px dashed var(--primary); background: var(--primary-light); }
+        
+        /* Selection Toolbar */
+        .selection-toolbar { display: none; align-items: center; gap: 1rem; padding: 0.75rem 1rem; background: var(--primary); color: #fff; border-radius: 0.5rem; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); box-shadow: 0 10px 40px rgba(79,70,229,0.4); z-index: 1000; }
+        .selection-toolbar.active { display: flex; }
+        .selection-toolbar__count { font-weight: 600; }
+        .selection-toolbar__actions { display: flex; gap: 0.5rem; }
+        .selection-toolbar__btn { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; display: flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; transition: background 0.2s; }
+        .selection-toolbar__btn:hover { background: rgba(255,255,255,0.3); }
+        .selection-toolbar__close { background: transparent; border: none; color: #fff; padding: 0.5rem; cursor: pointer; margin-left: 0.5rem; }
+        
+        /* Drop Zone */
+        .drop-zone { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(79,70,229,0.1); border: 4px dashed var(--primary); display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .drop-zone.active { display: flex; }
+        .drop-zone__content { text-align: center; color: var(--primary); }
+        .drop-zone__content i { font-size: 4rem; margin-bottom: 1rem; }
+        .drop-zone__content p { font-size: 1.25rem; font-weight: 600; }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .file-app { grid-template-columns: 1fr; margin: 1rem; }
@@ -249,7 +273,8 @@
                         <div class="file-section">
                             <h3 class="file-section__title">Folders</h3>
                             <div class="file-grid file-grid--folders">
-                                <div class="file-card file-card--folder">
+                                <div class="file-card file-card--folder" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
                                     <div class="file-card__info">
                                         <div class="file-card__name">Source Code</div>
@@ -257,7 +282,8 @@
                                     </div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card file-card--folder">
+                                <div class="file-card file-card--folder" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
                                     <div class="file-card__info">
                                         <div class="file-card__name">Design Assets</div>
@@ -265,7 +291,8 @@
                                     </div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card file-card--folder">
+                                <div class="file-card file-card--folder" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
                                     <div class="file-card__info">
                                         <div class="file-card__name">Documentation</div>
@@ -273,7 +300,8 @@
                                     </div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card file-card--folder">
+                                <div class="file-card file-card--folder" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__icon"><i class="bi bi-folder-fill"></i></div>
                                     <div class="file-card__info">
                                         <div class="file-card__name">Marketing</div>
@@ -288,7 +316,8 @@
                         <div class="file-section">
                             <h3 class="file-section__title">Files</h3>
                             <div class="file-grid">
-                                <div class="file-card">
+                                <div class="file-card" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__preview">
                                         <img src="https://via.placeholder.com/200x150/4F46E5/FFFFFF?text=Preview" alt="">
                                     </div>
@@ -296,31 +325,36 @@
                                     <div class="file-card__meta">2.4 MB • Dec 5, 2025</div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card">
+                                <div class="file-card" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__preview file-card__preview--pdf"><i class="bi bi-file-earmark-pdf"></i></div>
                                     <div class="file-card__name">project-proposal.pdf</div>
                                     <div class="file-card__meta">1.2 MB • Dec 4, 2025</div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card">
+                                <div class="file-card" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__preview file-card__preview--doc"><i class="bi bi-file-earmark-word"></i></div>
                                     <div class="file-card__name">requirements.docx</div>
                                     <div class="file-card__meta">456 KB • Dec 3, 2025</div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card">
+                                <div class="file-card" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__preview file-card__preview--excel"><i class="bi bi-file-earmark-excel"></i></div>
                                     <div class="file-card__name">budget-2025.xlsx</div>
                                     <div class="file-card__meta">890 KB • Dec 2, 2025</div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card">
+                                <div class="file-card" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__preview file-card__preview--zip"><i class="bi bi-file-earmark-zip"></i></div>
                                     <div class="file-card__name">source-code.zip</div>
                                     <div class="file-card__meta">15.6 MB • Dec 1, 2025</div>
                                     <button class="file-card__menu"><i class="bi bi-three-dots-vertical"></i></button>
                                 </div>
-                                <div class="file-card">
+                                <div class="file-card" draggable="true">
+                                    <div class="file-card__checkbox" onclick="toggleSelect(this.parentElement, event)"><i class="bi bi-check"></i></div>
                                     <div class="file-card__preview file-card__preview--video"><i class="bi bi-file-earmark-play"></i></div>
                                     <div class="file-card__name">demo-video.mp4</div>
                                     <div class="file-card__meta">45.2 MB • Nov 30, 2025</div>
@@ -334,18 +368,129 @@
         </div>
     </div>
 
+    <!-- Selection Toolbar -->
+    <div class="selection-toolbar" id="selectionToolbar">
+        <span class="selection-toolbar__count"><span id="selectedCount">0</span> selected</span>
+        <div class="selection-toolbar__actions">
+            <button class="selection-toolbar__btn"><i class="bi bi-download"></i> Download</button>
+            <button class="selection-toolbar__btn"><i class="bi bi-folder"></i> Move</button>
+            <button class="selection-toolbar__btn"><i class="bi bi-share"></i> Share</button>
+            <button class="selection-toolbar__btn"><i class="bi bi-trash"></i> Delete</button>
+        </div>
+        <button class="selection-toolbar__close" onclick="clearSelection()"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <!-- Drop Zone -->
+    <div class="drop-zone" id="dropZone">
+        <div class="drop-zone__content">
+            <i class="bi bi-cloud-upload"></i>
+            <p>Drop files here to upload</p>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Sidebar Toggle
         document.getElementById('sidebarToggle')?.addEventListener('click', () => {
             document.getElementById('sidebar').classList.toggle('open');
         });
+        
         // View Toggle
         document.querySelectorAll('.btn-group .btn-icon').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.btn-group .btn-icon').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             });
+        });
+
+        // Multiselect
+        let selectedFiles = [];
+        const toolbar = document.getElementById('selectionToolbar');
+        const countEl = document.getElementById('selectedCount');
+
+        function toggleSelect(card, e) {
+            e.stopPropagation();
+            card.classList.toggle('file-card--selected');
+            const name = card.querySelector('.file-card__name').textContent;
+            if (card.classList.contains('file-card--selected')) {
+                selectedFiles.push(name);
+            } else {
+                selectedFiles = selectedFiles.filter(f => f !== name);
+            }
+            updateToolbar();
+        }
+
+        function updateToolbar() {
+            countEl.textContent = selectedFiles.length;
+            toolbar.classList.toggle('active', selectedFiles.length > 0);
+        }
+
+        function clearSelection() {
+            selectedFiles = [];
+            document.querySelectorAll('.file-card--selected').forEach(c => c.classList.remove('file-card--selected'));
+            updateToolbar();
+        }
+
+        // Click to select (with Ctrl/Cmd for multi)
+        document.querySelectorAll('.file-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.file-card__menu') || e.target.closest('.file-card__checkbox')) return;
+                if (!e.ctrlKey && !e.metaKey) clearSelection();
+                toggleSelect(card, e);
+            });
+        });
+
+        // Drag and Drop
+        const fileCards = document.querySelectorAll('.file-card');
+        const folders = document.querySelectorAll('.file-card--folder');
+        
+        fileCards.forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                card.classList.add('dragging');
+                e.dataTransfer.setData('text/plain', card.querySelector('.file-card__name').textContent);
+            });
+            card.addEventListener('dragend', () => {
+                card.classList.remove('dragging');
+                folders.forEach(f => f.classList.remove('drag-over'));
+            });
+        });
+
+        folders.forEach(folder => {
+            folder.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                folder.classList.add('drag-over');
+            });
+            folder.addEventListener('dragleave', () => {
+                folder.classList.remove('drag-over');
+            });
+            folder.addEventListener('drop', (e) => {
+                e.preventDefault();
+                folder.classList.remove('drag-over');
+                const fileName = e.dataTransfer.getData('text/plain');
+                const folderName = folder.querySelector('.file-card__name').textContent;
+                console.log(`Moved "${fileName}" to "${folderName}"`);
+            });
+        });
+
+        // File Upload Drop Zone
+        const dropZone = document.getElementById('dropZone');
+        ['dragenter', 'dragover'].forEach(type => {
+            document.body.addEventListener(type, (e) => {
+                if (e.dataTransfer.types.includes('Files')) {
+                    e.preventDefault();
+                    dropZone.classList.add('active');
+                }
+            });
+        });
+        ['dragleave', 'drop'].forEach(type => {
+            dropZone.addEventListener(type, (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('active');
+            });
+        });
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            console.log('Files to upload:', Array.from(files).map(f => f.name));
         });
     </script>
 </body>

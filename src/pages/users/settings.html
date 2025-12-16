@@ -14,10 +14,122 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        .settings-nav { background: #fff; border-radius: 0.75rem; padding: 0.5rem; margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .settings-nav .nav-link { color: #64748B; padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-weight: 500; transition: all 0.2s; }
-        .settings-nav .nav-link:hover { background: #F1F5F9; color: #1E293B; }
-        .settings-nav .nav-link.active { background: var(--primary); color: #fff; }
+        /* Settings Navigation - Vertical Left Menu */
+        .settings-sidebar { position: sticky; top: 5rem; }
+        .settings-nav { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.25rem; 
+        }
+        .settings-nav__link { 
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #64748B; 
+            padding: 0.875rem 1rem; 
+            border-radius: 0.5rem; 
+            font-weight: 500; 
+            font-size: 0.9375rem;
+            transition: all 0.2s; 
+            text-decoration: none;
+            border-left: 3px solid transparent;
+        }
+        .settings-nav__link i { font-size: 1.125rem; width: 20px; }
+        .settings-nav__link:hover { 
+            background: #F1F5F9; 
+            color: #1E293B; 
+        }
+        .settings-nav__link--active { 
+            background: var(--primary-light, #EEF2FF); 
+            color: var(--primary, #4F46E5); 
+            font-weight: 600;
+            border-left-color: var(--primary, #4F46E5);
+        }
+        .settings-nav__link--danger { color: #EF4444; }
+        .settings-nav__link--danger:hover { background: #FEF2F2; }
+        
+        /* Settings Items */
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.5rem 0;
+        }
+        .settings-item__info h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #1E293B;
+            margin: 0 0 0.25rem;
+        }
+        .settings-item__info p {
+            font-size: 0.8125rem;
+            color: #64748B;
+            margin: 0;
+        }
+        
+        /* Theme Selector */
+        .theme-selector {
+            display: flex;
+            gap: 1rem;
+        }
+        .theme-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .theme-option input { display: none; }
+        .theme-option__preview {
+            width: 80px;
+            height: 60px;
+            border-radius: 0.5rem;
+            border: 2px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.2s;
+        }
+        .theme-option__preview--light { background: #fff; color: #F59E0B; }
+        .theme-option__preview--dark { background: #1E293B; color: #60A5FA; }
+        .theme-option__preview--system { background: linear-gradient(135deg, #fff 50%, #1E293B 50%); color: #64748B; }
+        .theme-option input:checked + .theme-option__preview { border-color: var(--primary, #4F46E5); }
+        
+        /* Color Selector */
+        .color-selector {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .color-option {
+            cursor: pointer;
+        }
+        .color-option input { display: none; }
+        .color-option span {
+            display: block;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .color-option input:checked + span {
+            border-color: #1E293B;
+            transform: scale(1.15);
+        }
+        
+        /* Danger Card */
+        .card-danger { border-color: #FECACA; }
+        .card-danger .card-header { background: #FEF2F2; border-bottom-color: #FECACA; }
+        .card-danger .card-title { color: #DC2626; }
+        
+        @media (max-width: 991px) {
+            .settings-sidebar { position: static; }
+            .settings-nav { flex-direction: row; flex-wrap: wrap; }
+            .settings-nav__link { border-left: none; border-bottom: 3px solid transparent; }
+            .settings-nav__link--active { border-bottom-color: var(--primary, #4F46E5); }
+        }
     </style>
 </head>
 <body class="app-body">
@@ -97,8 +209,8 @@
                 <div class="row">
                     <!-- Settings Navigation -->
                     <div class="col-lg-3 mb-4">
-                        <div class="card">
-                            <div class="card-body p-2">
+                        <div class="card settings-sidebar">
+                            <div class="card-body p-3">
                                 <nav class="settings-nav">
                                     <a href="#profile" class="settings-nav__link settings-nav__link--active">
                                         <i class="bi bi-person"></i> Profile

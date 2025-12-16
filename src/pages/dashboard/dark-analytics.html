@@ -109,15 +109,19 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo"><i class="bi bi-activity"></i> analytics_</div>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <a href="index.html" style="width: 36px; height: 36px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; background: var(--surface-2); color: var(--text-muted); text-decoration: none; transition: all 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'" title="Back to Dashboard"><i class="bi bi-arrow-left"></i></a>
+            <div class="logo"><i class="bi bi-activity"></i> analytics_</div>
+        </div>
         <nav class="nav-pills">
             <a href="#" class="nav-pill active">Overview</a>
             <a href="#" class="nav-pill">Traffic</a>
             <a href="#" class="nav-pill">Conversions</a>
-            <a href="#" class="nav-pill">Behavior</a>
+            <a href="social.html" class="nav-pill">Social</a>
             <a href="#" class="nav-pill">Realtime</a>
         </nav>
         <div class="header-actions">
+            <a href="../users/settings.html" style="width: 36px; height: 36px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; background: var(--surface-2); color: var(--text-muted); text-decoration: none; margin-right: 0.75rem;" title="Settings"><i class="bi bi-gear"></i></a>
             <button class="btn-glow"><i class="bi bi-download"></i> Export</button>
         </div>
     </header>

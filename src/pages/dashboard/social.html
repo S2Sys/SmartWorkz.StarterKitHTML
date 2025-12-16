@@ -110,18 +110,21 @@
 <body>
     <!-- Top Bar -->
     <header class="top-bar">
-        <div class="logo"><i class="bi bi-bar-chart-fill"></i> Social Hub</div>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <a href="index.html" class="user-menu__btn" title="Back to Dashboard" style="text-decoration: none;"><i class="bi bi-arrow-left"></i></a>
+            <div class="logo"><i class="bi bi-bar-chart-fill"></i> Social Hub</div>
+        </div>
         <nav class="nav-tabs">
             <a href="#" class="nav-tab active">Overview</a>
-            <a href="#" class="nav-tab">Analytics</a>
+            <a href="dark-analytics.html" class="nav-tab">Analytics</a>
             <a href="#" class="nav-tab">Content</a>
             <a href="#" class="nav-tab">Schedule</a>
-            <a href="#" class="nav-tab">Inbox</a>
+            <a href="../apps/inbox.html" class="nav-tab">Inbox</a>
         </nav>
         <div class="user-menu">
             <button class="user-menu__btn"><i class="bi bi-bell"></i></button>
-            <button class="user-menu__btn"><i class="bi bi-gear"></i></button>
-            <img src="https://i.pravatar.cc/150?img=32" alt="" class="user-avatar">
+            <a href="../users/settings.html" class="user-menu__btn" style="text-decoration: none;"><i class="bi bi-gear"></i></a>
+            <a href="../users/profile.html"><img src="https://i.pravatar.cc/150?img=32" alt="" class="user-avatar"></a>
         </div>
     </header>
 

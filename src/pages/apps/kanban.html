@@ -32,6 +32,43 @@
         .kanban-card__footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; color: #64748B; }
         .kanban-card__assignees { display: flex; }
         .kanban-card__assignee { width: 28px; height: 28px; border-radius: 50%; background: #E2E8F0; margin-left: -8px; border: 2px solid #fff; object-fit: cover; }
+        
+        /* Drag and Drop Styles */
+        .kanban-card.sortable-ghost { opacity: 0.4; background: var(--primary-light, #EEF2FF); border: 2px dashed var(--primary, #4F46E5); }
+        .kanban-card.sortable-drag { opacity: 1; background: #fff; box-shadow: 0 8px 32px rgba(0,0,0,0.2); transform: rotate(3deg); z-index: 1000; }
+        .kanban-card.sortable-chosen { cursor: grabbing; }
+        .kanban-column__body { min-height: 100px; transition: background 0.2s; border-radius: 0.5rem; }
+        .kanban-column__body.sortable-hover { background: rgba(79, 70, 229, 0.05); }
+        .kanban-column--add { background: transparent; border: 2px dashed #E2E8F0; display: flex; align-items: flex-start; justify-content: center; padding-top: 2rem; }
+        .kanban-column__add-btn { background: transparent; border: none; color: #64748B; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9375rem; font-weight: 500; padding: 0.75rem 1.5rem; border-radius: 0.5rem; transition: all 0.2s; }
+        .kanban-column__add-btn:hover { background: #F8FAFC; color: #1E293B; }
+        .kanban-column__add { width: 100%; padding: 0.75rem; border: none; background: transparent; color: #64748B; font-size: 0.875rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.5rem; margin-top: auto; transition: all 0.2s; }
+        .kanban-column__add:hover { background: #F1F5F9; color: #1E293B; }
+        .kanban-column__dot { width: 12px; height: 12px; border-radius: 50%; }
+        .kanban-card__desc { font-size: 0.8125rem; color: #64748B; margin-bottom: 0.75rem; line-height: 1.5; }
+        .kanban-card__checklist { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #64748B; margin-bottom: 0.75rem; }
+        .kanban-card__progress { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .progress--sm { height: 4px; flex: 1; background: #E2E8F0; border-radius: 999px; overflow: hidden; }
+        .progress__bar { height: 100%; background: var(--primary, #4F46E5); border-radius: 999px; }
+        .kanban-card__due { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-bottom: 0.75rem; }
+        .kanban-card__due--warning { background: #FEF3C7; color: #D97706; }
+        .kanban-card__due--danger { background: #FEE2E2; color: #DC2626; }
+        .kanban-card__image { width: 100%; height: 120px; object-fit: cover; border-radius: 0.25rem; margin-bottom: 0.75rem; }
+        .kanban-card__avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+        .kanban-card__avatars { display: flex; }
+        .kanban-card__avatars img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; object-fit: cover; }
+        .kanban-card__avatars img:first-child { margin-left: 0; }
+        .kanban-card--completed { opacity: 0.7; }
+        .kanban-card--completed .kanban-card__title { text-decoration: line-through; }
+        .kanban-header__info { display: flex; flex-direction: column; gap: 0.5rem; }
+        .kanban-header__title { font-size: 1.5rem; font-weight: 700; margin: 0; }
+        .kanban-header__meta { display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; }
+        .kanban-header__members { display: flex; align-items: center; }
+        .kanban-header__members img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; object-fit: cover; }
+        .kanban-header__members img:first-child { margin-left: 0; }
+        .kanban-header__more { width: 28px; height: 28px; border-radius: 50%; background: #E2E8F0; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 600; margin-left: -8px; }
+        .kanban-header__actions { display: flex; gap: 0.75rem; align-items: center; }
+        .kanban-label { color: #fff; font-size: 0.6875rem; padding: 0.125rem 0.5rem; border-radius: 999px; font-weight: 500; }
     </style>
 </head>
 <body class="app-body">
@@ -388,7 +425,33 @@
     <script src="../../../dist/js/app.min.js"></script>
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+    <!-- SortableJS for Drag and Drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });
+        
+        // Initialize drag and drop for all Kanban columns
+        document.querySelectorAll('.kanban-column__body').forEach(column => {
+            new Sortable(column, {
+                group: 'kanban',
+                animation: 200,
+                easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                ghostClass: 'sortable-ghost',
+                chosenClass: 'sortable-chosen',
+                dragClass: 'sortable-drag',
+                handle: '.kanban-card',
+                filter: '.kanban-column__add',
+                onStart: function(evt) {
+                    document.body.style.cursor = 'grabbing';
+                },
+                onEnd: function(evt) {
+                    document.body.style.cursor = '';
+                    // Here you would typically send an API call to update the task position
+                    console.log('Moved task from', evt.from, 'to', evt.to);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 

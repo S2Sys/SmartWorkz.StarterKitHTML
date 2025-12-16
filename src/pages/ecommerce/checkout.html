@@ -3,69 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Checkout - E-commerce - Smart Workz Admin">
+    <meta name="description" content="Checkout - Smart Workz">
     <title>Checkout | Smart Workz</title>
     <link rel="icon" type="image/png" href="../../../dist/img/favicon.png">
-    <!-- CSS - CDN Fallback -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-styles.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        :root { --primary: #4F46E5; --sidebar-width: 260px; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #F1F5F9; }
-        .app-body { display: flex; min-height: 100vh; }
-        .sidebar { width: var(--sidebar-width); background: #1E293B; color: #fff; position: fixed; top: 0; left: 0; bottom: 0; }
-        .sidebar__header { padding: 1.5rem; }
-        .sidebar__brand { display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
-        .sidebar__link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.5rem; color: #94A3B8; text-decoration: none; }
-        .sidebar__link:hover, .sidebar__link.active { background: rgba(255,255,255,0.1); color: #fff; }
-        .main-content { flex: 1; margin-left: var(--sidebar-width); }
-        .header { background: #fff; padding: 1rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .page-content { padding: 1.5rem; }
-        .checkout-layout { display: grid; grid-template-columns: 1fr 400px; gap: 1.5rem; }
-        .card { background: #fff; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
-        .card-header { padding: 1rem 1.5rem; border-bottom: 1px solid #E2E8F0; }
-        .card-body { padding: 1.5rem; }
-        .checkout-steps { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
-        .checkout-step { display: flex; align-items: center; gap: 0.5rem; color: #94A3B8; }
-        .checkout-step.active { color: var(--primary); }
-        .checkout-step__number { width: 32px; height: 32px; border-radius: 50%; background: #E2E8F0; display: flex; align-items: center; justify-content: center; font-weight: 600; }
-        .checkout-step.active .checkout-step__number { background: var(--primary); color: #fff; }
-        .form-label { font-weight: 600; }
-        .btn-primary { background: var(--primary); border-color: var(--primary); }
-        @media (max-width: 992px) { .checkout-layout { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; } }
+        /* Checkout Progress */
+        .checkout-progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 1rem;
+        }
+        .checkout-progress__step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .checkout-progress__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #E2E8F0;
+            color: #64748B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .checkout-progress__step span {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #64748B;
+        }
+        .checkout-progress__step--completed .checkout-progress__icon {
+            background: #22C55E;
+            color: #fff;
+        }
+        .checkout-progress__step--completed span { color: #22C55E; }
+        .checkout-progress__step--active .checkout-progress__icon {
+            background: var(--primary, #4F46E5);
+            color: #fff;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+        }
+        .checkout-progress__step--active span { color: var(--primary, #4F46E5); font-weight: 600; }
+        .checkout-progress__line {
+            width: 80px;
+            height: 3px;
+            background: #E2E8F0;
+            margin: 0 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .checkout-progress__line--completed { background: #22C55E; }
+        
+        /* Shipping Options */
+        .shipping-options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .shipping-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .shipping-option:hover { border-color: #CBD5E1; }
+        .shipping-option input { display: none; }
+        .shipping-option input:checked + .shipping-option__content { color: var(--primary, #4F46E5); }
+        .shipping-option:has(input:checked) {
+            border-color: var(--primary, #4F46E5);
+            background: #EEF2FF;
+        }
+        .shipping-option__content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1;
+        }
+        .shipping-option__info strong { display: block; margin-bottom: 0.125rem; }
+        .shipping-option__info span { font-size: 0.8125rem; color: #64748B; }
+        .shipping-option__price { font-weight: 600; }
+        
+        /* Payment Methods */
+        .payment-methods { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .payment-method {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .payment-method:hover { border-color: #CBD5E1; }
+        .payment-method input { display: none; }
+        .payment-method:has(input:checked) {
+            border-color: var(--primary, #4F46E5);
+            background: #EEF2FF;
+        }
+        .payment-method__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .payment-method__content i { font-size: 1.5rem; }
+        .payment-method__content span { font-size: 0.8125rem; font-weight: 500; }
+        
+        /* Order Items */
+        .order-items { margin-bottom: 1rem; }
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .order-item:last-child { border-bottom: none; }
+        .order-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+        }
+        .order-item__info { flex: 1; min-width: 0; }
+        .order-item__name {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .order-item__qty { font-size: 0.75rem; color: #64748B; }
+        .order-item__price { font-weight: 600; font-size: 0.875rem; }
+        
+        /* Order Summary */
+        .order-summary__row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9375rem;
+        }
+        .order-summary__row--total {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1E293B;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 2px solid #E2E8F0;
+        }
+        .text-success { color: #22C55E !important; }
+        
+        .btn-block { width: 100%; }
+        .btn-lg { padding: 0.875rem 1.5rem; font-size: 1rem; }
+        .form-label.required::after { content: ' *'; color: #EF4444; }
+        
+        @media (max-width: 768px) {
+            .checkout-progress { flex-wrap: wrap; gap: 0.5rem; }
+            .checkout-progress__line { width: 40px; }
+            .payment-methods { flex-direction: column; }
+        }
     </style>
 </head>
 <body class="app-body">
     <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
-
     <div class="app-wrapper">
-        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar__header">
                 <a href="../dashboard/index.html" class="sidebar__brand">
                     <i class="bi bi-hexagon-fill sidebar__brand-logo"></i>
                     <span class="sidebar__brand-text">Smart Workz</span>
                 </a>
-                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar">
-                    <i class="bi bi-x-lg"></i>
-                </button>
+                <button class="sidebar__close" id="sidebarClose" aria-label="Close sidebar"><i class="bi bi-x-lg"></i></button>
             </div>
             <nav class="sidebar__nav">
                 <div class="sidebar__section">
                     <h3 class="sidebar__section-title">E-Commerce</h3>
                     <ul class="sidebar__nav-list">
-                        <li class="sidebar__nav-item sidebar__nav-item--has-submenu sidebar__nav-item--open">
-                            <a href="#" class="sidebar__nav-link sidebar__nav-link--active">
-                                <i class="bi bi-bag sidebar__nav-icon"></i>
-                                <span class="sidebar__nav-text">Shop</span>
-                            </a>
-                            <ul class="sidebar__submenu">
-                                <li><a href="products.html" class="sidebar__submenu-link">Products</a></li>
-                                <li><a href="cart.html" class="sidebar__submenu-link">Shopping Cart</a></li>
-                                <li><a href="checkout.html" class="sidebar__submenu-link sidebar__submenu-link--active">Checkout</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="products.html" class="sidebar__nav-link"><i class="bi bi-bag sidebar__nav-icon"></i><span class="sidebar__nav-text">Products</span></a></li>
+                        <li><a href="cart.html" class="sidebar__nav-link"><i class="bi bi-cart3 sidebar__nav-icon"></i><span class="sidebar__nav-text">Cart</span></a></li>
+                        <li><a href="checkout.html" class="sidebar__nav-link sidebar__nav-link--active"><i class="bi bi-credit-card sidebar__nav-icon"></i><span class="sidebar__nav-text">Checkout</span></a></li>
                     </ul>
                 </div>
             </nav>
@@ -75,9 +208,7 @@
         <div class="app-content">
             <header class="header">
                 <div class="header__left">
-                    <button class="header__toggle" id="sidebarOpen" aria-label="Open sidebar">
-                        <i class="bi bi-list"></i>
-                    </button>
+                    <button class="header__toggle" id="sidebarOpen" aria-label="Open sidebar"><i class="bi bi-list"></i></button>
                     <nav class="header__breadcrumb" aria-label="Breadcrumb">
                         <a href="../dashboard/index.html">Home</a>
                         <i class="bi bi-chevron-right"></i>
@@ -86,25 +217,15 @@
                         <span>Checkout</span>
                     </nav>
                 </div>
-                <div class="header__right">
-                    <button class="header__action" id="themeToggle" aria-label="Toggle dark mode">
-                        <i class="bi bi-moon-stars"></i>
-                    </button>
-                </div>
             </header>
             <div class="header-spacer"></div>
 
             <main id="main-content" class="app-main">
-                <div class="page-header">
-                    <h1 class="page-header__title">Checkout</h1>
-                </div>
+                <div class="page-header"><h1 class="page-header__title">Checkout</h1></div>
 
-                <!-- Checkout Progress -->
-                <div class="checkout-progress mb-4">
+                <div class="checkout-progress" data-aos="fade-down">
                     <div class="checkout-progress__step checkout-progress__step--completed">
-                        <div class="checkout-progress__icon">
-                            <i class="bi bi-check"></i>
-                        </div>
+                        <div class="checkout-progress__icon"><i class="bi bi-check"></i></div>
                         <span>Cart</span>
                     </div>
                     <div class="checkout-progress__line checkout-progress__line--completed"></div>
@@ -126,15 +247,9 @@
 
                 <form action="#" method="POST">
                     <div class="row">
-                        <!-- Checkout Form -->
                         <div class="col-lg-8 mb-4">
-                            <!-- Shipping Address -->
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="bi bi-geo-alt me-2"></i> Shipping Address
-                                    </h3>
-                                </div>
+                            <div class="card mb-4" data-aos="fade-up">
+                                <div class="card-header"><h3 class="card-title mb-0"><i class="bi bi-geo-alt me-2"></i>Shipping Address</h3></div>
                                 <div class="card-body">
                                     <div class="row g-3">
                                         <div class="col-md-6">
@@ -171,32 +286,18 @@
                                                 <option>California</option>
                                                 <option>New York</option>
                                                 <option>Texas</option>
-                                                <option>Florida</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label required">ZIP Code</label>
+                                            <label class="form-label required">ZIP</label>
                                             <input type="text" class="form-control" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="saveAddress">
-                                                <label class="form-check-label" for="saveAddress">
-                                                    Save this address for future orders
-                                                </label>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Shipping Method -->
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="bi bi-truck me-2"></i> Shipping Method
-                                    </h3>
-                                </div>
+                            <div class="card mb-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card-header"><h3 class="card-title mb-0"><i class="bi bi-truck me-2"></i>Shipping Method</h3></div>
                                 <div class="card-body">
                                     <div class="shipping-options">
                                         <label class="shipping-option">
@@ -223,7 +324,7 @@
                                             <input type="radio" name="shipping" value="overnight">
                                             <div class="shipping-option__content">
                                                 <div class="shipping-option__info">
-                                                    <strong>Overnight Shipping</strong>
+                                                    <strong>Overnight</strong>
                                                     <span>Next business day</span>
                                                 </div>
                                                 <span class="shipping-option__price">$19.99</span>
@@ -233,20 +334,15 @@
                                 </div>
                             </div>
 
-                            <!-- Payment Method -->
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="bi bi-credit-card me-2"></i> Payment Method
-                                    </h3>
-                                </div>
+                            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                                <div class="card-header"><h3 class="card-title mb-0"><i class="bi bi-credit-card me-2"></i>Payment Method</h3></div>
                                 <div class="card-body">
                                     <div class="payment-methods mb-4">
                                         <label class="payment-method">
                                             <input type="radio" name="payment" value="card" checked>
                                             <div class="payment-method__content">
                                                 <i class="bi bi-credit-card-2-front"></i>
-                                                <span>Credit / Debit Card</span>
+                                                <span>Credit Card</span>
                                             </div>
                                         </label>
                                         <label class="payment-method">
@@ -264,69 +360,43 @@
                                             </div>
                                         </label>
                                     </div>
-
-                                    <!-- Card Details -->
-                                    <div class="card-details">
-                                        <div class="row g-3">
-                                            <div class="col-12">
-                                                <label class="form-label required">Card Number</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="1234 5678 9012 3456" required>
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-credit-card"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <label class="form-label required">Name on Card</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label required">Expiry Date</label>
-                                                <input type="text" class="form-control" placeholder="MM/YY" required>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label required">CVV</label>
-                                                <div class="input-group">
-                                                    <input type="password" class="form-control" maxlength="4" required>
-                                                    <span class="input-group-text" title="3-4 digit security code">
-                                                        <i class="bi bi-question-circle"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="saveCard">
-                                                    <label class="form-check-label" for="saveCard">
-                                                        Save card for future purchases
-                                                    </label>
-                                                </div>
-                                            </div>
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label class="form-label required">Card Number</label>
+                                            <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label required">Name on Card</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label required">Expiry Date</label>
+                                            <input type="text" class="form-control" placeholder="MM/YY">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label required">CVV</label>
+                                            <input type="password" class="form-control" maxlength="4">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Order Summary -->
                         <div class="col-lg-4">
-                            <div class="card order-summary sticky-top" style="top: 100px;">
-                                <div class="card-header">
-                                    <h3 class="card-title">Order Summary</h3>
-                                </div>
+                            <div class="card sticky-top" style="top: 5rem;" data-aos="fade-up" data-aos-delay="100">
+                                <div class="card-header"><h3 class="card-title mb-0">Order Summary</h3></div>
                                 <div class="card-body">
-                                    <!-- Order Items -->
                                     <div class="order-items">
                                         <div class="order-item">
-                                            <img src="https://via.placeholder.com/60x60/4F46E5/FFFFFF?text=HP" alt="">
+                                            <img src="https://via.placeholder.com/50x50/4F46E5/FFFFFF?text=HP" alt="">
                                             <div class="order-item__info">
-                                                <span class="order-item__name">Premium Wireless Headphones</span>
+                                                <span class="order-item__name">Premium Headphones</span>
                                                 <span class="order-item__qty">Qty: 1</span>
                                             </div>
                                             <span class="order-item__price">$159.99</span>
                                         </div>
                                         <div class="order-item">
-                                            <img src="https://via.placeholder.com/60x60/7C3AED/FFFFFF?text=SW" alt="">
+                                            <img src="https://via.placeholder.com/50x50/7C3AED/FFFFFF?text=SW" alt="">
                                             <div class="order-item__info">
                                                 <span class="order-item__name">Smart Watch Pro</span>
                                                 <span class="order-item__qty">Qty: 1</span>
@@ -334,48 +404,26 @@
                                             <span class="order-item__price">$299.99</span>
                                         </div>
                                         <div class="order-item">
-                                            <img src="https://via.placeholder.com/60x60/059669/FFFFFF?text=BP" alt="">
+                                            <img src="https://via.placeholder.com/50x50/059669/FFFFFF?text=BP" alt="">
                                             <div class="order-item__info">
-                                                <span class="order-item__name">Urban Laptop Backpack</span>
+                                                <span class="order-item__name">Laptop Backpack</span>
                                                 <span class="order-item__qty">Qty: 2</span>
                                             </div>
                                             <span class="order-item__price">$159.98</span>
                                         </div>
                                     </div>
-
                                     <hr>
-
-                                    <div class="order-summary__row">
-                                        <span>Subtotal</span>
-                                        <span>$619.96</span>
-                                    </div>
-                                    <div class="order-summary__row">
-                                        <span>Discount</span>
-                                        <span class="text-success">-$40.00</span>
-                                    </div>
-                                    <div class="order-summary__row">
-                                        <span>Shipping</span>
-                                        <span class="text-success">Free</span>
-                                    </div>
-                                    <div class="order-summary__row">
-                                        <span>Tax</span>
-                                        <span>$46.40</span>
-                                    </div>
-                                    <hr>
-                                    <div class="order-summary__row order-summary__row--total">
-                                        <span>Total</span>
-                                        <span>$626.36</span>
-                                    </div>
-
+                                    <div class="order-summary__row"><span>Subtotal</span><span>$619.96</span></div>
+                                    <div class="order-summary__row"><span>Discount</span><span class="text-success">-$40.00</span></div>
+                                    <div class="order-summary__row"><span>Shipping</span><span class="text-success">Free</span></div>
+                                    <div class="order-summary__row"><span>Tax</span><span>$46.40</span></div>
+                                    <div class="order-summary__row order-summary__row--total"><span>Total</span><span>$626.36</span></div>
+                                    
                                     <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
-                                        <i class="bi bi-lock"></i> Place Order
+                                        <i class="bi bi-lock me-2"></i>Place Order
                                     </button>
-
                                     <p class="text-center text-muted mt-3 mb-0">
-                                        <small>
-                                            <i class="bi bi-shield-lock"></i>
-                                            Your payment info is securely encrypted
-                                        </small>
+                                        <small><i class="bi bi-shield-lock me-1"></i>Your payment info is secure</small>
                                     </p>
                                 </div>
                             </div>
@@ -383,18 +431,12 @@
                     </div>
                 </form>
             </main>
-
-            <footer class="footer">
-                <p class="footer__copyright">&copy; 2025 <a href="#">Smart Workz</a>. All rights reserved.</p>
-            </footer>
+            <footer class="footer"><p class="footer__copyright">&copy; 2025 <a href="#">Smart Workz</a>. All rights reserved.</p></footer>
         </div>
     </div>
-
     <script src="../../../dist/js/vendor.min.js"></script>
     <script src="../../../dist/js/app.min.js"></script>
-    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });</script>
+    <script>AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true });</script>
 </body>
 </html>
-
